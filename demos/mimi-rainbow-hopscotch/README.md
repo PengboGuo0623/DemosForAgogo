@@ -27,10 +27,11 @@ The demo can run as a plain static file and also emits lightweight bridge events
 
 ## Changelog
 
+- v1.5 removes the snaking background wobble, slows the chalk track motion, and keeps feedback focused on lane glow, items, and Mimi.
 - v1.4 redraws the playfield as animated chalk hopscotch blocks, adds more paper-card UI details, and tightens the mobile gameplay viewport.
 - v1.3 changes the visual identity to a chalk-court playground style with paper labels, thick outlines, and a gridded playfield.
 - v1.2 reduces opening and mid-round item density, raises per-round charm goals, caps simultaneous items, and spaces close lane spawns for a less rushed run.
 - v1.1 improves lane-change feel, runner tilt, lane glow, boost trails, collision feedback, haptics, and layered sound cues.
 - v1.0 initial standalone lane-runner demo.
 
-Version: v1.4.
+Version: v1.5.

@@ -23,11 +23,11 @@
   {
     "id": "mimi-rainbow-hopscotch",
     "title": "Mimi Rainbow Hopscotch",
-    "version": "v1.4-chalk-court-polish",
+    "version": "v1.5-comfort-track",
     "type": "single-file-h5",
     "path": "demos/mimi-rainbow-hopscotch/",
     "entry": "demos/mimi-rainbow-hopscotch/index.html",
-    "description": "A standalone mobile-first H5 lane runner where Mimi hops through a chalk-court playground style with drawn hopscotch blocks, paper UI, and calmer round pacing.",
+    "description": "A standalone mobile-first H5 lane runner where Mimi hops through a chalk-court playground style with steadier hopscotch blocks, paper UI, and calmer round pacing.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "lane-runner"]
   }
 ]
