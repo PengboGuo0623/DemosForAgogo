@@ -234,9 +234,8 @@
 
     .demo-visual.bubble-pop {
       background:
-        radial-gradient(circle at 28% 38%, rgba(255, 255, 255, 0.86) 0 10%, transparent 11%),
-        radial-gradient(circle at 72% 26%, rgba(255, 255, 255, 0.7) 0 7%, transparent 8%),
-        linear-gradient(135deg, #9fe7ff 0 34%, #ffd1e4 34% 62%, #a9f2ca 62%);
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 7px, transparent 7px 24px),
+        linear-gradient(180deg, #4a2868 0 38%, #ff8a78 38% 64%, #21bb8d 64%);
     }
 
     .bubble-orb {
@@ -245,16 +244,16 @@
       bottom: 42px;
       width: 128px;
       height: 128px;
-      border-radius: 50%;
+      border-radius: 18px;
       background:
         radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.92) 0 12%, transparent 13%),
-        radial-gradient(circle at 50% 55%, rgba(255, 250, 242, 0.84), rgba(131, 215, 255, 0.48));
-      border: 8px solid rgba(255, 255, 255, 0.7);
+        linear-gradient(135deg, #ffcf5f, #ff6f91);
+      border: 8px solid #3f245d;
       box-shadow:
-        -76px -28px 0 -36px rgba(255, 143, 196, 0.66),
-        -34px -78px 0 -44px rgba(255, 233, 130, 0.72),
-        30px -52px 0 -46px rgba(141, 240, 196, 0.7),
-        0 18px 34px rgba(84, 98, 132, 0.18);
+        -74px -28px 0 -36px #56d6bd,
+        -32px -76px 0 -44px #ffcf5f,
+        30px -52px 0 -46px #fff8d7,
+        8px 12px 0 rgba(63, 36, 93, 0.32);
     }
 
     .bubble-orb::after {
@@ -279,8 +278,10 @@
 
     .demo-visual.hopscotch {
       background:
-        radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.72) 0 8%, transparent 9%),
-        linear-gradient(160deg, #a8edff 0 28%, #fff0aa 28% 47%, #ffbfdc 47% 68%, #a7efc2 68%);
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(180deg, #ffcf5d 0 14%, #159877 14%);
+      background-size: 34px 34px, 34px 34px, auto;
     }
 
     .hop-lane {
@@ -288,10 +289,10 @@
       bottom: -34px;
       width: 42px;
       height: 210px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.46);
-      border: 2px solid rgba(255, 255, 255, 0.62);
-      box-shadow: inset 0 0 0 7px rgba(255, 255, 255, 0.17);
+      border-radius: 8px;
+      background: rgba(255, 247, 199, 0.30);
+      border: 4px dashed rgba(255, 247, 199, 0.82);
+      box-shadow: 6px 6px 0 rgba(47, 42, 85, 0.18);
     }
 
     .hop-lane.one {
@@ -510,7 +511,7 @@
               <div class="meta" aria-label="Demo tags">
                 <span>Game</span>
                 <span>WebView ready</span>
-                <span>Pacing v1.1</span>
+                <span>Stage style v1.2</span>
               </div>
               <div class="actions">
                 <a class="button primary" href="./demos/mimi-bubble-pop-parade/">Open demo</a>
@@ -535,7 +536,7 @@
               <div class="meta" aria-label="Demo tags">
                 <span>Game</span>
                 <span>WebView ready</span>
-                <span>Pacing v1.2</span>
+                <span>Chalk court v1.3</span>
               </div>
               <div class="actions">
                 <a class="button primary" href="./demos/mimi-rainbow-hopscotch/">Open demo</a>

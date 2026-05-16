@@ -28,7 +28,8 @@ Outbound bridge events:
 
 ## Changelog
 
+- v1.2 changes the visual identity to a music-stage theme with marquee stripes, ticket-like UI, stronger outlines, and stage lighting.
 - v1.1 reduces opening and mid-round bubble density, spaces new bubbles away from recent spawns, and increases per-round goals for a less rushed session.
 - v1.0 initial standalone bubble-pop demo.
 
-Version: v1.1.
+Version: v1.2.

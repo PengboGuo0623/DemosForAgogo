@@ -13,21 +13,21 @@
   {
     "id": "mimi-bubble-pop-parade",
     "title": "Mimi Bubble Pop Parade",
-    "version": "v1.1-pacing",
+    "version": "v1.2-stage-style",
     "type": "single-file-h5",
     "path": "demos/mimi-bubble-pop-parade/",
     "entry": "demos/mimi-bubble-pop-parade/index.html",
-    "description": "A standalone mobile-first H5 tap game where Mimi pops matching bubbles to build a parade song for her friends, tuned with calmer item density and longer round pacing.",
+    "description": "A standalone mobile-first H5 tap game where Mimi pops matching bubbles on a bold music-stage themed interface with calmer item density and longer round pacing.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "tap-game"]
   },
   {
     "id": "mimi-rainbow-hopscotch",
     "title": "Mimi Rainbow Hopscotch",
-    "version": "v1.2-pacing",
+    "version": "v1.3-chalk-court",
     "type": "single-file-h5",
     "path": "demos/mimi-rainbow-hopscotch/",
     "entry": "demos/mimi-rainbow-hopscotch/index.html",
-    "description": "A standalone mobile-first H5 lane runner where Mimi hops between rainbow lanes, collects charms, dodges clouds, and uses boosts with polished feel, calmer item density, and longer round pacing.",
+    "description": "A standalone mobile-first H5 lane runner where Mimi hops through a chalk-court playground style with polished feel, calmer item density, and longer round pacing.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "lane-runner"]
   }
 ]
