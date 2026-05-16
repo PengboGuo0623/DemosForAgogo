@@ -2,32 +2,32 @@
   {
     "id": "mimi-picnic-delivery-dash",
     "title": "Mimi Bunny's Picnic Delivery Dash",
-    "version": "v8.12-drag-input",
+    "version": "v8.13-batched-catches",
     "type": "single-file-h5",
     "path": "demos/mimi-picnic-delivery-dash/",
     "entry": "demos/mimi-picnic-delivery-dash/index.html",
     "originalFile": "mimi_picnic_delivery_dash_v8_playfeel_plus.html",
-    "description": "A polished standalone H5 catch-and-deliver episode bonus game with compact mobile layout, smoother catch timing, fixed final-round delivery, corrected start-preview basket catch, drag-only control, and refined touch feel.",
+    "description": "A polished standalone H5 catch-and-deliver episode bonus game with compact mobile layout, smoother catch timing, fixed final-round delivery, corrected start-preview basket catch, drag-only control, batched multi-catch feedback, and refined touch feel.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "h5-polish"]
   },
   {
     "id": "mimi-bubble-pop-parade",
     "title": "Mimi Bubble Pop Parade",
-    "version": "v1.3-stage-ui-polish",
+    "version": "v1.4-safe-hud",
     "type": "single-file-h5",
     "path": "demos/mimi-bubble-pop-parade/",
     "entry": "demos/mimi-bubble-pop-parade/index.html",
-    "description": "A standalone mobile-first H5 tap game where Mimi pops matching bubbles on a richer music-stage interface with ticket UI details, footlights, and calmer round pacing.",
+    "description": "A standalone mobile-first H5 tap game where Mimi pops matching bubbles on a richer music-stage interface with ticket UI details, footlights, calmer round pacing, and safer right-side HUD spacing.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "tap-game"]
   },
   {
     "id": "mimi-rainbow-hopscotch",
     "title": "Mimi Rainbow Hopscotch",
-    "version": "v1.5-comfort-track",
+    "version": "v1.6-runner-framing",
     "type": "single-file-h5",
     "path": "demos/mimi-rainbow-hopscotch/",
     "entry": "demos/mimi-rainbow-hopscotch/index.html",
-    "description": "A standalone mobile-first H5 lane runner where Mimi hops through a chalk-court playground style with steadier hopscotch blocks, paper UI, and calmer round pacing.",
+    "description": "A standalone mobile-first H5 lane runner where Mimi hops through a chalk-court playground style with steadier hopscotch blocks, paper UI, safer HUD spacing, and improved bottom runner framing.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "lane-runner"]
   }
 ]

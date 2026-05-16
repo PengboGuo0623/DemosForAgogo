@@ -27,6 +27,7 @@ The demo can run as a plain static file and also emits lightweight bridge events
 
 ## Changelog
 
+- v1.6 adds safer right-side HUD spacing and raises Mimi's runner baseline so the full rabbit stays inside the stage frame.
 - v1.5 removes the snaking background wobble, slows the chalk track motion, and keeps feedback focused on lane glow, items, and Mimi.
 - v1.4 redraws the playfield as animated chalk hopscotch blocks, adds more paper-card UI details, and tightens the mobile gameplay viewport.
 - v1.3 changes the visual identity to a chalk-court playground style with paper labels, thick outlines, and a gridded playfield.
@@ -34,4 +35,4 @@ The demo can run as a plain static file and also emits lightweight bridge events
 - v1.1 improves lane-change feel, runner tilt, lane glow, boost trails, collision feedback, haptics, and layered sound cues.
 - v1.0 initial standalone lane-runner demo.
 
-Version: v1.5.
+Version: v1.6.

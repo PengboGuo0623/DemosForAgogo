@@ -23,6 +23,7 @@ This demo is kept as a standalone HTML file so it can be opened directly, hosted
 - v8.10 fixes the Bubble Shield state class so the shield aura appears without making Mimi transparent.
 - v8.11 corrects the start-card strawberry-to-basket preview so the treat lands into the basket opening instead of slipping below it.
 - v8.12 changes in-game control to drag-only, removes tap-to-move jumps, stops post-release glide, and replaces tap-looking hand prompts with drag-path guidance.
+- v8.13 adds safer right-side HUD spacing and batches simultaneous catch feedback to avoid frame hitches when several treats land together.
 
 ## App Integration
 
