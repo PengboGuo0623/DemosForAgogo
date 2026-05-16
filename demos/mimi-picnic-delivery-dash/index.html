@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#BFEFFF" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no" />
+  <link rel="icon" href="data:," />
   <title>Mimi Bunny's Picnic Delivery Dash</title>
   <style>
     :root{
@@ -46,7 +47,7 @@
     .scorebar{position:relative;z-index:8;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0 max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left))}.chip{min-height:56px;border-radius:22px;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.8);box-shadow:var(--soft);display:flex;align-items:center;justify-content:center;gap:7px;padding:8px;backdrop-filter:blur(12px)}.chip.pulse{animation:chipPulse .28s ease}.chip .emoji{font-size:22px}.chip .label{display:block;color:var(--muted);font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.35px;line-height:1}.chip .value{display:block;margin-top:3px;font-size:clamp(17px,4vw,23px);font-weight:1000;line-height:1;color:var(--ink)}@keyframes chipPulse{0%,100%{transform:scale(1)}45%{transform:scale(1.06)}}
     .stage-wrap{position:relative;z-index:5;max-width:1080px;height:calc(100dvh - 246px);min-height:396px;margin:0 auto;padding:0 max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}.stage{position:relative;width:100%;height:100%;overflow:hidden;border-radius:34px;background:radial-gradient(circle at 16% 18%,rgba(255,255,255,.72) 0 8%,transparent 9%),linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.15));border:1px solid rgba(255,255,255,.84);box-shadow:var(--shadow);touch-action:none}.stage.hit{animation:stageHit .32s cubic-bezier(.2,1.12,.28,1)}@keyframes stageHit{0%,100%{filter:brightness(1) saturate(1);transform:translate3d(0,0,0) scale(1)}42%{filter:brightness(1.055) saturate(1.14);transform:translate3d(0,-1px,0) scale(1.004)}76%{filter:brightness(1.015) saturate(1.06);transform:translate3d(0,1px,0) scale(.999)}}.stage:before{content:"";position:absolute;left:4%;right:4%;bottom:-1%;height:34%;background:radial-gradient(ellipse at center,rgba(255,255,255,.54) 0 28%,transparent 29%),linear-gradient(180deg,rgba(255,255,255,.20),rgba(255,255,255,0));clip-path:ellipse(68% 55% at 52% 100%);pointer-events:none}.stage-gloss{position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 34%,rgba(255,255,255,.24) 48%,transparent 61%);opacity:.55;animation:gloss 7s ease-in-out infinite;pointer-events:none}@keyframes gloss{0%,55%,100%{transform:translateX(-70%)}75%{transform:translateX(70%)}}
     canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}.speech{position:absolute;z-index:5;left:18px;right:128px;top:18px;max-width:430px;padding:12px 15px;border-radius:22px 22px 22px 8px;background:#fff;box-shadow:var(--soft);font-size:clamp(13px,2.8vw,16px);font-weight:950;line-height:1.28}.speech:after{content:"";position:absolute;left:22px;bottom:-8px;width:18px;height:18px;border-radius:4px;background:#fff;transform:rotate(45deg)}.speech.pop{animation:speechPop .32s ease}@keyframes speechPop{from{transform:translateY(6px) scale(.96);opacity:.4}to{transform:translateY(0) scale(1);opacity:1}}
-    .coach{position:absolute;z-index:8;font-size:38px;filter:drop-shadow(0 12px 14px rgba(75,88,130,.20));opacity:0;pointer-events:none;transform:translate(-50%,-50%);transition:opacity .18s ease}.coach.on{opacity:1;animation:coachMove 1.05s ease-in-out infinite}@keyframes coachMove{0%,100%{translate:0 0;scale:1}50%{translate:16px -10px;scale:1.04}}
+    .coach{position:absolute;z-index:8;font-size:38px;filter:drop-shadow(0 12px 14px rgba(75,88,130,.20));opacity:0;pointer-events:none;transform:translate(-50%,-50%);transition:opacity .18s ease;--drag-x:0px;--drag-y:0px;--mid-x:0px;--mid-y:0px}.coach.on{opacity:1}.coach.drag-guide{animation:coachDrag 1.18s cubic-bezier(.55,0,.25,1) infinite}.coach.tap-guide{animation:coachPulse 1.05s ease-in-out infinite}@keyframes coachDrag{0%,100%{translate:0 0;scale:.92;opacity:.66}42%{translate:var(--mid-x) var(--mid-y);scale:1.05;opacity:1}78%{translate:var(--drag-x) var(--drag-y);scale:1;opacity:.92}}@keyframes coachPulse{0%,100%{translate:0 0;scale:1}50%{translate:0 -8px;scale:1.04}}
     .toast{position:absolute;z-index:10;left:50%;top:18%;transform:translateX(-50%);padding:11px 18px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:var(--soft);font-weight:1000;font-size:15px;opacity:0;pointer-events:none}.toast.show{animation:toast 1.15s ease forwards}@keyframes toast{0%{opacity:0;transform:translate(-50%,16px) scale(.86)}18%,72%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-16px) scale(.94)}}.time-pill{position:absolute;z-index:9;right:18px;top:18px;display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.92);box-shadow:var(--soft);backdrop-filter:blur(12px);font-weight:1000;color:var(--purple)}.time-pill b{font-size:17px;line-height:1}.time-pill.warn{color:#d85e50;animation:timeWarn .72s ease-in-out infinite}@keyframes timeWarn{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}.juice-meter{position:absolute;z-index:9;left:18px;top:76px;width:min(245px,56vw);padding:9px 11px;border-radius:18px;background:rgba(255,255,255,.76);border:1px solid rgba(255,255,255,.9);box-shadow:var(--soft);backdrop-filter:blur(12px);opacity:.96;transform-origin:left center;transition:transform .16s ease,opacity .16s ease}.joy-copy{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-weight:1000;font-size:12px;color:#6a638d;text-transform:uppercase;letter-spacing:.35px}.joy-copy b{font-size:13px;color:var(--purple)}.joy-track{height:12px;border-radius:999px;background:rgba(123,120,156,.13);overflow:hidden;box-shadow:inset 0 1px 3px rgba(75,66,107,.08)}.joy-track i{display:block;height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,var(--pink),var(--orange),var(--yellow),var(--mint),var(--blue));box-shadow:0 0 18px rgba(255,143,196,.35);transition:width .24s cubic-bezier(.2,1,.24,1)}.juice-meter.party{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,248,212,.86));box-shadow:0 0 0 8px rgba(255,233,130,.16),0 14px 34px rgba(255,173,105,.22)}
     .friend-zone{position:absolute;z-index:4;right:clamp(16px,4vw,42px);bottom:clamp(24px,6dvh,62px);width:clamp(118px,22vw,180px);height:clamp(118px,22vw,180px);border-radius:50%;display:grid;place-items:center;font-size:clamp(54px,10vw,86px);background:radial-gradient(circle,#fff 0 45%,rgba(255,255,255,.64) 47% 65%,rgba(255,255,255,.18) 66% 100%);border:3px dashed rgba(255,143,196,.82);box-shadow:0 16px 34px rgba(76,83,137,.16),0 0 0 14px rgba(255,255,255,.22);opacity:0;scale:.84;pointer-events:none;transition:opacity .22s ease,scale .22s ease;animation:zonePulse 1.2s ease-in-out infinite}.friend-zone.on{opacity:1;scale:1}.friend-zone.ready{animation:zoneReady .36s cubic-bezier(.2,1.5,.3,1)}@keyframes zonePulse{0%,100%{box-shadow:0 16px 34px rgba(76,83,137,.16),0 0 0 10px rgba(255,255,255,.20)}50%{box-shadow:0 16px 34px rgba(76,83,137,.16),0 0 0 20px rgba(255,255,255,.34)}}@keyframes zoneReady{0%{transform:scale(1)}55%{transform:scale(1.12)}100%{transform:scale(1)}}.deliver-label{position:absolute;top:-34px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:7px 12px;border-radius:999px;background:#fff;box-shadow:var(--soft);font-size:12px;font-weight:1000;color:var(--purple)}
     .player{position:absolute;z-index:7;width:148px;height:176px;left:0;top:0;pointer-events:none;transform-origin:50% 70%;filter:drop-shadow(0 18px 16px rgba(67,99,77,.23));will-change:transform}.player.squash{animation:squash .30s cubic-bezier(.18,1.8,.26,1)}.player.munch{animation:munch .46s cubic-bezier(.18,1.18,.26,1)}.player.munch .basket{animation:basketBite .46s cubic-bezier(.18,1.18,.26,1)}.player.ready-catch .basket,.player.dragging .basket{box-shadow:0 9px 18px rgba(255,173,105,.24),0 0 0 7px rgba(255,255,255,.42),0 0 22px rgba(255,233,130,.58);transform:translateX(-50%) scale(1.035)}.player.dragging .basket{box-shadow:0 9px 18px rgba(255,173,105,.24),0 0 0 9px rgba(255,255,255,.38),0 0 28px rgba(131,215,255,.48)}.player.cheer{animation:cheer .74s ease}.player.loaded .basket:after{opacity:1;transform:translate(-50%,-8px) scale(1)}.player.magnet .ring{opacity:1;animation:ringSpin 1.2s linear infinite}.player.shielded .shield{opacity:1;animation:shieldPulse 1.1s ease-in-out infinite}@keyframes munch{0%,100%{scale:1;translate:0 0}32%{scale:1.045 .965;translate:0 2px}66%{scale:.992 1.025;translate:0 -2px}}@keyframes basketBite{0%,100%{transform:translateX(-50%) scale(1)}32%{transform:translateX(-50%) scale(1.11,.9);filter:brightness(1.06)}68%{transform:translateX(-50%) scale(.985,1.055)}}@keyframes squash{0%,100%{scale:1}35%{scale:1.12 .90}62%{scale:.98 1.04}}@keyframes cheer{0%,100%{translate:0 0;rotate:0}24%{translate:0 -18px;rotate:-5deg}48%{translate:0 2px;rotate:4deg}72%{translate:0 -9px;rotate:-3deg}}.ring,.shield{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;opacity:0}.ring{width:150px;height:150px;border:4px dashed rgba(198,183,255,.82)}.shield{width:160px;height:160px;background:radial-gradient(circle,rgba(131,215,255,.20),rgba(131,215,255,.05) 62%,transparent 64%);border:3px solid rgba(131,215,255,.75)}@keyframes ringSpin{to{rotate:360deg}}@keyframes shieldPulse{0%,100%{scale:.94}50%{scale:1.04}}.ear{position:absolute;top:0;width:35px;height:72px;border-radius:50% 50% 44% 44%;background:linear-gradient(180deg,#fff 0 68%,#f3fbff 69% 100%);border:4px solid #fff;box-shadow:inset 0 -16px 0 rgba(255,143,196,.22)}.ear.l{left:45px;rotate:-16deg}.ear.r{right:45px;rotate:16deg}.head{position:absolute;left:32px;top:46px;width:84px;height:82px;border-radius:48% 48% 44% 44%;background:radial-gradient(circle at 35% 30%,#fff 0 20%,#fffdf8 21% 54%,#f3fbff 55% 100%);border:4px solid #fff;box-shadow:inset 0 -11px 0 rgba(131,215,255,.10)}.eye,.nose,.mouth,.cheek{position:absolute;z-index:1}.eye{top:83px;width:9px;height:10px;border-radius:50%;background:var(--ink)}.eye.l{left:60px}.eye.r{right:60px}.nose{left:50%;top:95px;width:13px;height:10px;border-radius:50%;background:#ff9dca;transform:translateX(-50%)}.mouth{left:50%;top:101px;width:26px;height:13px;border-bottom:4px solid var(--ink);border-radius:0 0 999px 999px;transform:translateX(-50%)}.cheek{top:100px;width:17px;height:9px;border-radius:50%;background:rgba(255,143,196,.34)}.cheek.l{left:43px}.cheek.r{right:43px}.body{position:absolute;left:42px;top:118px;width:64px;height:56px;border-radius:36px 36px 28px 28px;background:linear-gradient(180deg,#fff,#f4fbff);border:4px solid #fff}.basket{position:absolute;left:50%;bottom:1px;width:116px;height:56px;transform:translateX(-50%);border-radius:14px 14px 25px 25px;background:linear-gradient(180deg,#ffd79b,#ffb56b);border:4px solid #fff;box-shadow:0 9px 18px rgba(255,173,105,.24)}.basket:before{content:"";position:absolute;left:23px;right:23px;top:-24px;height:36px;border:6px solid #fff;border-bottom:0;border-radius:999px 999px 0 0}.basket:after{content:"🧺";position:absolute;left:50%;top:-17px;transform:translate(-50%,0) scale(.6);font-size:34px;opacity:0;transition:opacity .18s ease,transform .18s ease}
@@ -63,7 +64,7 @@
     <header class="hud"><div class="brand"><div class="brand-badge"></div><div><strong id="brandTitle">Picnic Delivery Dash</strong><span id="brandSub">Help Mimi catch and deliver</span></div></div><div class="hud-actions"><button class="icon-btn" id="soundBtn" aria-label="Toggle sound">🔊</button><button class="icon-btn" id="pauseBtn" aria-label="Pause game">⏸</button></div></header>
     <section class="mission" aria-label="Current mission"><div class="order-card" id="orderCard"><div class="friend" id="friendBadge">🐻</div><div class="order-copy"><div class="kicker" id="orderKicker">Order 1 / 3</div><div class="order-title" id="orderTitle">Bobo Bear: strawberries</div><div class="order-hint" id="orderHint">Drag Mimi's basket under the glowing strawberries.</div></div><div class="dots" id="dots"></div></div><div class="album-card"><div><div class="album-title">Sticker Album</div><div class="album-sub">Deliver baskets to collect friends.</div></div><div class="album-row" id="albumRow"><div class="sticker">🐻</div><div class="sticker">🐥</div><div class="sticker">🦊</div></div></div></section>
     <section class="scorebar" aria-label="Game status"><div class="chip" id="scoreChip"><span class="emoji">⭐</span><span><span class="label">Score</span><span class="value" id="scoreText">0</span></span></div><div class="chip" id="goalChip"><span class="emoji">🧺</span><span><span class="label">Basket</span><span class="value" id="goalText">0/4</span></span></div><div class="chip" id="comboChip"><span class="emoji">🔥</span><span><span class="label">Combo</span><span class="value" id="comboText">0</span></span></div><div class="chip" id="magicChip"><span class="emoji">⚡</span><span><span class="label">Joy</span><span class="value" id="magicText">0%</span></span></div></section>
-    <section class="stage-wrap"><div class="stage" id="stage"><div class="stage-gloss"></div><canvas id="canvas" aria-label="Interactive picnic stage"></canvas><div class="speech" id="speech">Drag Mimi's basket under the glowing treat!</div><div class="toast" id="toast">Nice catch!</div><div class="time-pill" id="timePill"><span>⏱</span><b id="timeText">1:30</b></div><div class="juice-meter" id="juiceMeter"><div class="joy-copy"><span>Joy</span><b id="joyText">0%</b></div><div class="joy-track"><i id="joyFill"></i></div></div><div class="friend-zone" id="friendZone"><div class="deliver-label" id="deliverLabel">Deliver here!</div><span id="friendZoneIcon">🐻</span></div><div class="coach" id="coach">👆</div><div class="player" id="player" aria-hidden="true"><div class="ring"></div><div class="shield"></div><div class="ear l"></div><div class="ear r"></div><div class="head"></div><div class="eye l"></div><div class="eye r"></div><div class="nose"></div><div class="mouth"></div><div class="cheek l"></div><div class="cheek r"></div><div class="body"></div><div class="basket"></div></div></div></section>
+    <section class="stage-wrap"><div class="stage" id="stage"><div class="stage-gloss"></div><canvas id="canvas" aria-label="Interactive picnic stage"></canvas><div class="speech" id="speech">Drag Mimi's basket under the glowing treat!</div><div class="toast" id="toast">Nice catch!</div><div class="time-pill" id="timePill"><span>⏱</span><b id="timeText">1:30</b></div><div class="juice-meter" id="juiceMeter"><div class="joy-copy"><span>Joy</span><b id="joyText">0%</b></div><div class="joy-track"><i id="joyFill"></i></div></div><div class="friend-zone" id="friendZone"><div class="deliver-label" id="deliverLabel">Deliver here!</div><span id="friendZoneIcon">🐻</span></div><div class="coach" id="coach">✋</div><div class="player" id="player" aria-hidden="true"><div class="ring"></div><div class="shield"></div><div class="ear l"></div><div class="ear r"></div><div class="head"></div><div class="eye l"></div><div class="eye r"></div><div class="nose"></div><div class="mouth"></div><div class="cheek l"></div><div class="cheek r"></div><div class="body"></div><div class="basket"></div></div></div></section>
     <div class="fx" id="fx" aria-hidden="true"></div><div class="confetti" id="confetti" aria-hidden="true"></div>
     <div class="overlay" id="startOverlay"><div class="card"><div class="card-content"><div class="title-bubble">✨ Episode Bonus</div><h1><span class="gradient">Picnic Delivery</span><br/>Dash</h1><p class="desc">Help Mimi catch picnic treats, deliver each basket, and unlock a sticker surprise for her friends.</p><div class="card-scene" aria-hidden="true"><span class="scene-treat">🍓</span><span class="scene-basket"></span><span class="scene-friend">🐻</span></div><div class="features" aria-hidden="true"><div class="feature"><span>🧺</span>Catch treats</div><div class="feature"><span>➡️</span>Find friends</div><div class="feature"><span>🎁</span>Unlock stickers</div></div><div class="btn-row"><button class="primary" id="startBtn">Start Picnic</button></div><div class="note">A short bonus game after the episode.</div></div></div></div>
     <div class="overlay hidden" id="resultOverlay"><div class="card"><div class="card-content"><div class="title-bubble" id="resultBadge">🎉 Picnic Delivered</div><h1 id="resultTitle"><span class="gradient">All Baskets Delivered!</span></h1><p class="desc" id="resultDesc">Mimi saved a sticker pack for you.</p><div class="reward-row" id="rewardRow"></div><div class="btn-row"><button class="primary" id="restartBtn">Play Again</button><button class="secondary" id="finishBtn">Done</button></div><div class="note">Thanks for helping Mimi. Your episode is ready when you are.</div></div></div></div>
@@ -77,17 +78,19 @@
     subtitle:"Help Mimi catch and deliver",
     totalSeconds:90,
     orders:[
-      {friend:"Bobo Bear", friendIcon:"🐻", item:"🍓", itemName:"strawberries", need:3, color:"#ff8fc4", sticker:"🐻", hint:"Slide the basket under the pink strawberries."},
-      {friend:"Didi Duck", friendIcon:"🐥", item:"🧁", itemName:"cupcakes", need:3, color:"#ffad69", sticker:"🐥", hint:"Catch cupcakes in a smooth rhythm. Perfect catches fill Joy!"},
-      {friend:"Pip Fox", friendIcon:"🦊", item:"🌸", itemName:"flower treats", need:4, color:"#83d7ff", sticker:"🦊", hint:"Catch flowers, fill Joy, then deliver the basket."}
+      {friend:"Bobo Bear", friendIcon:"🐻", item:"🍓", itemName:"strawberries", need:3, color:"#ff8fc4", sticker:"🐻", hint:"Drag the basket under the pink strawberries."},
+      {friend:"Didi Duck", friendIcon:"🐥", item:"🧁", itemName:"cupcakes", need:3, color:"#ffad69", sticker:"🐥", hint:"Drag smoothly under cupcakes. Perfect catches fill Joy!"},
+      {friend:"Pip Fox", friendIcon:"🦊", item:"🌸", itemName:"flower treats", need:4, color:"#83d7ff", sticker:"🦊", hint:"Drag under flowers, fill Joy, then deliver the basket."}
     ],
     bonus:["⭐","✨","💎","🍪","🍇","🌟"],
     clouds:["☁️","🌧️"],
     powers:["🧲","🌈","🫧"],
-    bridgeVersion:"8.11.0",
+    bridgeVersion:"8.12.0",
     tuning:{
       earlyGuideMs:1450,
       idleGuideMs:1750,
+      dragStartThreshold:12,
+      nearBasketDragRadius:118,
       softAssistMs:5200,
       maxFallingItems:4,
       maxTargets:2,
@@ -137,7 +140,7 @@
   const state = {
     mode:"idle", paused:false, transitioning:false, startedAt:0, pauseStarted:0, pausedMs:0,
     orderIndex:0, progress:0, score:0, combo:0, maxCombo:0, timeLeft:GAME_CONFIG.totalSeconds,
-    spawnAcc:0, pointer:false, lastInput:0, coachMode:"drag", coachT:0,
+    spawnAcc:0, pointer:false, dragStart:null, pointerId:null, lastInput:0, coachMode:"drag", coachT:0,
     orderStartedAt:0, failStreak:0, softAssistUntil:0, lastHelpAt:0, lastCloudAt:0,
     magnetUntil:0, rushUntil:0, shield:0, joy:0, perfectStreak:0, waveCooldownUntil:0,
     player:{x:0,y:0,tx:0,ty:0,vx:0,vy:0,tilt:0,bounce:0,hit:64},
@@ -212,11 +215,11 @@
     clearScheduledTimers();
     state.mode="idle"; state.paused=false; state.transitioning=false; state.startedAt=0; state.pauseStarted=0; state.pausedMs=0;
     state.orderIndex=0; state.progress=0; state.score=0; state.combo=0; state.maxCombo=0; state.timeLeft=GAME_CONFIG.totalSeconds;
-    state.spawnAcc=0; state.pointer=false; state.lastInput=now(); state.orderStartedAt=now(); state.failStreak=0; state.softAssistUntil=0; state.lastHelpAt=0; state.lastCloudAt=0; state.magnetUntil=0; state.rushUntil=0; state.shield=0; state.joy=0; state.perfectStreak=0; state.waveCooldownUntil=0;
+    state.spawnAcc=0; state.pointer=false; state.dragStart=null; state.pointerId=null; state.lastInput=now(); state.orderStartedAt=now(); state.failStreak=0; state.softAssistUntil=0; state.lastHelpAt=0; state.lastCloudAt=0; state.magnetUntil=0; state.rushUntil=0; state.shield=0; state.joy=0; state.perfectStreak=0; state.waveCooldownUntil=0;
     state.items.length=0; state.particles.length=0; state.texts.length=0; state.ribbons.length=0; state.ripples.length=0;
     state.metrics={targets:0,bonus:0,powers:0,clouds:0,deliveries:0,misses:0,nearAssists:0,perfect:0,great:0,soft:0,waves:0,parties:0};
     state.player.x=W*.50; state.player.y=H*.78; state.player.tx=state.player.x; state.player.ty=state.player.y; state.player.vx=0; state.player.vy=0; state.player.bounce=0;
-    friendZone.classList.remove("on","ready"); coach.classList.remove("on"); pauseOverlay.classList.add("hidden"); fx.innerHTML=""; pauseBtn.textContent="⏸";
+    friendZone.classList.remove("on","ready"); coach.classList.remove("on","drag-guide","tap-guide"); pauseOverlay.classList.add("hidden"); fx.innerHTML=""; pauseBtn.textContent="⏸";
     updateOrderUI(); updateHud(); updatePlayerDom(); setSpeech(order().hint); draw(now());
   }
 
@@ -226,8 +229,8 @@
     state.mode="collect"; state.startedAt=Date.now(); state.lastInput=now() - 950;
     sendToApp("GAME_STARTED", {gameId:GAME_CONFIG.gameId, version:GAME_CONFIG.bridgeVersion});
     sendToApp("ORDER_STARTED", orderPayload());
-    showToast("Slide, catch, deliver!");
-    setSpeech("Slide Mimi's basket under the glowing treat. Perfect catches fill Joy!");
+    showToast("Drag, catch, deliver!");
+    setSpeech("Keep your finger down and drag Mimi's basket under the glowing treat.");
     state.orderStartedAt = now();
     spawnOpening();
     last = now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
@@ -511,7 +514,7 @@
   function endGame(completed){
     if(state.mode === "ended") return;
     clearScheduledTimers();
-    state.mode="ended"; state.transitioning=false; cancelAnimationFrame(raf); state.items.length=0; state.ribbons.length=0; state.ripples.length=0; friendZone.classList.remove("on"); coach.classList.remove("on"); pauseOverlay.classList.add("hidden");
+    state.mode="ended"; state.transitioning=false; cancelAnimationFrame(raf); state.items.length=0; state.ribbons.length=0; state.ripples.length=0; friendZone.classList.remove("on"); coach.classList.remove("on","drag-guide","tap-guide"); pauseOverlay.classList.add("hidden");
     const best = Math.max(safeStorageNumber(bestKey,0), state.score); safeStorageSet(bestKey, best);
     const complete = completed || state.metrics.deliveries >= GAME_CONFIG.orders.length;
     const stickers = GAME_CONFIG.orders.slice(0,state.metrics.deliveries).map(o=>o.sticker);
@@ -552,16 +555,28 @@
   function pulse(el){el.classList.remove("pulse"); void el.offsetWidth; el.classList.add("pulse");}
 
   function updateCoach(t){
-    if(state.mode !== "collect" && state.mode !== "deliver"){coach.classList.remove("on");return;}
+    if(state.mode !== "collect" && state.mode !== "deliver"){coach.classList.remove("on","drag-guide","tap-guide");return;}
     const idle = t - state.lastInput;
-    if(idle < GAME_CONFIG.tuning.idleGuideMs || state.pointer){coach.classList.remove("on");return;}
-    coach.classList.add("on");
+    if(idle < GAME_CONFIG.tuning.idleGuideMs || state.pointer){coach.classList.remove("on","drag-guide","tap-guide");return;}
+    const cp = catchPoint();
+    let dest;
     if(state.mode === "deliver"){
-      coach.style.left = `${state.deliverZone.x - 18}px`; coach.style.top = `${state.deliverZone.y - 18}px`; coach.textContent="👆";
+      dest = {x:state.deliverZone.x, y:state.deliverZone.y};
     }else{
       const target = state.items.filter(i=>i.type==="target").sort((a,b)=>b.y-a.y)[0] || {x:W*.55,y:H*.42};
-      coach.style.left = `${clamp(target.x - 38, 34, W - 34)}px`; coach.style.top = `${clamp(target.y + 52, 48, H - 56)}px`; coach.textContent="👆";
+      dest = {x:target.x, y:target.y + 18};
     }
+    const dx = clamp(dest.x - cp.x, -132, 132);
+    const dy = clamp(dest.y - cp.y, -116, 92);
+    coach.style.left = `${clamp(cp.x, 34, W - 34)}px`;
+    coach.style.top = `${clamp(cp.y - 34, 48, H - 56)}px`;
+    coach.style.setProperty("--drag-x", `${dx.toFixed(1)}px`);
+    coach.style.setProperty("--drag-y", `${dy.toFixed(1)}px`);
+    coach.style.setProperty("--mid-x", `${(dx*.52).toFixed(1)}px`);
+    coach.style.setProperty("--mid-y", `${(dy*.52).toFixed(1)}px`);
+    coach.textContent="✋";
+    coach.classList.add("on","drag-guide");
+    coach.classList.remove("tap-guide");
   }
 
   function draw(t){
@@ -592,24 +607,35 @@
     const idle = t - state.lastInput;
     const activeHelp = !state.pointer && (idle > GAME_CONFIG.tuning.earlyGuideMs || t < state.softAssistUntil || state.failStreak > 0);
     if(!activeHelp) return;
-    const target = state.items.filter(i=>i.type==="target").sort((a,b)=>a.y-b.y)[0];
+    const target = state.items.filter(i=>i.type==="target").sort((a,b)=>b.y-a.y)[0];
     if(!target) return;
     const cp = catchPoint();
     const dx = target.x - cp.x;
+    const dy = target.y - cp.y;
     ctx.save();
-    // V6: no full-screen dashed path during catching. Only a soft lane hint after the child is idle.
     ctx.globalAlpha = .28 + .08*Math.sin(t/300);
     const grad=ctx.createRadialGradient(target.x,target.y,4,target.x,target.y,95);
     grad.addColorStop(0,hexToRgba(order().color,.30)); grad.addColorStop(.55,hexToRgba(order().color,.10)); grad.addColorStop(1,"rgba(255,255,255,0)");
     ctx.fillStyle=grad; ctx.beginPath(); ctx.ellipse(target.x,target.y,88,62,0,0,Math.PI*2); ctx.fill();
-    ctx.globalAlpha = .52;
+    ctx.globalAlpha = .34;
+    ctx.strokeStyle = hexToRgba(order().color,.72);
+    ctx.lineWidth = 8;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(cp.x, cp.y - 34);
+    ctx.quadraticCurveTo((cp.x+target.x)/2, Math.min(cp.y,target.y)-36, target.x, target.y + 8);
+    ctx.stroke();
+    ctx.globalAlpha = .58;
     ctx.fillStyle = hexToRgba(order().color,.68);
-    for(let i=0;i<3;i++){
-      const k=(i+1)/4; const x=cp.x + dx*k; const y=cp.y*(1-k)+target.y*k + Math.sin(t/260+i)*4;
-      ctx.beginPath(); ctx.arc(x,y,5-i*.7,0,Math.PI*2); ctx.fill();
+    for(let i=0;i<4;i++){
+      const k=(i+1)/5; const x=cp.x + dx*k; const y=cp.y*(1-k)+target.y*k - 22*Math.sin(k*Math.PI) + Math.sin(t/260+i)*3;
+      ctx.beginPath(); ctx.arc(x,y,5.5-i*.55,0,Math.PI*2); ctx.fill();
     }
-    ctx.globalAlpha=.78; ctx.font="900 22px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji"; ctx.textAlign="center"; ctx.textBaseline="middle";
-    ctx.fillText("👆", target.x, target.y-56);
+    const handK = .18 + .64*(.5+.5*Math.sin(t/360));
+    const hx = cp.x + dx*handK;
+    const hy = cp.y + dy*handK - 24*Math.sin(handK*Math.PI);
+    ctx.globalAlpha=.82; ctx.font="900 25px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText("✋", hx, hy - 42);
     ctx.restore(); ctx.globalAlpha=1;
   }
 
@@ -726,11 +752,35 @@
   function domStars(x,y,color,count=6){const p=stagePos(x,y); for(let i=0;i<count;i++){const e=document.createElement("i"); e.className="dom-star"; e.textContent=Math.random()<.5?"✨":"⭐"; e.style.left=p.x+"px"; e.style.top=p.y+"px"; e.style.setProperty("--dx",rnd(-70,70)+"px"); e.style.setProperty("--dy",rnd(-86,-22)+"px"); e.style.color=color; fx.appendChild(e); setTimeout(()=>e.remove(),780);}}
   function fireConfetti(n=60){const colors=["#ff8fc4","#ffad69","#ffe982","#72d99f","#83d7ff","#c8b7ff"]; for(let i=0;i<n;i++){const e=document.createElement("i"); e.className="confetti-piece"; e.style.left=rnd(0,100)+"vw"; e.style.background=pick(colors); e.style.setProperty("--dur", rnd(1.1,2.1)+"s"); e.style.animationDelay=rnd(0,.42)+"s"; e.style.transform=`rotate(${rnd(0,360)}deg)`; confetti.appendChild(e); setTimeout(()=>e.remove(),2400);}}
 
-  function stagePoint(ev){const r=stage.getBoundingClientRect(); const oy=basketOffset(); return {x:clamp(ev.clientX-r.left,62,W-62), y:clamp(ev.clientY-r.top-oy,H*.20,H-76)};}
+  function stagePoint(ev){const r=stage.getBoundingClientRect(); const oy=basketOffset(); return {x:clamp(ev.clientX-r.left,62,W-62), y:clamp(ev.clientY-r.top-oy,H*.20,H-76), rawX:ev.clientX-r.left, rawY:ev.clientY-r.top};}
   function nudgePlayerTo(p, amount=.2){state.player.x += (p.x-state.player.x)*amount; state.player.y += (p.y-state.player.y)*amount; state.player.vx*=.62; state.player.vy*=.62;}
-  function pointerStart(ev){if(!["collect","deliver"].includes(state.mode)) return; ev.preventDefault(); stage.setPointerCapture?.(ev.pointerId); state.pointer=true; state.lastInput=now(); const p=stagePoint(ev); state.player.tx=p.x; state.player.ty=p.y; nudgePlayerTo(p,.34); updatePlayerDom(); unlockAudio();}
-  function pointerMove(ev){if(!state.pointer || !["collect","deliver"].includes(state.mode)) return; ev.preventDefault(); state.lastInput=now(); const p=stagePoint(ev); state.player.tx=p.x; state.player.ty=p.y; nudgePlayerTo(p,.18); updatePlayerDom();}
-  function pointerEnd(ev){state.pointer=false; state.lastInput=now(); try{stage.releasePointerCapture?.(ev.pointerId)}catch(e){}}
+  function nearPlayer(p){const cp=catchPoint(); return Math.hypot(p.x-cp.x,p.y-cp.y) < GAME_CONFIG.tuning.nearBasketDragRadius || Math.hypot(p.x-state.player.x,p.y-state.player.y) < 106;}
+  function beginDrag(p, amount=.12){state.pointer=true; state.player.tx=p.x; state.player.ty=p.y; nudgePlayerTo(p,amount); updatePlayerDom();}
+  function pointerStart(ev){
+    if(!["collect","deliver"].includes(state.mode)) return;
+    ev.preventDefault(); stage.setPointerCapture?.(ev.pointerId); unlockAudio();
+    const p=stagePoint(ev);
+    state.pointerId=ev.pointerId; state.lastInput=now(); state.dragStart={x:p.x,y:p.y,clientX:ev.clientX,clientY:ev.clientY,near:nearPlayer(p)};
+    if(state.dragStart.near) beginDrag(p,.08);
+  }
+  function pointerMove(ev){
+    if(!["collect","deliver"].includes(state.mode) || state.pointerId !== ev.pointerId) return;
+    ev.preventDefault(); state.lastInput=now(); const p=stagePoint(ev);
+    if(!state.pointer){
+      const s=state.dragStart; if(!s) return;
+      const moved=Math.hypot(ev.clientX-s.clientX, ev.clientY-s.clientY);
+      if(moved < GAME_CONFIG.tuning.dragStartThreshold) return;
+      beginDrag(p,.10); return;
+    }
+    state.player.tx=p.x; state.player.ty=p.y; nudgePlayerTo(p,.14); updatePlayerDom();
+  }
+  function pointerEnd(ev){
+    if(state.pointerId !== null && state.pointerId !== ev.pointerId) return;
+    const wasDragging = state.pointer;
+    state.pointer=false; state.dragStart=null; state.pointerId=null; state.lastInput=now();
+    if(wasDragging){state.player.tx=state.player.x; state.player.ty=state.player.y; state.player.vx*=.34; state.player.vy*=.34; updatePlayerDom();}
+    try{stage.releasePointerCapture?.(ev.pointerId)}catch(e){}
+  }
   stage.addEventListener("pointerdown", pointerStart, {passive:false}); stage.addEventListener("pointermove", pointerMove, {passive:false}); stage.addEventListener("pointerup", pointerEnd); stage.addEventListener("pointercancel", pointerEnd);
 
   function togglePause(source="user"){

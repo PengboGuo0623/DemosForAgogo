@@ -22,6 +22,7 @@ This demo is kept as a standalone HTML file so it can be opened directly, hosted
 - v8.9 delays the final catch-to-delivery transition so the character stays visible through the third-round catch feedback.
 - v8.10 fixes the Bubble Shield state class so the shield aura appears without making Mimi transparent.
 - v8.11 corrects the start-card strawberry-to-basket preview so the treat lands into the basket opening instead of slipping below it.
+- v8.12 changes in-game control to drag-only, removes tap-to-move jumps, stops post-release glide, and replaces tap-looking hand prompts with drag-path guidance.
 
 ## App Integration
 
