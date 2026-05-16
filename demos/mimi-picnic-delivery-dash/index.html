@@ -4,7 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#BFEFFF" />
-  <title>Mimi Bunny's Picnic Delivery Dash | V8 Playfeel Plus</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no" />
+  <title>Mimi Bunny's Picnic Delivery Dash</title>
   <style>
     :root{
       --sky-a:#bfefff;
@@ -62,15 +64,15 @@
     <section class="scorebar" aria-label="Game status"><div class="chip" id="scoreChip"><span class="emoji">⭐</span><span><span class="label">Score</span><span class="value" id="scoreText">0</span></span></div><div class="chip" id="goalChip"><span class="emoji">🧺</span><span><span class="label">Basket</span><span class="value" id="goalText">0/4</span></span></div><div class="chip" id="comboChip"><span class="emoji">🔥</span><span><span class="label">Combo</span><span class="value" id="comboText">0</span></span></div><div class="chip" id="magicChip"><span class="emoji">⚡</span><span><span class="label">Joy</span><span class="value" id="magicText">0%</span></span></div></section>
     <section class="stage-wrap"><div class="stage" id="stage"><div class="stage-gloss"></div><canvas id="canvas" aria-label="Interactive picnic stage"></canvas><div class="speech" id="speech">Drag Mimi's basket under the glowing treat!</div><div class="toast" id="toast">Nice catch!</div><div class="juice-meter" id="juiceMeter"><div class="joy-copy"><span>Joy</span><b id="joyText">0%</b></div><div class="joy-track"><i id="joyFill"></i></div></div><div class="friend-zone" id="friendZone"><div class="deliver-label" id="deliverLabel">Deliver here!</div><span id="friendZoneIcon">🐻</span></div><div class="coach" id="coach">👆</div><div class="player" id="player" aria-hidden="true"><div class="ring"></div><div class="shield"></div><div class="ear l"></div><div class="ear r"></div><div class="head"></div><div class="eye l"></div><div class="eye r"></div><div class="nose"></div><div class="mouth"></div><div class="cheek l"></div><div class="cheek r"></div><div class="body"></div><div class="basket"></div></div></div></section>
     <div class="fx" id="fx" aria-hidden="true"></div><div class="confetti" id="confetti" aria-hidden="true"></div>
-    <div class="overlay" id="startOverlay"><div class="card"><div class="card-content"><div class="title-bubble">✨ Episode Bonus Interaction · V8 Playfeel Plus</div><h1><span class="gradient">Picnic Delivery</span><br/>Dash</h1><p class="desc">A more playful kids loop: smooth catching, perfect hits, Rainbow Party, delivery, and sticker rewards.</p><div class="features" aria-hidden="true"><div class="feature"><span>🧺</span>Drag-to-catch</div><div class="feature"><span>➡️</span>Deliver target</div><div class="feature"><span>🎁</span>Sticker reward</div></div><div class="btn-row"><button class="primary" id="startBtn">Start Picnic Run</button></div><div class="note">Single-file H5. No external assets, ads, or third-party tracking. Built for WebView testing.</div></div></div></div>
-    <div class="overlay hidden" id="resultOverlay"><div class="card"><div class="card-content"><div class="title-bubble" id="resultBadge">🎉 Picnic Delivered</div><h1 id="resultTitle"><span class="gradient">All Baskets Delivered!</span></h1><p class="desc" id="resultDesc">Mimi saved a sticker pack for you.</p><div class="reward-row" id="rewardRow"></div><div class="btn-row"><button class="primary" id="restartBtn">Play Again</button><button class="secondary" id="finishBtn">Back to App</button></div><div class="note">Bridge events include GAME_READY, ITEM_COLLECTED, SNACK_WAVE_STARTED, RAINBOW_PARTY_STARTED, ORDER_DELIVERED, GAME_FINISHED, CLOSE_GAME.</div></div></div></div>
+    <div class="overlay" id="startOverlay"><div class="card"><div class="card-content"><div class="title-bubble">✨ Episode Bonus</div><h1><span class="gradient">Picnic Delivery</span><br/>Dash</h1><p class="desc">Help Mimi catch picnic treats, deliver each basket, and unlock a sticker surprise for her friends.</p><div class="features" aria-hidden="true"><div class="feature"><span>🧺</span>Catch treats</div><div class="feature"><span>➡️</span>Find friends</div><div class="feature"><span>🎁</span>Unlock stickers</div></div><div class="btn-row"><button class="primary" id="startBtn">Start Picnic</button></div><div class="note">A short bonus game after the episode.</div></div></div></div>
+    <div class="overlay hidden" id="resultOverlay"><div class="card"><div class="card-content"><div class="title-bubble" id="resultBadge">🎉 Picnic Delivered</div><h1 id="resultTitle"><span class="gradient">All Baskets Delivered!</span></h1><p class="desc" id="resultDesc">Mimi saved a sticker pack for you.</p><div class="reward-row" id="rewardRow"></div><div class="btn-row"><button class="primary" id="restartBtn">Play Again</button><button class="secondary" id="finishBtn">Done</button></div><div class="note">Thanks for helping Mimi. Your episode is ready when you are.</div></div></div></div>
   </main>
 <script>
   const GAME_CONFIG = {
     gameId:"mimi_picnic_delivery_dash_v8_playfeel_plus_001",
     characterName:"Mimi Bunny",
     title:"Mimi Bunny's Picnic Delivery Dash",
-    subtitle:"Slide, catch, perfect-hit, party, deliver stickers",
+    subtitle:"Catch treats, deliver baskets, unlock stickers",
     totalSeconds:90,
     orders:[
       {friend:"Bobo Bear", friendIcon:"🐻", item:"🍓", itemName:"strawberries", need:3, color:"#ff8fc4", sticker:"🐻", hint:"Slide the basket under the pink strawberries."},
@@ -80,7 +82,7 @@
     bonus:["⭐","✨","💎","🍪","🍇","🌟"],
     clouds:["☁️","🌧️"],
     powers:["🧲","🌈","🫧"],
-    bridgeVersion:"8.0.0",
+    bridgeVersion:"8.1.0",
     tuning:{
       earlyGuideMs:1450,
       idleGuideMs:1750,
@@ -103,6 +105,21 @@
   let DPR = 1, W = 0, H = 0, raf = 0, last = 0;
   let audioCtx = null, audioOn = true;
   const bestKey = "mimiDeliveryDashV8Best";
+  const scheduledTimers = new Set();
+  const BRIDGE_PROTOCOL = {
+    inbound:["CONFIGURE_GAME","SET_GAME_CONTEXT","START_GAME","PAUSE_GAME","RESUME_GAME","RESTART_GAME","SET_SOUND","SET_HAPTICS"],
+    outbound:["GAME_READY","GAME_CONFIGURED","GAME_STARTED","GAME_PAUSED","GAME_RESUMED","ORDER_STARTED","ITEM_COLLECTED","POWER_UP_USED","ASSIST_TRIGGERED","SNACK_WAVE_STARTED","RAINBOW_PARTY_STARTED","DELIVERY_READY","ORDER_DELIVERED","GAME_FINISHED","CLOSE_GAME"]
+  };
+  const appContext = {
+    episodeId:null,
+    sessionId:null,
+    activityId:GAME_CONFIG.gameId,
+    locale:"en",
+    soundEnabled:true,
+    hapticsEnabled:true,
+    autoStart:false,
+    exitLabel:"Done"
+  };
   const rnd = (a,b)=>Math.random()*(b-a)+a;
   const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
   const pick = arr=>arr[Math.floor(Math.random()*arr.length)];
@@ -184,6 +201,7 @@
   }
 
   function reset(){
+    clearScheduledTimers();
     state.mode="idle"; state.paused=false; state.transitioning=false; state.startedAt=0; state.pauseStarted=0; state.pausedMs=0;
     state.orderIndex=0; state.progress=0; state.score=0; state.combo=0; state.maxCombo=0; state.timeLeft=GAME_CONFIG.totalSeconds;
     state.spawnAcc=0; state.pointer=false; state.lastInput=now(); state.orderStartedAt=now(); state.failStreak=0; state.softAssistUntil=0; state.lastHelpAt=0; state.lastCloudAt=0; state.magnetUntil=0; state.rushUntil=0; state.shield=0; state.joy=0; state.perfectStreak=0; state.waveCooldownUntil=0;
@@ -265,7 +283,7 @@
 
   function spawnOpening(){
     const base = clamp(state.player.x, W*.28, W*.72);
-    for(let i=0;i<2;i++) setTimeout(()=>{ if(state.mode==="collect") spawnItem("target", clamp(base + (i-.5)*64, 64, W-64), -35-i*58); }, i*220);
+    for(let i=0;i<2;i++) schedule(()=>{ if(state.mode==="collect") spawnItem("target", clamp(base + (i-.5)*64, 64, W-64), -35-i*58); }, i*220);
   }
 
   function guideSpawnX(){
@@ -319,7 +337,7 @@
     showToast(reason === "perfect" ? "Perfect wave!" : "Snack wave!");
     setSpeech(reason === "perfect" ? "Perfect! A tiny snack wave is coming." : "Nice rhythm! Catch the little snack wave.");
     for(let i=0;i<count;i++){
-      setTimeout(()=>{ if(state.mode === "collect") spawnItem("target", clamp(center + (i-.5)*(74 + state.orderIndex*8), 64, W-64), -42-i*54); }, i*140);
+      schedule(()=>{ if(state.mode === "collect") spawnItem("target", clamp(center + (i-.5)*(74 + state.orderIndex*8), 64, W-64), -42-i*54); }, i*140);
     }
     sendToApp("SNACK_WAVE_STARTED", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, reason, remaining});
   }
@@ -358,7 +376,7 @@
             state.softAssistUntil = t + GAME_CONFIG.tuning.softAssistMs; state.lastHelpAt = t;
             showToast("Mimi helps!"); setSpeech("No worries — the next treat will come closer.");
             sendToApp("ASSIST_TRIGGERED", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, failStreak:state.failStreak});
-            setTimeout(()=>{ if(state.mode === "collect") spawnItem("target", guideSpawnX(), -42); }, 220);
+            schedule(()=>{ if(state.mode === "collect") spawnItem("target", guideSpawnX(), -42); }, 220);
           }
         }
       }
@@ -420,7 +438,7 @@
     state.metrics.parties++;
     showToast(joyTriggered ? "Rainbow Party!" : "Rainbow Rush!");
     setSpeech(joyTriggered ? "Joy full! Rainbow Party makes treats count double." : "Rainbow Rush! The next glowing treats count double.");
-    for(let i=0;i<3;i++) setTimeout(()=>spawnItem("target", clamp(state.player.x + (i-1)*76,64,W-64), -50-i*44), i*130);
+    for(let i=0;i<3;i++) schedule(()=>spawnItem("target", clamp(state.player.x + (i-1)*76,64,W-64), -50-i*44), i*130);
     playPower();
     sendToApp("RAINBOW_PARTY_STARTED", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, fromPower, joyTriggered});
   }
@@ -462,7 +480,7 @@
     burst(state.deliverZone.x, state.deliverZone.y, o.color, 40, 1.5); fireConfetti(46); playDelivery(); haptic(24);
     setSpeech(`${o.friend} got the ${o.itemName}! Sticker unlocked.`); showToast(`${o.friendIcon} Sticker unlocked!`); pulse(chips.score);
     sendToApp("ORDER_DELIVERED", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, friend:o.friend, score:state.score});
-    setTimeout(()=>{
+    schedule(()=>{
       state.orderIndex++; state.progress=0; state.combo=0; state.perfectStreak=0; state.spawnAcc=0; state.waveCooldownUntil=0; state.items.length=0; state.ribbons.length=0; state.ripples.length=0;
       if(state.orderIndex >= GAME_CONFIG.orders.length){endGame(true); return;}
       state.mode="collect"; state.transitioning=false; state.lastInput=now(); state.orderStartedAt=now(); state.failStreak=0; state.softAssistUntil=0; updateOrderUI(); updateHud();
@@ -472,8 +490,9 @@
 
   function endGame(completed){
     if(state.mode === "ended") return;
+    clearScheduledTimers();
     state.mode="ended"; state.transitioning=false; cancelAnimationFrame(raf); state.items.length=0; state.ribbons.length=0; state.ripples.length=0; friendZone.classList.remove("on"); coach.classList.remove("on");
-    const best = Math.max(Number(localStorage.getItem(bestKey)||0), state.score); localStorage.setItem(bestKey, String(best));
+    const best = Math.max(safeStorageNumber(bestKey,0), state.score); safeStorageSet(bestKey, best);
     const complete = completed || state.metrics.deliveries >= GAME_CONFIG.orders.length;
     const stickers = GAME_CONFIG.orders.slice(0,state.metrics.deliveries).map(o=>o.sticker);
     $("resultBadge").textContent = complete ? "🎉 Picnic Delivered" : "🌤️ Nice Picnic Try";
@@ -676,11 +695,12 @@
   function pointerEnd(ev){state.pointer=false; state.lastInput=now(); try{stage.releasePointerCapture?.(ev.pointerId)}catch(e){}}
   stage.addEventListener("pointerdown", pointerStart, {passive:false}); stage.addEventListener("pointermove", pointerMove, {passive:false}); stage.addEventListener("pointerup", pointerEnd); stage.addEventListener("pointercancel", pointerEnd);
 
-  function togglePause(){
+  function togglePause(source="user"){
     if(!["collect","deliver"].includes(state.mode)) return;
     state.paused = !state.paused; pauseBtn.textContent = state.paused ? "▶️" : "⏸";
     if(state.paused){state.pauseStarted=Date.now(); setSpeech("Paused. Tap play when you're ready.");}
     else{state.pausedMs += Date.now() - state.pauseStarted; state.lastInput=now(); setSpeech(state.mode==="deliver"?`Deliver to ${order().friend}!`:order().hint); last=now();}
+    sendToApp(state.paused ? "GAME_PAUSED" : "GAME_RESUMED", {gameId:GAME_CONFIG.gameId, source, mode:state.mode, timeLeft:state.timeLeft, score:state.score});
   }
 
   function unlockAudio(){
@@ -694,29 +714,125 @@
   function playPower(){playTone(520,.06,"triangle",.045); playTone(740,.07,"triangle",.045,.07); playTone(980,.09,"triangle",.04,.14);}
   function playDelivery(){playTone(660,.08,"triangle",.055); playTone(880,.09,"triangle",.05,.09); playTone(1180,.12,"triangle",.045,.18);}
   function playVictory(){[620,780,980,1240].forEach((f,i)=>playTone(f,.12,"triangle",.05,i*.11));}
-  function haptic(ms){try{if(navigator.vibrate) navigator.vibrate(ms);}catch(e){}}
+  function haptic(ms){if(!appContext.hapticsEnabled) return; try{if(navigator.vibrate) navigator.vibrate(ms);}catch(e){}}
   function hexToRgba(hex,a){const h=hex.replace("#",""); const n=parseInt(h.length===3?h.split("").map(c=>c+c).join(""):h,16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;}
   function orderPayload(){const o=order(); return {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, friend:o.friend, friendIcon:o.friendIcon, item:o.item, need:o.need};}
 
+  function schedule(fn, delay){
+    const id = setTimeout(()=>{scheduledTimers.delete(id); fn();}, delay);
+    scheduledTimers.add(id);
+    return id;
+  }
+  function clearScheduledTimers(){
+    scheduledTimers.forEach(id=>clearTimeout(id));
+    scheduledTimers.clear();
+  }
+  function safeStorageNumber(key, fallback=0){
+    try{
+      const value = Number(localStorage.getItem(key));
+      return Number.isFinite(value) ? value : fallback;
+    }catch(err){return fallback;}
+  }
+  function safeStorageSet(key, value){
+    try{localStorage.setItem(key, String(value));}catch(err){}
+  }
+  function bridgeContext(){
+    return {
+      episodeId:appContext.episodeId,
+      sessionId:appContext.sessionId,
+      activityId:appContext.activityId,
+      locale:appContext.locale
+    };
+  }
   function sendToApp(type, payload={}){
-    const message = JSON.stringify({type,payload});
+    const envelope = {type, payload:{...payload, bridgeVersion:GAME_CONFIG.bridgeVersion, context:bridgeContext()}, sentAt:new Date().toISOString()};
+    const message = JSON.stringify(envelope);
     try{
       if(window.ReactNativeWebView?.postMessage){window.ReactNativeWebView.postMessage(message); return;}
-      if(window.webkit?.messageHandlers?.appBridge){window.webkit.messageHandlers.appBridge.postMessage({type,payload}); return;}
+      if(window.webkit?.messageHandlers?.appBridge){window.webkit.messageHandlers.appBridge.postMessage(envelope); return;}
       if(window.AndroidBridge?.postMessage){window.AndroidBridge.postMessage(message); return;}
-      if(window.parent && window.parent !== window) window.parent.postMessage({type,payload},"*");
+      if(window.parent && window.parent !== window) window.parent.postMessage(envelope,"*");
     }catch(err){console.warn("Bridge message failed", err);}
-    console.log("[GameBridge]", type, payload);
+    console.log("[GameBridge]", type, envelope.payload);
+  }
+  function sendReady(){
+    sendToApp("GAME_READY", {gameId:GAME_CONFIG.gameId, supportedEvents:BRIDGE_PROTOCOL, title:GAME_CONFIG.title, soundEnabled:audioOn, hapticsEnabled:appContext.hapticsEnabled, totalSeconds:GAME_CONFIG.totalSeconds});
+  }
+  function readInitialAppContext(){
+    try{
+      const params = new URLSearchParams(window.location.search);
+      applyAppContext({
+        episodeId:params.get("episodeId"),
+        sessionId:params.get("sessionId"),
+        activityId:params.get("activityId"),
+        locale:params.get("locale"),
+        soundEnabled:parseFlag(params.get("sound"), appContext.soundEnabled),
+        hapticsEnabled:parseFlag(params.get("haptics"), appContext.hapticsEnabled),
+        autoStart:parseFlag(params.get("autoStart"), appContext.autoStart),
+        exitLabel:params.get("exitLabel")
+      }, false);
+    }catch(err){}
+  }
+  function applyAppContext(input={}, announce=true){
+    const payload = input?.payload && typeof input.payload === "object" ? input.payload : input;
+    if(!payload || typeof payload !== "object") return;
+    if(typeof payload.episodeId === "string" && payload.episodeId.trim()) appContext.episodeId = payload.episodeId.trim();
+    if(typeof payload.sessionId === "string" && payload.sessionId.trim()) appContext.sessionId = payload.sessionId.trim();
+    if(typeof payload.activityId === "string" && payload.activityId.trim()) appContext.activityId = payload.activityId.trim();
+    if(typeof payload.locale === "string" && payload.locale.trim()) appContext.locale = payload.locale.trim().slice(0,12);
+    if(typeof payload.soundEnabled === "boolean"){appContext.soundEnabled = payload.soundEnabled; audioOn = payload.soundEnabled;}
+    if(typeof payload.hapticsEnabled === "boolean") appContext.hapticsEnabled = payload.hapticsEnabled;
+    if(typeof payload.autoStart === "boolean") appContext.autoStart = payload.autoStart;
+    if(typeof payload.exitLabel === "string" && payload.exitLabel.trim()) appContext.exitLabel = payload.exitLabel.trim().slice(0,24);
+    if(typeof payload.totalSeconds === "number" && Number.isFinite(payload.totalSeconds)){
+      GAME_CONFIG.totalSeconds = clamp(Math.round(payload.totalSeconds), 30, 180);
+      if(state.mode === "idle") state.timeLeft = GAME_CONFIG.totalSeconds;
+    }
+    if(typeof payload.title === "string" && payload.title.trim()) GAME_CONFIG.title = payload.title.trim().slice(0,80);
+    if(typeof payload.subtitle === "string" && payload.subtitle.trim()) GAME_CONFIG.subtitle = payload.subtitle.trim().slice(0,100);
+    $("brandTitle").textContent = GAME_CONFIG.title;
+    $("brandSub").textContent = GAME_CONFIG.subtitle;
+    $("finishBtn").textContent = appContext.exitLabel;
+    soundBtn.textContent = audioOn ? "🔊" : "🔈";
+    if(announce) sendToApp("GAME_CONFIGURED", {gameId:GAME_CONFIG.gameId, context:bridgeContext(), soundEnabled:audioOn, hapticsEnabled:appContext.hapticsEnabled, totalSeconds:GAME_CONFIG.totalSeconds});
+  }
+  function parseFlag(value, fallback){
+    if(value == null || value === "") return fallback;
+    return ["1","true","yes","on"].includes(String(value).toLowerCase());
+  }
+  function normalizeBridgeMessage(raw){
+    const data = typeof raw === "string" ? safeParse(raw) : raw;
+    if(!data || typeof data !== "object") return null;
+    if(data.type) return data;
+    if(data.event) return {type:data.event, payload:data.payload || data};
+    return null;
+  }
+  function payloadFlag(payload, primary, fallback){
+    if(typeof payload?.[primary] === "boolean") return payload[primary];
+    if(typeof payload?.enabled === "boolean") return payload.enabled;
+    return fallback;
+  }
+  function handleBridgeMessage(event){
+    const data = normalizeBridgeMessage(event.data);
+    if(!data?.type) return;
+    const payload = data.payload || {};
+    if(data.type === "CONFIGURE_GAME" || data.type === "SET_GAME_CONTEXT") applyAppContext(payload);
+    if(data.type === "START_GAME") startGame();
+    if(data.type === "PAUSE_GAME" && !state.paused) togglePause("app");
+    if(data.type === "RESUME_GAME" && state.paused) togglePause("app");
+    if(data.type === "RESTART_GAME") startGame();
+    if(data.type === "SET_SOUND") applyAppContext({soundEnabled:payloadFlag(payload, "soundEnabled", audioOn)});
+    if(data.type === "SET_HAPTICS") applyAppContext({hapticsEnabled:payloadFlag(payload, "hapticsEnabled", appContext.hapticsEnabled)});
   }
 
-  soundBtn.addEventListener("click",()=>{audioOn=!audioOn; soundBtn.textContent=audioOn?"🔊":"🔈"; unlockAudio(); if(audioOn) playTone(660,.07,"triangle",.05);});
-  pauseBtn.addEventListener("click",togglePause); $("startBtn").addEventListener("click",startGame); $("restartBtn").addEventListener("click",startGame); $("finishBtn").addEventListener("click",()=>{sendToApp("CLOSE_GAME", {gameId:GAME_CONFIG.gameId, score:state.score}); resultOverlay.classList.add("hidden"); startOverlay.classList.remove("hidden"); reset();});
-  document.addEventListener("visibilitychange",()=>{if(document.hidden && ["collect","deliver"].includes(state.mode) && !state.paused) togglePause();});
+  soundBtn.addEventListener("click",()=>{audioOn=!audioOn; appContext.soundEnabled=audioOn; soundBtn.textContent=audioOn?"🔊":"🔈"; unlockAudio(); if(audioOn) playTone(660,.07,"triangle",.05);});
+  pauseBtn.addEventListener("click",()=>togglePause("user")); $("startBtn").addEventListener("click",startGame); $("restartBtn").addEventListener("click",startGame); $("finishBtn").addEventListener("click",()=>{sendToApp("CLOSE_GAME", {gameId:GAME_CONFIG.gameId, score:state.score, completed:state.metrics.deliveries>=GAME_CONFIG.orders.length}); resultOverlay.classList.add("hidden"); startOverlay.classList.remove("hidden"); reset();});
+  document.addEventListener("visibilitychange",()=>{if(document.hidden && ["collect","deliver"].includes(state.mode) && !state.paused) togglePause("visibility");});
   window.addEventListener("resize",resize);
-  window.addEventListener("message",event=>{const data=typeof event.data==="string"?safeParse(event.data):event.data; if(!data?.type) return; if(data.type==="PAUSE_GAME" && !state.paused) togglePause(); if(data.type==="RESUME_GAME" && state.paused) togglePause(); if(data.type==="RESTART_GAME") startGame();});
+  window.addEventListener("message",handleBridgeMessage);
   function safeParse(s){try{return JSON.parse(s)}catch{return null}}
 
-  initAmbient(); resize(); reset(); sendToApp("GAME_READY", {gameId:GAME_CONFIG.gameId, version:GAME_CONFIG.bridgeVersion});
+  initAmbient(); resize(); readInitialAppContext(); reset(); sendReady(); if(appContext.autoStart) schedule(startGame, 240);
 </script>
 </body>
 </html>
