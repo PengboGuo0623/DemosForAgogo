@@ -14,6 +14,7 @@ This demo is kept as a standalone HTML file so it can be opened directly, hosted
 - Gentler first-miss feedback and short soft-assist window.
 - Reduced-motion fallback for users who prefer less animation.
 - v8.3 improves mobile spacing, keeps guide hands off the target, shortens the HUD title, and tunes drag speed/drop speed for a smoother feel.
+- v8.4 tightens drag response, recalculates catch distance after attraction, adds drag basket glow, and shows a soft attraction trail when treats are being pulled in.
 
 ## App Integration
 
