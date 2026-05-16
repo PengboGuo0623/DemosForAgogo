@@ -2,12 +2,12 @@
   {
     "id": "mimi-picnic-delivery-dash",
     "title": "Mimi Bunny's Picnic Delivery Dash",
-    "version": "v8.10-shield-state-fix",
+    "version": "v8.11-start-preview-fix",
     "type": "single-file-h5",
     "path": "demos/mimi-picnic-delivery-dash/",
     "entry": "demos/mimi-picnic-delivery-dash/index.html",
     "originalFile": "mimi_picnic_delivery_dash_v8_playfeel_plus.html",
-    "description": "A polished standalone H5 catch-and-deliver episode bonus game with compact mobile layout, smoother catch timing, fixed final-round delivery and shield transitions, and refined touch feel.",
+    "description": "A polished standalone H5 catch-and-deliver episode bonus game with compact mobile layout, smoother catch timing, fixed final-round delivery, corrected start-preview basket catch, and refined touch feel.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "h5-polish"]
   },
   {
