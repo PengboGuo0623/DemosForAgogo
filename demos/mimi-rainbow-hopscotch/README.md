@@ -25,4 +25,9 @@ The demo can run as a plain static file and also emits lightweight bridge events
 - `GAME_RESUMED`
 - `GAME_FINISHED`
 
-Version: v1.0.
+## Changelog
+
+- v1.1 improves lane-change feel, runner tilt, lane glow, boost trails, collision feedback, haptics, and layered sound cues.
+- v1.0 initial standalone lane-runner demo.
+
+Version: v1.1.

@@ -23,11 +23,11 @@
   {
     "id": "mimi-rainbow-hopscotch",
     "title": "Mimi Rainbow Hopscotch",
-    "version": "v1.0",
+    "version": "v1.1-feel-fx-audio",
     "type": "single-file-h5",
     "path": "demos/mimi-rainbow-hopscotch/",
     "entry": "demos/mimi-rainbow-hopscotch/index.html",
-    "description": "A standalone mobile-first H5 lane runner where Mimi hops between rainbow lanes, collects charms, dodges clouds, and uses boosts.",
+    "description": "A standalone mobile-first H5 lane runner where Mimi hops between rainbow lanes, collects charms, dodges clouds, and uses boosts with polished input feel, feedback, effects, and audio.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "lane-runner"]
   }
 ]
