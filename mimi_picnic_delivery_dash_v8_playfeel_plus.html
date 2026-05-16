@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#BFEFFF" />
+  <title>Mimi Bunny's Picnic Delivery Dash | V8 Playfeel Plus</title>
+  <style>
+    :root{
+      --sky-a:#bfefff;
+      --sky-b:#f6fcff;
+      --grass-a:#d9ffd9;
+      --grass-b:#9becb2;
+      --cream:#fff7df;
+      --card:rgba(255,255,255,.78);
+      --card-strong:rgba(255,255,255,.96);
+      --ink:#4b426b;
+      --muted:#7b789c;
+      --pink:#ff8fc4;
+      --peach:#ffc9a6;
+      --orange:#ffad69;
+      --yellow:#ffe982;
+      --mint:#aaf3d1;
+      --green:#72d99f;
+      --blue:#83d7ff;
+      --lav:#c8b7ff;
+      --purple:#7560c8;
+      --shadow:0 26px 74px rgba(78,91,146,.24);
+      --soft:0 10px 30px rgba(74,68,122,.13);
+      font-family:ui-rounded,"SF Pro Rounded","Avenir Next Rounded","Nunito",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--sky-a)}
+    body{color:var(--ink);user-select:none;touch-action:none}
+    button{font:inherit;color:inherit}
+    .app{position:relative;width:100vw;height:100dvh;min-height:640px;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,var(--sky-a) 0%,var(--sky-b) 54%,#effff3 55%,#dcffea 100%)}
+    .bg,.ambient,.fx,.confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none}.bg{z-index:0}.ambient{z-index:1}.fx{z-index:30}.confetti{z-index:31}.fx .dom-pop{position:absolute;transform:translate(-50%,-50%);font-weight:1000;font-size:clamp(25px,6vw,36px);letter-spacing:-.5px;text-shadow:0 4px 0 rgba(255,255,255,.88),0 10px 18px rgba(79,78,130,.22);animation:domPop .62s cubic-bezier(.18,1.45,.26,1) forwards;white-space:nowrap;will-change:transform,opacity}.fx .dom-pop.big{font-size:clamp(31px,7.2vw,46px)}.fx .dom-ring{position:absolute;width:34px;height:34px;border-radius:50%;border:5px solid var(--c);box-shadow:0 0 0 8px rgba(255,255,255,.30),0 0 26px var(--c);transform:translate(-50%,-50%);animation:domRing .44s ease-out forwards}.fx .dom-star{position:absolute;transform:translate(-50%,-50%) scale(.8);font-size:24px;animation:domStar .55s ease-out forwards;filter:drop-shadow(0 6px 8px rgba(79,78,130,.18))}@keyframes domPop{0%{opacity:0;transform:translate(-50%,6px) scale(.72)}34%{opacity:1;transform:translate(-50%,-14px) scale(1.1)}100%{opacity:0;transform:translate(-50%,-54px) scale(.92)}}@keyframes domRing{0%{opacity:.95;width:28px;height:28px}100%{opacity:0;width:116px;height:116px}}@keyframes domStar{0%{opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-12deg)}42%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.1) rotate(20deg)}}
+    .sun{position:absolute;left:6.8vw;top:6dvh;width:clamp(94px,18vw,156px);height:clamp(94px,18vw,156px);border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff8bd 0 18%,#ffe583 19% 60%,#ffc56d 61% 100%);box-shadow:0 0 0 20px rgba(255,231,130,.18),0 0 80px rgba(255,212,113,.52);animation:sunBob 6.5s ease-in-out infinite}.sun:after{content:"";position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle at 36% 24%,rgba(255,255,255,.68),transparent 46%)}@keyframes sunBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(9px) rotate(7deg)}}
+    .cloud{position:absolute;width:180px;height:60px;border-radius:999px;background:rgba(255,255,255,.72);box-shadow:var(--soft);animation:drift linear infinite}.cloud:before,.cloud:after{content:"";position:absolute;border-radius:50%;background:inherit}.cloud:before{width:78px;height:78px;left:26px;bottom:18px}.cloud:after{width:92px;height:92px;right:20px;bottom:8px}.c1{top:15dvh;left:-230px;animation-duration:34s}.c2{top:8dvh;left:40vw;transform:scale(.66);opacity:.78;animation-duration:45s;animation-delay:-16s}.c3{top:27dvh;left:75vw;transform:scale(.72);animation-duration:39s;animation-delay:-24s}@keyframes drift{from{translate:-32vw 0}to{translate:126vw 0}}
+    .hill{position:absolute;bottom:-12dvh;border-radius:50% 50% 0 0;background:linear-gradient(180deg,var(--grass-a),var(--grass-b));box-shadow:inset 0 20px 38px rgba(255,255,255,.28)}.h1{width:86vw;height:27dvh;left:-20vw}.h2{width:100vw;height:31dvh;right:-23vw;bottom:-13dvh;background:linear-gradient(180deg,#c5ffd4,#84e5a4)}.h3{width:78vw;height:20dvh;left:26vw;bottom:-12dvh;opacity:.65}
+    .ambient-dot{position:absolute;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 0 7px rgba(255,255,255,.13),0 0 26px rgba(255,255,255,.86);animation:twinkle var(--dur) ease-in-out infinite}.ambient-dot:nth-child(3n){background:#fff0a5}.ambient-dot:nth-child(4n){background:#ffd6ea}.ambient-dot:nth-child(5n){background:#d8f7ff}@keyframes twinkle{0%,100%{opacity:.18;transform:scale(.62)}50%{opacity:.95;transform:scale(1.22)}}
+    .hud{position:relative;z-index:8;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left))}.brand{display:flex;align-items:center;gap:10px;min-width:0;max-width:min(700px,66vw);padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.8);box-shadow:var(--soft);backdrop-filter:blur(14px)}.brand-badge{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none;background:conic-gradient(from 30deg,var(--pink),var(--yellow),var(--mint),var(--blue),var(--lav),var(--pink));box-shadow:0 8px 18px rgba(255,143,196,.24)}.brand-badge:after{content:"✦";font-size:21px;color:#fff;text-shadow:0 2px 5px rgba(0,0,0,.14)}.brand > div:last-child{min-width:0}.brand strong{display:block;font-size:15px;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand span{display:block;margin-top:4px;font-size:12px;color:var(--muted);font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hud-actions{display:flex;gap:8px}.icon-btn{width:46px;height:46px;border:0;border-radius:18px;background:rgba(255,255,255,.78);box-shadow:var(--soft);font-size:21px;cursor:pointer;backdrop-filter:blur(14px);transition:transform .12s ease,filter .12s ease}.icon-btn:active{transform:scale(.93);filter:brightness(.98)}
+    .mission{position:relative;z-index:8;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.35fr .65fr;gap:10px;padding:0 max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left))}.order-card,.album-card{min-height:88px;border-radius:30px;background:var(--card);border:1px solid rgba(255,255,255,.84);box-shadow:var(--soft);backdrop-filter:blur(14px);overflow:hidden}.order-card{position:relative;display:flex;align-items:center;gap:12px;padding:12px}.order-card:before{content:"";position:absolute;inset:0;width:var(--fill,0%);background:linear-gradient(90deg,rgba(255,143,196,.24),rgba(131,215,255,.22),rgba(170,243,209,.16));transition:width .28s cubic-bezier(.2,.9,.24,1);z-index:0}.friend,.order-copy,.dots{position:relative;z-index:1}.friend{flex:none;width:60px;height:60px;border-radius:22px;display:grid;place-items:center;font-size:35px;background:linear-gradient(180deg,#fff,#fff0c7);box-shadow:0 9px 18px rgba(255,174,105,.18);transform-origin:center}.friend.pop{animation:badgePop .4s cubic-bezier(.2,1.5,.3,1)}@keyframes badgePop{0%,100%{transform:scale(1) rotate(0)}45%{transform:scale(1.16) rotate(-4deg)}72%{transform:scale(.96) rotate(2deg)}}.order-copy{min-width:0;flex:1}.kicker{font-size:11px;text-transform:uppercase;letter-spacing:.48px;color:var(--muted);font-weight:1000}.order-title{font-size:clamp(17px,3.6vw,24px);font-weight:1000;line-height:1.08;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.order-hint{margin-top:4px;font-size:12px;color:#667692;font-weight:850;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dots{display:flex;align-items:center;gap:6px}.dot{width:38px;height:38px;border-radius:15px;display:grid;place-items:center;background:rgba(255,255,255,.78);box-shadow:0 7px 15px rgba(79,80,132,.1);font-size:22px;filter:grayscale(.8);opacity:.48;transform:scale(.92);transition:transform .17s ease,filter .17s ease,opacity .17s ease,background .17s ease}.dot.on{filter:none;opacity:1;transform:scale(1);background:linear-gradient(180deg,#fff,#fff5c8)}.dot.just{animation:dotPop .32s cubic-bezier(.2,1.6,.35,1)}@keyframes dotPop{0%{transform:scale(.6) rotate(-8deg)}70%{transform:scale(1.22) rotate(4deg)}100%{transform:scale(1) rotate(0)}}.album-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px}.album-title{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:1000}.album-sub{margin-top:4px;font-size:12px;font-weight:850;color:#667692;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.album-row{display:flex;gap:7px}.sticker{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.74);box-shadow:var(--soft);font-size:24px;filter:grayscale(.85);opacity:.5;transition:filter .25s ease,opacity .25s ease,transform .25s ease,background .25s ease}.sticker.on{filter:none;opacity:1;transform:translateY(-2px) rotate(-3deg);background:linear-gradient(180deg,#fff,#fff2bf)}
+    .scorebar{position:relative;z-index:8;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:0 max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left))}.chip{min-height:56px;border-radius:22px;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.8);box-shadow:var(--soft);display:flex;align-items:center;justify-content:center;gap:7px;padding:8px;backdrop-filter:blur(12px)}.chip.pulse{animation:chipPulse .28s ease}.chip .emoji{font-size:22px}.chip .label{display:block;color:var(--muted);font-size:10px;font-weight:1000;text-transform:uppercase;letter-spacing:.35px;line-height:1}.chip .value{display:block;margin-top:3px;font-size:clamp(17px,4vw,23px);font-weight:1000;line-height:1;color:var(--ink)}@keyframes chipPulse{0%,100%{transform:scale(1)}45%{transform:scale(1.06)}}
+    .stage-wrap{position:relative;z-index:5;max-width:1080px;height:calc(100dvh - 246px);min-height:396px;margin:0 auto;padding:0 max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}.stage{position:relative;width:100%;height:100%;overflow:hidden;border-radius:34px;background:radial-gradient(circle at 16% 18%,rgba(255,255,255,.72) 0 8%,transparent 9%),linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.15));border:1px solid rgba(255,255,255,.84);box-shadow:var(--shadow);touch-action:none}.stage.hit{animation:stageHit .20s ease-out}@keyframes stageHit{0%,100%{filter:brightness(1) saturate(1)}50%{filter:brightness(1.045) saturate(1.12)}}.stage:before{content:"";position:absolute;left:4%;right:4%;bottom:-1%;height:34%;background:radial-gradient(ellipse at center,rgba(255,255,255,.54) 0 28%,transparent 29%),linear-gradient(180deg,rgba(255,255,255,.20),rgba(255,255,255,0));clip-path:ellipse(68% 55% at 52% 100%);pointer-events:none}.stage-gloss{position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 34%,rgba(255,255,255,.24) 48%,transparent 61%);opacity:.55;animation:gloss 7s ease-in-out infinite;pointer-events:none}@keyframes gloss{0%,55%,100%{transform:translateX(-70%)}75%{transform:translateX(70%)}}
+    canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}.speech{position:absolute;z-index:5;left:18px;top:18px;max-width:min(430px,66vw);padding:12px 15px;border-radius:22px 22px 22px 8px;background:#fff;box-shadow:var(--soft);font-size:clamp(13px,2.8vw,16px);font-weight:950;line-height:1.28}.speech:after{content:"";position:absolute;left:22px;bottom:-8px;width:18px;height:18px;border-radius:4px;background:#fff;transform:rotate(45deg)}.speech.pop{animation:speechPop .32s ease}@keyframes speechPop{from{transform:translateY(6px) scale(.96);opacity:.4}to{transform:translateY(0) scale(1);opacity:1}}
+    .coach{position:absolute;z-index:8;font-size:42px;filter:drop-shadow(0 12px 14px rgba(75,88,130,.20));opacity:0;pointer-events:none;transform:translate(-50%,-50%);transition:opacity .18s ease}.coach.on{opacity:1;animation:coachMove 1.05s ease-in-out infinite}@keyframes coachMove{0%,100%{translate:0 0;scale:1}50%{translate:18px -12px;scale:1.04}}
+    .toast{position:absolute;z-index:10;left:50%;top:18%;transform:translateX(-50%);padding:11px 18px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:var(--soft);font-weight:1000;font-size:15px;opacity:0;pointer-events:none}.toast.show{animation:toast 1.15s ease forwards}@keyframes toast{0%{opacity:0;transform:translate(-50%,16px) scale(.86)}18%,72%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-16px) scale(.94)}}.juice-meter{position:absolute;z-index:9;left:18px;top:76px;width:min(245px,56vw);padding:9px 11px;border-radius:18px;background:rgba(255,255,255,.76);border:1px solid rgba(255,255,255,.9);box-shadow:var(--soft);backdrop-filter:blur(12px);opacity:.96;transform-origin:left center;transition:transform .16s ease,opacity .16s ease}.joy-copy{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-weight:1000;font-size:12px;color:#6a638d;text-transform:uppercase;letter-spacing:.35px}.joy-copy b{font-size:13px;color:var(--purple)}.joy-track{height:12px;border-radius:999px;background:rgba(123,120,156,.13);overflow:hidden;box-shadow:inset 0 1px 3px rgba(75,66,107,.08)}.joy-track i{display:block;height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,var(--pink),var(--orange),var(--yellow),var(--mint),var(--blue));box-shadow:0 0 18px rgba(255,143,196,.35);transition:width .24s cubic-bezier(.2,1,.24,1)}.juice-meter.party{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,248,212,.86));box-shadow:0 0 0 8px rgba(255,233,130,.16),0 14px 34px rgba(255,173,105,.22)}
+    .friend-zone{position:absolute;z-index:4;right:clamp(16px,4vw,42px);bottom:clamp(24px,6dvh,62px);width:clamp(118px,22vw,180px);height:clamp(118px,22vw,180px);border-radius:50%;display:grid;place-items:center;font-size:clamp(54px,10vw,86px);background:radial-gradient(circle,#fff 0 45%,rgba(255,255,255,.64) 47% 65%,rgba(255,255,255,.18) 66% 100%);border:3px dashed rgba(255,143,196,.82);box-shadow:0 16px 34px rgba(76,83,137,.16),0 0 0 14px rgba(255,255,255,.22);opacity:0;scale:.84;pointer-events:none;transition:opacity .22s ease,scale .22s ease;animation:zonePulse 1.2s ease-in-out infinite}.friend-zone.on{opacity:1;scale:1}.friend-zone.ready{animation:zoneReady .36s cubic-bezier(.2,1.5,.3,1)}@keyframes zonePulse{0%,100%{box-shadow:0 16px 34px rgba(76,83,137,.16),0 0 0 10px rgba(255,255,255,.20)}50%{box-shadow:0 16px 34px rgba(76,83,137,.16),0 0 0 20px rgba(255,255,255,.34)}}@keyframes zoneReady{0%{transform:scale(1)}55%{transform:scale(1.12)}100%{transform:scale(1)}}.deliver-label{position:absolute;top:-34px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:7px 12px;border-radius:999px;background:#fff;box-shadow:var(--soft);font-size:12px;font-weight:1000;color:var(--purple)}
+    .player{position:absolute;z-index:7;width:148px;height:176px;left:0;top:0;pointer-events:none;transform-origin:50% 70%;filter:drop-shadow(0 18px 16px rgba(67,99,77,.23));will-change:transform}.player.squash{animation:squash .30s cubic-bezier(.18,1.8,.26,1)}.player.ready-catch .basket{box-shadow:0 9px 18px rgba(255,173,105,.24),0 0 0 7px rgba(255,255,255,.42),0 0 22px rgba(255,233,130,.58);transform:translateX(-50%) scale(1.035)}.player.cheer{animation:cheer .74s ease}.player.loaded .basket:after{opacity:1;transform:translate(-50%,-8px) scale(1)}.player.magnet .ring{opacity:1;animation:ringSpin 1.2s linear infinite}.player.shield .shield{opacity:1;animation:shieldPulse 1.1s ease-in-out infinite}@keyframes squash{0%,100%{scale:1}35%{scale:1.12 .90}62%{scale:.98 1.04}}@keyframes cheer{0%,100%{translate:0 0;rotate:0}24%{translate:0 -18px;rotate:-5deg}48%{translate:0 2px;rotate:4deg}72%{translate:0 -9px;rotate:-3deg}}.ring,.shield{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;opacity:0}.ring{width:150px;height:150px;border:4px dashed rgba(198,183,255,.82)}.shield{width:160px;height:160px;background:radial-gradient(circle,rgba(131,215,255,.20),rgba(131,215,255,.05) 62%,transparent 64%);border:3px solid rgba(131,215,255,.75)}@keyframes ringSpin{to{rotate:360deg}}@keyframes shieldPulse{0%,100%{scale:.94}50%{scale:1.04}}.ear{position:absolute;top:0;width:35px;height:72px;border-radius:50% 50% 44% 44%;background:linear-gradient(180deg,#fff 0 68%,#f3fbff 69% 100%);border:4px solid #fff;box-shadow:inset 0 -16px 0 rgba(255,143,196,.22)}.ear.l{left:45px;rotate:-16deg}.ear.r{right:45px;rotate:16deg}.head{position:absolute;left:32px;top:46px;width:84px;height:82px;border-radius:48% 48% 44% 44%;background:radial-gradient(circle at 35% 30%,#fff 0 20%,#fffdf8 21% 54%,#f3fbff 55% 100%);border:4px solid #fff;box-shadow:inset 0 -11px 0 rgba(131,215,255,.10)}.eye,.nose,.mouth,.cheek{position:absolute;z-index:1}.eye{top:83px;width:9px;height:10px;border-radius:50%;background:var(--ink)}.eye.l{left:60px}.eye.r{right:60px}.nose{left:50%;top:95px;width:13px;height:10px;border-radius:50%;background:#ff9dca;transform:translateX(-50%)}.mouth{left:50%;top:101px;width:26px;height:13px;border-bottom:4px solid var(--ink);border-radius:0 0 999px 999px;transform:translateX(-50%)}.cheek{top:100px;width:17px;height:9px;border-radius:50%;background:rgba(255,143,196,.34)}.cheek.l{left:43px}.cheek.r{right:43px}.body{position:absolute;left:42px;top:118px;width:64px;height:56px;border-radius:36px 36px 28px 28px;background:linear-gradient(180deg,#fff,#f4fbff);border:4px solid #fff}.basket{position:absolute;left:50%;bottom:1px;width:116px;height:56px;transform:translateX(-50%);border-radius:14px 14px 25px 25px;background:linear-gradient(180deg,#ffd79b,#ffb56b);border:4px solid #fff;box-shadow:0 9px 18px rgba(255,173,105,.24)}.basket:before{content:"";position:absolute;left:23px;right:23px;top:-24px;height:36px;border:6px solid #fff;border-bottom:0;border-radius:999px 999px 0 0}.basket:after{content:"🧺";position:absolute;left:50%;top:-17px;transform:translate(-50%,0) scale(.6);font-size:34px;opacity:0;transition:opacity .18s ease,transform .18s ease}
+    .overlay{position:absolute;inset:0;z-index:40;display:grid;place-items:center;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.36));backdrop-filter:blur(9px);transition:opacity .22s ease,transform .22s ease}.overlay.hidden{opacity:0;pointer-events:none;transform:scale(1.02)}.card{position:relative;width:min(92vw,548px);border-radius:36px;background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.88);box-shadow:0 28px 78px rgba(76,78,132,.25);padding:clamp(18px,4.6vw,32px);text-align:center;overflow:hidden}.card:before{content:"";position:absolute;width:230px;height:230px;left:-94px;top:-94px;border-radius:50%;background:radial-gradient(circle,rgba(255,143,196,.24),transparent 68%)}.card:after{content:"";position:absolute;width:260px;height:260px;right:-108px;bottom:-126px;border-radius:50%;background:radial-gradient(circle,rgba(131,215,255,.23),transparent 68%)}.card-content{position:relative;z-index:1}.title-bubble{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-bottom:11px;padding:8px 14px;border-radius:999px;background:#f2fbff;color:#5c74a1;font-size:13px;font-weight:1000}.card h1{margin:0;font-size:clamp(31px,8vw,50px);line-height:1.04;letter-spacing:-1px}.gradient{background:linear-gradient(90deg,var(--pink),var(--orange),#52c876,var(--blue),var(--lav));-webkit-background-clip:text;background-clip:text;color:transparent}.desc{margin:13px auto 18px;max-width:450px;color:#657796;font-size:clamp(15px,3.4vw,17px);font-weight:760;line-height:1.55}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0 20px}.feature{min-height:72px;border-radius:22px;background:linear-gradient(180deg,#fff,#f7fcff);box-shadow:var(--soft);padding:10px 8px;font-weight:950;font-size:12px;color:#627297}.feature span{display:block;font-size:27px;margin-bottom:5px}.primary,.secondary{appearance:none;border:0;border-radius:999px;min-height:58px;padding:0 25px;font-weight:1000;font-size:18px;cursor:pointer;transition:transform .12s ease,filter .12s ease}.primary{background:linear-gradient(135deg,var(--pink),var(--orange));color:#fff;box-shadow:0 14px 25px rgba(255,143,196,.25)}.secondary{background:#f6fbff;box-shadow:var(--soft);color:var(--ink)}.primary:active,.secondary:active{transform:scale(.96);filter:brightness(.98)}.btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.note{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.45}.reward-row{display:flex;justify-content:center;gap:8px;margin:14px 0 18px;flex-wrap:wrap}.medal{width:64px;height:64px;border-radius:22px;display:grid;place-items:center;font-size:36px;background:linear-gradient(180deg,#fff8ce,#ffe17f);box-shadow:var(--soft);animation:medal .45s ease both}.medal:nth-child(2){animation-delay:.08s}.medal:nth-child(3){animation-delay:.16s}.medal:nth-child(4){animation-delay:.24s}@keyframes medal{from{opacity:0;transform:translateY(10px) scale(.55) rotate(-12deg)}to{opacity:1;transform:translateY(0) scale(1) rotate(0)}}.confetti-piece{position:absolute;top:-35px;width:10px;height:18px;border-radius:5px;background:var(--pink);animation:fall var(--dur) ease-in forwards}@keyframes fall{to{transform:translateY(112dvh) rotate(620deg);opacity:.94}}
+    @media(max-width:760px){.juice-meter{top:66px;width:min(210px,62vw)}.app{min-height:610px}.mission{grid-template-columns:1fr}.album-card{display:none}.scorebar{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.chip{min-height:50px;border-radius:18px}.chip .emoji{font-size:19px}.chip .value{font-size:17px}.stage-wrap{height:calc(100dvh - 282px);min-height:360px}.friend{width:54px;height:54px;font-size:31px}.dot{width:31px;height:31px;border-radius:12px;font-size:18px}.order-card{min-height:76px;border-radius:25px}.player{width:128px;height:153px}.ear{width:31px;height:63px}.ear.l{left:39px}.ear.r{right:39px}.head{left:28px;top:40px;width:73px;height:72px}.eye{top:73px}.eye.l{left:52px}.eye.r{right:52px}.nose{top:83px}.mouth{top:89px}.cheek{top:88px}.cheek.l{left:37px}.cheek.r{right:37px}.body{left:36px;top:102px;width:56px;height:49px}.basket{width:104px;height:50px}.features{grid-template-columns:1fr}.feature{min-height:54px}.speech{max-width:78vw}.order-hint{display:none}}
+    @media(max-height:700px){.juice-meter{display:none}.hud{padding-top:10px}.mission{padding-bottom:6px}.scorebar{padding-bottom:6px}.stage-wrap{height:calc(100dvh - 226px);min-height:330px}.chip{min-height:48px}.order-card,.album-card{min-height:74px}.speech{font-size:13px;padding:10px 13px}.card{padding:18px}.desc{margin:9px auto 12px}.features{display:none}.card h1{font-size:clamp(28px,7vw,42px)}}
+  </style>
+</head>
+<body>
+  <main class="app" aria-label="Mimi Bunny's Picnic Delivery Dash game">
+    <div class="bg" aria-hidden="true"><div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="hill h1"></div><div class="hill h2"></div><div class="hill h3"></div></div>
+    <div class="ambient" id="ambient" aria-hidden="true"></div>
+    <header class="hud"><div class="brand"><div class="brand-badge"></div><div><strong id="brandTitle">Mimi Bunny's Picnic Delivery Dash</strong><span id="brandSub">Catch treats, deliver baskets, unlock stickers</span></div></div><div class="hud-actions"><button class="icon-btn" id="soundBtn" aria-label="Toggle sound">🔊</button><button class="icon-btn" id="pauseBtn" aria-label="Pause game">⏸</button></div></header>
+    <section class="mission" aria-label="Current mission"><div class="order-card" id="orderCard"><div class="friend" id="friendBadge">🐻</div><div class="order-copy"><div class="kicker" id="orderKicker">Order 1 / 3</div><div class="order-title" id="orderTitle">Bobo Bear wants strawberries</div><div class="order-hint" id="orderHint">Drag Mimi's basket under the glowing strawberries.</div></div><div class="dots" id="dots"></div></div><div class="album-card"><div><div class="album-title">Sticker Album</div><div class="album-sub">Deliver baskets to collect friends.</div></div><div class="album-row" id="albumRow"><div class="sticker">🐻</div><div class="sticker">🐥</div><div class="sticker">🦊</div></div></div></section>
+    <section class="scorebar" aria-label="Game status"><div class="chip" id="scoreChip"><span class="emoji">⭐</span><span><span class="label">Score</span><span class="value" id="scoreText">0</span></span></div><div class="chip" id="goalChip"><span class="emoji">🧺</span><span><span class="label">Basket</span><span class="value" id="goalText">0/4</span></span></div><div class="chip" id="comboChip"><span class="emoji">🔥</span><span><span class="label">Combo</span><span class="value" id="comboText">0</span></span></div><div class="chip" id="magicChip"><span class="emoji">⚡</span><span><span class="label">Joy</span><span class="value" id="magicText">0%</span></span></div></section>
+    <section class="stage-wrap"><div class="stage" id="stage"><div class="stage-gloss"></div><canvas id="canvas" aria-label="Interactive picnic stage"></canvas><div class="speech" id="speech">Drag Mimi's basket under the glowing treat!</div><div class="toast" id="toast">Nice catch!</div><div class="juice-meter" id="juiceMeter"><div class="joy-copy"><span>Joy</span><b id="joyText">0%</b></div><div class="joy-track"><i id="joyFill"></i></div></div><div class="friend-zone" id="friendZone"><div class="deliver-label" id="deliverLabel">Deliver here!</div><span id="friendZoneIcon">🐻</span></div><div class="coach" id="coach">👆</div><div class="player" id="player" aria-hidden="true"><div class="ring"></div><div class="shield"></div><div class="ear l"></div><div class="ear r"></div><div class="head"></div><div class="eye l"></div><div class="eye r"></div><div class="nose"></div><div class="mouth"></div><div class="cheek l"></div><div class="cheek r"></div><div class="body"></div><div class="basket"></div></div></div></section>
+    <div class="fx" id="fx" aria-hidden="true"></div><div class="confetti" id="confetti" aria-hidden="true"></div>
+    <div class="overlay" id="startOverlay"><div class="card"><div class="card-content"><div class="title-bubble">✨ Episode Bonus Interaction · V8 Playfeel Plus</div><h1><span class="gradient">Picnic Delivery</span><br/>Dash</h1><p class="desc">A more playful kids loop: smooth catching, perfect hits, Rainbow Party, delivery, and sticker rewards.</p><div class="features" aria-hidden="true"><div class="feature"><span>🧺</span>Drag-to-catch</div><div class="feature"><span>➡️</span>Deliver target</div><div class="feature"><span>🎁</span>Sticker reward</div></div><div class="btn-row"><button class="primary" id="startBtn">Start Picnic Run</button></div><div class="note">Single-file H5. No external assets, ads, or third-party tracking. Built for WebView testing.</div></div></div></div>
+    <div class="overlay hidden" id="resultOverlay"><div class="card"><div class="card-content"><div class="title-bubble" id="resultBadge">🎉 Picnic Delivered</div><h1 id="resultTitle"><span class="gradient">All Baskets Delivered!</span></h1><p class="desc" id="resultDesc">Mimi saved a sticker pack for you.</p><div class="reward-row" id="rewardRow"></div><div class="btn-row"><button class="primary" id="restartBtn">Play Again</button><button class="secondary" id="finishBtn">Back to App</button></div><div class="note">Bridge events include GAME_READY, ITEM_COLLECTED, SNACK_WAVE_STARTED, RAINBOW_PARTY_STARTED, ORDER_DELIVERED, GAME_FINISHED, CLOSE_GAME.</div></div></div></div>
+  </main>
+<script>
+  const GAME_CONFIG = {
+    gameId:"mimi_picnic_delivery_dash_v8_playfeel_plus_001",
+    characterName:"Mimi Bunny",
+    title:"Mimi Bunny's Picnic Delivery Dash",
+    subtitle:"Slide, catch, perfect-hit, party, deliver stickers",
+    totalSeconds:90,
+    orders:[
+      {friend:"Bobo Bear", friendIcon:"🐻", item:"🍓", itemName:"strawberries", need:3, color:"#ff8fc4", sticker:"🐻", hint:"Slide the basket under the pink strawberries."},
+      {friend:"Didi Duck", friendIcon:"🐥", item:"🧁", itemName:"cupcakes", need:3, color:"#ffad69", sticker:"🐥", hint:"Catch cupcakes in a smooth rhythm. Perfect catches fill Joy!"},
+      {friend:"Pip Fox", friendIcon:"🦊", item:"🌸", itemName:"flower treats", need:4, color:"#83d7ff", sticker:"🦊", hint:"Catch flowers, fill Joy, then deliver the basket."}
+    ],
+    bonus:["⭐","✨","💎","🍪","🍇","🌟"],
+    clouds:["☁️","🌧️"],
+    powers:["🧲","🌈","🫧"],
+    bridgeVersion:"8.0.0",
+    tuning:{
+      earlyGuideMs:1450,
+      idleGuideMs:1750,
+      softAssistMs:5200,
+      maxFallingItems:4,
+      maxTargets:2
+    }
+  };
+
+  const $ = id => document.getElementById(id);
+  const stage = $("stage"), canvas = $("canvas"), ctx = canvas.getContext("2d");
+  const ambient = $("ambient"), fx = $("fx"), confetti = $("confetti"), playerEl = $("player");
+  const startOverlay = $("startOverlay"), resultOverlay = $("resultOverlay"), friendZone = $("friendZone"), friendZoneIcon = $("friendZoneIcon"), deliverLabel = $("deliverLabel");
+  const speech = $("speech"), coach = $("coach"), toast = $("toast"), soundBtn = $("soundBtn"), pauseBtn = $("pauseBtn");
+  const juiceMeter = $("juiceMeter"), joyFill = $("joyFill"), joyText = $("joyText");
+  const friendBadge = $("friendBadge"), orderCard = $("orderCard"), orderKicker = $("orderKicker"), orderTitle = $("orderTitle"), orderHint = $("orderHint"), dots = $("dots"), albumRow = $("albumRow");
+  const scoreText = $("scoreText"), goalText = $("goalText"), comboText = $("comboText"), magicText = $("magicText");
+  const chips = {score:$("scoreChip"), goal:$("goalChip"), combo:$("comboChip"), magic:$("magicChip")};
+
+  let DPR = 1, W = 0, H = 0, raf = 0, last = 0;
+  let audioCtx = null, audioOn = true;
+  const bestKey = "mimiDeliveryDashV8Best";
+  const rnd = (a,b)=>Math.random()*(b-a)+a;
+  const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+  const pick = arr=>arr[Math.floor(Math.random()*arr.length)];
+  const now = ()=>performance.now();
+  const order = ()=>GAME_CONFIG.orders[state.orderIndex] || GAME_CONFIG.orders[GAME_CONFIG.orders.length-1];
+  const playing = ()=>["collect","deliver"].includes(state.mode) && !state.paused && !state.transitioning;
+
+  const state = {
+    mode:"idle", paused:false, transitioning:false, startedAt:0, pauseStarted:0, pausedMs:0,
+    orderIndex:0, progress:0, score:0, combo:0, maxCombo:0, timeLeft:GAME_CONFIG.totalSeconds,
+    spawnAcc:0, pointer:false, lastInput:0, coachMode:"drag", coachT:0,
+    orderStartedAt:0, failStreak:0, softAssistUntil:0, lastHelpAt:0, lastCloudAt:0,
+    magnetUntil:0, rushUntil:0, shield:0, joy:0, perfectStreak:0, waveCooldownUntil:0,
+    player:{x:0,y:0,tx:0,ty:0,vx:0,vy:0,tilt:0,bounce:0,hit:64},
+    deliverZone:{x:0,y:0,r:92},
+    items:[], particles:[], texts:[], ribbons:[], ripples:[], bgStars:[],
+    metrics:{targets:0,bonus:0,powers:0,clouds:0,deliveries:0,misses:0,nearAssists:0,perfect:0,great:0,soft:0,waves:0,parties:0}
+  };
+
+  $("brandTitle").textContent = GAME_CONFIG.title;
+  $("brandSub").textContent = GAME_CONFIG.subtitle;
+  soundBtn.textContent = audioOn ? "🔊" : "🔈";
+
+  function initAmbient(){
+    ambient.innerHTML = "";
+    for(let i=0;i<42;i++){
+      const d = document.createElement("i");
+      d.className = "ambient-dot";
+      d.style.left = rnd(2,98) + "vw";
+      d.style.top = rnd(4,92) + "dvh";
+      d.style.setProperty("--dur", rnd(2.1,5.8) + "s");
+      d.style.animationDelay = rnd(-5,0) + "s";
+      ambient.appendChild(d);
+    }
+  }
+
+  function resize(){
+    const r = stage.getBoundingClientRect();
+    W = Math.max(320, r.width); H = Math.max(300, r.height);
+    DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    state.deliverZone.x = W - Math.min(Math.max(W*.14, 92), 130);
+    state.deliverZone.y = H - Math.min(Math.max(H*.20, 88), 125);
+    state.deliverZone.r = Math.min(Math.max(W*.11, 74), 102);
+    if(!state.player.x){
+      state.player.x = W*.50; state.player.y = H*.78; state.player.tx = state.player.x; state.player.ty = state.player.y;
+    }
+    state.player.x = clamp(state.player.x, 62, W-62); state.player.y = clamp(state.player.y, H*.30, H-72);
+    state.player.tx = clamp(state.player.tx, 62, W-62); state.player.ty = clamp(state.player.ty, H*.30, H-72);
+    state.bgStars.length = 0;
+    for(let i=0;i<34;i++) state.bgStars.push({x:rnd(20,W-20),y:rnd(24,H-80),r:rnd(1.1,3.2),a:rnd(.12,.65),tw:rnd(.8,2.2)});
+    updatePlayerDom();
+    updateFriendZoneDom();
+  }
+
+  function playerSize(){return window.matchMedia("(max-width:760px)").matches ? {w:128,h:153} : {w:148,h:176};}
+  function updatePlayerDom(){
+    const p = state.player, s = playerSize();
+    const scale = 1 + p.bounce*.07;
+    playerEl.style.transform = `translate3d(${(p.x-s.w/2).toFixed(1)}px,${(p.y-s.h*.59).toFixed(1)}px,0) rotate(${p.tilt.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+    playerEl.classList.toggle("magnet", now() < state.magnetUntil);
+    playerEl.classList.toggle("shield", state.shield > 0);
+    playerEl.classList.toggle("loaded", state.mode === "deliver");
+    if(state.items){
+      const cp = catchPoint();
+      const ready = state.mode === "collect" && state.items.some(i=>i.type==="target" && !i.dead && Math.hypot(i.x-cp.x,i.y-cp.y)<174);
+      playerEl.classList.toggle("ready-catch", ready);
+    }
+  }
+  function updateFriendZoneDom(){
+    const z = state.deliverZone;
+    const size = z.r*2;
+    friendZone.style.width = size + "px";
+    friendZone.style.height = size + "px";
+    friendZone.style.right = (W - z.x - z.r) + "px";
+    friendZone.style.bottom = (H - z.y - z.r) + "px";
+  }
+
+  function reset(){
+    state.mode="idle"; state.paused=false; state.transitioning=false; state.startedAt=0; state.pauseStarted=0; state.pausedMs=0;
+    state.orderIndex=0; state.progress=0; state.score=0; state.combo=0; state.maxCombo=0; state.timeLeft=GAME_CONFIG.totalSeconds;
+    state.spawnAcc=0; state.pointer=false; state.lastInput=now(); state.orderStartedAt=now(); state.failStreak=0; state.softAssistUntil=0; state.lastHelpAt=0; state.lastCloudAt=0; state.magnetUntil=0; state.rushUntil=0; state.shield=0; state.joy=0; state.perfectStreak=0; state.waveCooldownUntil=0;
+    state.items.length=0; state.particles.length=0; state.texts.length=0; state.ribbons.length=0; state.ripples.length=0;
+    state.metrics={targets:0,bonus:0,powers:0,clouds:0,deliveries:0,misses:0,nearAssists:0,perfect:0,great:0,soft:0,waves:0,parties:0};
+    state.player.x=W*.50; state.player.y=H*.78; state.player.tx=state.player.x; state.player.ty=state.player.y; state.player.vx=0; state.player.vy=0; state.player.bounce=0;
+    friendZone.classList.remove("on","ready"); coach.classList.remove("on"); fx.innerHTML=""; pauseBtn.textContent="⏸";
+    updateOrderUI(); updateHud(); updatePlayerDom(); setSpeech(order().hint); draw(now());
+  }
+
+  function startGame(){
+    unlockAudio(); reset();
+    startOverlay.classList.add("hidden"); resultOverlay.classList.add("hidden");
+    state.mode="collect"; state.startedAt=Date.now(); state.lastInput=now();
+    sendToApp("GAME_STARTED", {gameId:GAME_CONFIG.gameId, version:GAME_CONFIG.bridgeVersion});
+    sendToApp("ORDER_STARTED", orderPayload());
+    showToast("Slide, catch, deliver!");
+    setSpeech("Slide Mimi's basket under the glowing treat. Perfect catches fill Joy!");
+    state.orderStartedAt = now();
+    spawnOpening();
+    last = now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
+  }
+
+  function loop(t){
+    const dt = Math.min(.033, Math.max(.001, (t-last)/1000 || .016)); last = t;
+    if(!state.paused && state.mode !== "idle" && state.mode !== "ended") update(dt, t);
+    draw(t);
+    raf = requestAnimationFrame(loop);
+  }
+
+  function update(dt, t){
+    if(playing()){
+      const elapsed = Math.floor((Date.now() - state.startedAt - state.pausedMs)/1000);
+      state.timeLeft = Math.max(0, GAME_CONFIG.totalSeconds - elapsed);
+      if(state.timeLeft <= 0) return endGame(false);
+    }
+    updatePlayer(dt);
+    if(state.mode === "collect") updateSpawning(dt, t);
+    updateItems(dt, t);
+    updateParticles(dt); updateTexts(dt); updateRibbons(dt); updateCoach(t); updateHud();
+    if(state.mode === "deliver") checkDelivery(t);
+  }
+
+  function basketOffset(){return window.matchMedia("(max-width:760px)").matches ? 34 : 42;}
+  function catchPoint(){return {x:state.player.x, y:state.player.y + basketOffset()};}
+
+  function updatePlayer(dt){
+    const p = state.player;
+    const stiff = state.pointer ? 118 : 64;
+    const damp = state.pointer ? 22.5 : 16.5;
+    const ax = (p.tx - p.x) * stiff - p.vx * damp;
+    const ay = (p.ty - p.y) * stiff - p.vy * damp;
+    p.vx += ax * dt; p.vy += ay * dt;
+    p.x += p.vx * dt; p.y += p.vy * dt;
+    const minY = state.mode === "deliver" ? H*.20 : H*.28;
+    p.x = clamp(p.x, 62, W-62); p.y = clamp(p.y, minY, H-72);
+    p.tx = clamp(p.tx, 62, W-62); p.ty = clamp(p.ty, minY, H-72);
+    p.tilt = clamp(p.vx/820, -7, 7);
+    p.bounce = Math.max(0, p.bounce - dt*4.4);
+    updatePlayerDom();
+  }
+
+  function updateSpawning(dt,t){
+    state.spawnAcc += dt*1000;
+    const left = order().need - state.progress;
+    const orderAge = t - state.orderStartedAt;
+    const rush = t < state.rushUntil;
+    const help = t < state.softAssistUntil || state.failStreak > 0 || (orderAge > 5200 && state.progress === 0);
+    const interval = rush ? 390 : Math.max(610, 880 - state.orderIndex*48 - (left<=1?90:0) + (help?-90:0));
+    const targets = state.items.filter(i=>i.type==="target").length;
+    const falling = state.items.length;
+    while(state.spawnAcc >= interval && falling < GAME_CONFIG.tuning.maxFallingItems){
+      state.spawnAcc -= interval;
+      spawnItem(help && targets < 2 ? "target" : undefined);
+      break;
+    }
+    if(targets < 1 && Math.random() < (help ? .075 : .038)) spawnItem("target", guideSpawnX(), -46);
+  }
+
+  function spawnOpening(){
+    const base = clamp(state.player.x, W*.28, W*.72);
+    for(let i=0;i<2;i++) setTimeout(()=>{ if(state.mode==="collect") spawnItem("target", clamp(base + (i-.5)*64, 64, W-64), -35-i*58); }, i*220);
+  }
+
+  function guideSpawnX(){
+    const wiggle = state.failStreak ? 44 : 95;
+    return clamp(state.player.x + rnd(-wiggle, wiggle), 64, W-64);
+  }
+
+  function spawnItem(force, fx, fy){
+    if(state.mode !== "collect") return;
+    const t = now();
+    let type = force;
+    if(!type){
+      const r = Math.random();
+      const helping = t < state.softAssistUntil || state.failStreak > 0;
+      const nearGoal = state.progress >= order().need - 1;
+      const allowCloud = state.progress > 0 && state.failStreak === 0 && t - state.lastCloudAt > 5200 && !nearGoal;
+      if(t < state.rushUntil) type = r < .88 ? "target" : (r < .96 ? "bonus" : "power");
+      else if(helping || nearGoal) type = r < .84 ? "target" : (r < .95 ? "bonus" : "power");
+      else type = r < .70 ? "target" : (r < .84 ? "bonus" : (r < .95 ? "power" : (allowCloud ? "cloud" : "target")));
+      if(type === "cloud") state.lastCloudAt = t;
+    }
+    if(type === "target" && state.items.filter(i=>i.type==="target").length >= GAME_CONFIG.tuning.maxTargets) return;
+    const o = order();
+    let emoji = o.item;
+    if(type === "bonus") emoji = pick(GAME_CONFIG.bonus);
+    if(type === "power") emoji = pick(GAME_CONFIG.powers);
+    if(type === "cloud") emoji = pick(GAME_CONFIG.clouds);
+    const guided = type === "target" && (state.failStreak || t < state.softAssistUntil || Math.random() < .42);
+    const baseX = fx ?? (guided ? guideSpawnX() : rnd(62,W-62));
+    const speedBase = type === "cloud" ? 44 : (type === "target" ? 50 : 56);
+    const speed = speedBase + state.orderIndex*5 + rnd(0, type === "target" ? 18 : 26) - (state.failStreak?10:0);
+    const item = {id:Math.random().toString(36).slice(2), type, emoji, x:baseX, y:fy ?? -55, px:0, py:0, vx:rnd(-8,8), vy:speed, r:type==="target"?42:(type==="cloud"?30:33), wob:rnd(0,Math.PI*2), spin:rnd(-.6,.6), scale:.2, alpha:1, dead:false, color:type==="target"?o.color:(type==="power"?"#c8b7ff":"#ffffff"), attract:0, born:t};
+    state.items.push(item);
+  }
+
+  function catchQuality(dist){
+    if(dist < 58) return {key:"perfect", label:"PERFECT!", joy:26, score:18, haptic:30, big:true};
+    if(dist < 104) return {key:"great", label:"Great!", joy:18, score:10, haptic:22, big:false};
+    return {key:"soft", label:"Nice!", joy:11, score:4, haptic:14, big:false};
+  }
+
+  function spawnSnackWave(reason="combo"){
+    const t = now();
+    if(state.mode !== "collect" || state.transitioning || t < state.waveCooldownUntil) return;
+    const remaining = order().need - state.progress;
+    if(remaining <= 1) return;
+    state.waveCooldownUntil = t + 1900;
+    state.metrics.waves++;
+    const count = Math.min(2, remaining);
+    const center = clamp(state.player.x, W*.26, W*.74);
+    showToast(reason === "perfect" ? "Perfect wave!" : "Snack wave!");
+    setSpeech(reason === "perfect" ? "Perfect! A tiny snack wave is coming." : "Nice rhythm! Catch the little snack wave.");
+    for(let i=0;i<count;i++){
+      setTimeout(()=>{ if(state.mode === "collect") spawnItem("target", clamp(center + (i-.5)*(74 + state.orderIndex*8), 64, W-64), -42-i*54); }, i*140);
+    }
+    sendToApp("SNACK_WAVE_STARTED", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, reason, remaining});
+  }
+
+  function updateItems(dt,t){
+    const cp = catchPoint();
+    for(const it of state.items){
+      it.px=it.x; it.py=it.y; it.scale = Math.min(1, it.scale + dt*7.5); it.wob += dt*2.7;
+      if(it.type !== "deliver"){
+        it.x += (it.vx + Math.sin(it.wob)*8) * dt;
+        it.y += it.vy * dt;
+      }
+      const dx = cp.x - it.x, dy = cp.y - it.y, dist = Math.hypot(dx,dy);
+      const magnetic = t < state.magnetUntil;
+      const helping = t < state.softAssistUntil || state.failStreak > 0;
+      let assist = it.type==="target" ? 214 : 128;
+      if(helping && it.type==="target") assist += 58;
+      if(magnetic && (it.type==="target" || it.type==="bonus")) assist = Math.max(assist, 286);
+      if(t < state.rushUntil && it.type==="target") assist += 42;
+      if(dist < assist && it.type !== "cloud" && state.mode === "collect"){
+        const f = it.type==="target" ? (magnetic?620:(helping?485:390)) : (magnetic?390:190);
+        const k = (1 - dist/assist) * f;
+        it.x += dx/Math.max(1,dist)*k*dt; it.y += dy/Math.max(1,dist)*k*dt;
+        if(it.type==="target") it.vy *= (1 - Math.min(.22, dt*2.6));
+        it.attract = Math.min(1, it.attract + dt*5.2);
+        if(it.type==="target" && dist < assist*.88) state.metrics.nearAssists += dt;
+      }else it.attract = Math.max(0, it.attract - dt*3);
+      it.x = clamp(it.x, 28, W-28);
+      const hit = (it.type==="target" ? 108 : 74) + it.r + (helping && it.type==="target" ? 24 : 0);
+      if(dist < hit && !it.dead && state.mode === "collect") collect(it, dist);
+      if(it.y > H + 80 && !it.dead){
+        it.dead=true;
+        if(it.type==="target"){
+          state.metrics.misses++; state.failStreak++;
+          if(state.failStreak >= 2 && t - state.lastHelpAt > 1400){
+            state.softAssistUntil = t + GAME_CONFIG.tuning.softAssistMs; state.lastHelpAt = t;
+            showToast("Mimi helps!"); setSpeech("No worries — the next treat will come closer.");
+            sendToApp("ASSIST_TRIGGERED", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, failStreak:state.failStreak});
+            setTimeout(()=>{ if(state.mode === "collect") spawnItem("target", guideSpawnX(), -42); }, 220);
+          }
+        }
+      }
+    }
+    state.items = state.items.filter(i=>!i.dead);
+  }
+
+  function collect(it, hitDist=999){
+    if(it.dead || state.transitioning || state.mode !== "collect") return;
+    it.dead = true; state.player.bounce = 1;
+    playerEl.classList.remove("squash"); void playerEl.offsetWidth; playerEl.classList.add("squash");
+    const x=it.x,y=it.y;
+    if(it.type === "target"){
+      state.failStreak = 0; state.softAssistUntil = Math.max(0, state.softAssistUntil - 1300);
+      const quality = catchQuality(hitDist);
+      const value = now() < state.rushUntil ? 2 : 1;
+      state.progress = Math.min(order().need, state.progress + value);
+      state.combo++; state.maxCombo = Math.max(state.maxCombo, state.combo);
+      state.score += 12 + Math.min(34, state.combo*3) + quality.score + (value>1?12:0);
+      state.joy = Math.min(100, state.joy + quality.joy + (value>1?10:0));
+      state.metrics.targets += value;
+      state.metrics[quality.key]++;
+      if(quality.key === "perfect") state.perfectStreak++; else state.perfectStreak = 0;
+      juicyCatch(x,y,order().color,order().item,value,quality);
+      pulse(chips.goal); pulse(chips.combo); pulse(chips.magic); fillDots(); playCatch(state.combo, value, quality.key); haptic(quality.haptic + (value>1?6:0));
+      if(quality.key === "perfect") showToast(state.perfectStreak >= 2 ? "Perfect streak!" : "Perfect catch!");
+      else if(state.combo === 3) showToast("Nice rhythm!");
+      if(state.progress === order().need - 1) { showToast("One more!"); setSpeech("One more treat, then deliver the basket!"); }
+      if(state.progress < order().need && (state.combo === 3 || state.perfectStreak === 2)) spawnSnackWave(quality.key === "perfect" ? "perfect" : "combo");
+      if(state.progress < order().need && state.joy >= 100 && now() >= state.rushUntil) triggerRush(5600, false, true);
+      sendToApp("ITEM_COLLECTED", {gameId:GAME_CONFIG.gameId, type:"target", item:it.emoji, quality:quality.key, orderIndex:state.orderIndex, progress:state.progress, combo:state.combo, joy:Math.round(state.joy), score:state.score});
+      if(state.progress >= order().need) enterDelivery();
+      else if(state.progress === 1) setSpeech("Great catch! Perfect catches fill Joy for Rainbow Party.");
+    }else if(it.type === "bonus"){
+      state.combo++; state.maxCombo = Math.max(state.maxCombo, state.combo); state.score += 7 + Math.min(18,state.combo); state.joy = Math.min(100, state.joy + 8); state.metrics.bonus++;
+      juicyCatch(x,y,"#ffe982",it.emoji,1,{key:"bonus",label:"Bonus!",joy:8,score:7,haptic:15,big:false}); pulse(chips.score); pulse(chips.magic); playTone(720,.055,"triangle",.042);
+    }else if(it.type === "power"){
+      state.joy = Math.min(100, state.joy + 14); usePower(it.emoji,x,y); pulse(chips.magic); sendToApp("POWER_UP_USED", {gameId:GAME_CONFIG.gameId, power:it.emoji, orderIndex:state.orderIndex, score:state.score});
+    }else if(it.type === "cloud"){
+      state.metrics.clouds++;
+      if(state.shield>0){state.shield--; burst(x,y,"#83d7ff",20,1.0); floatText("bubble save",x,y,"#83d7ff"); setSpeech("Bubble saved Mimi. Keep going!"); playTone(420,.07,"sine",.04);}
+      else{state.combo=Math.max(0,state.combo-1); state.perfectStreak=0; burst(x,y,"#ffffff",9,.6); floatText("soft cloud",x,y,"#ffffff"); setSpeech("Soft cloud! No worry — catch a bright treat next."); playTone(260,.055,"sine",.025);}
+      haptic(8);
+    }
+    updateHud(); updatePlayerDom();
+  }
+
+  function usePower(emoji,x,y){
+    state.combo++; state.score += 12; state.metrics.powers++;
+    if(emoji === "🧲") {state.magnetUntil = now()+6600; showToast("Magic Magnet!"); setSpeech("Magic Magnet! Just guide the basket close."); burst(x,y,"#c8b7ff",24,1.15); playPower();}
+    else if(emoji === "🌈") {triggerRush(6500,true,false); burst(x,y,"#ffe982",30,1.25);}
+    else {state.shield = Math.min(2,state.shield+1); showToast("Bubble Shield!"); setSpeech("Bubble Shield! Clouds are gentle."); burst(x,y,"#83d7ff",24,1.12); playPower();}
+    haptic(18);
+  }
+
+  function triggerRush(ms=6000, fromPower=true, joyTriggered=false){
+    state.rushUntil = Math.max(state.rushUntil, now()+ms);
+    state.joy = joyTriggered ? 0 : Math.min(state.joy, 65);
+    state.metrics.parties++;
+    showToast(joyTriggered ? "Rainbow Party!" : "Rainbow Rush!");
+    setSpeech(joyTriggered ? "Joy full! Rainbow Party makes treats count double." : "Rainbow Rush! The next glowing treats count double.");
+    for(let i=0;i<3;i++) setTimeout(()=>spawnItem("target", clamp(state.player.x + (i-1)*76,64,W-64), -50-i*44), i*130);
+    playPower();
+    sendToApp("RAINBOW_PARTY_STARTED", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, fromPower, joyTriggered});
+  }
+
+  function enterDelivery(){
+    if(state.mode !== "collect" || state.transitioning) return;
+    state.mode = "deliver"; state.transitioning = false; state.items.length = 0; state.combo = Math.max(state.combo, 1); state.rushUntil = 0; state.perfectStreak = 0; state.waveCooldownUntil = 0;
+    friendZoneIcon.textContent = order().friendIcon; deliverLabel.textContent = `Deliver to ${order().friend}!`;
+    friendZone.classList.add("on"); friendZone.classList.remove("ready"); void friendZone.offsetWidth; friendZone.classList.add("ready");
+    setSpeech(`Basket full! Follow the rainbow arrow to ${order().friend}.`);
+    showToast("Now deliver!");
+    state.player.tx = W*.58; state.player.ty = H*.66;
+    state.coachMode = "deliver"; state.lastInput = 0; updateFriendZoneDom(); updatePlayerDom();
+    sendToApp("DELIVERY_READY", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, friend:order().friend, score:state.score});
+  }
+
+  function checkDelivery(t){
+    if(state.transitioning) return;
+    const cp = catchPoint(), z = state.deliverZone;
+    const d = Math.hypot(cp.x-z.x, cp.y-z.y);
+    if(d < z.r*.92) completeDelivery();
+    else if(d < z.r*1.55){
+      friendZone.classList.add("ready");
+      const pull = .055;
+      state.player.tx += (z.x - cp.x) * pull;
+      state.player.ty += (z.y - cp.y) * pull;
+    }
+  }
+
+  function completeDelivery(){
+    if(state.transitioning) return;
+    state.transitioning = true;
+    const o = order();
+    state.metrics.deliveries++; state.score += 48 + state.combo*4;
+    friendZone.classList.remove("on");
+    playerEl.classList.remove("cheer"); void playerEl.offsetWidth; playerEl.classList.add("cheer");
+    friendBadge.classList.remove("pop"); void friendBadge.offsetWidth; friendBadge.classList.add("pop");
+    const s = albumRow.children[state.orderIndex]; if(s) s.classList.add("on");
+    burst(state.deliverZone.x, state.deliverZone.y, o.color, 40, 1.5); fireConfetti(46); playDelivery(); haptic(24);
+    setSpeech(`${o.friend} got the ${o.itemName}! Sticker unlocked.`); showToast(`${o.friendIcon} Sticker unlocked!`); pulse(chips.score);
+    sendToApp("ORDER_DELIVERED", {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, friend:o.friend, score:state.score});
+    setTimeout(()=>{
+      state.orderIndex++; state.progress=0; state.combo=0; state.perfectStreak=0; state.spawnAcc=0; state.waveCooldownUntil=0; state.items.length=0; state.ribbons.length=0; state.ripples.length=0;
+      if(state.orderIndex >= GAME_CONFIG.orders.length){endGame(true); return;}
+      state.mode="collect"; state.transitioning=false; state.lastInput=now(); state.orderStartedAt=now(); state.failStreak=0; state.softAssistUntil=0; updateOrderUI(); updateHud();
+      setSpeech(order().hint); sendToApp("ORDER_STARTED", orderPayload()); spawnOpening(); showToast("Next friend!");
+    }, 1200);
+  }
+
+  function endGame(completed){
+    if(state.mode === "ended") return;
+    state.mode="ended"; state.transitioning=false; cancelAnimationFrame(raf); state.items.length=0; state.ribbons.length=0; state.ripples.length=0; friendZone.classList.remove("on"); coach.classList.remove("on");
+    const best = Math.max(Number(localStorage.getItem(bestKey)||0), state.score); localStorage.setItem(bestKey, String(best));
+    const complete = completed || state.metrics.deliveries >= GAME_CONFIG.orders.length;
+    const stickers = GAME_CONFIG.orders.slice(0,state.metrics.deliveries).map(o=>o.sticker);
+    $("resultBadge").textContent = complete ? "🎉 Picnic Delivered" : "🌤️ Nice Picnic Try";
+    $("resultTitle").innerHTML = complete ? `<span class="gradient">All Baskets Delivered!</span>` : "Great Helper!";
+    $("resultDesc").textContent = complete ? `Score ${state.score}. Best ${best}. ${state.metrics.perfect} perfect catches. Mimi saved your sticker pack.` : `Score ${state.score}. You delivered ${state.metrics.deliveries} basket${state.metrics.deliveries===1?"":"s"}.`;
+    $("rewardRow").innerHTML = (stickers.length?stickers:["⭐"]).map(x=>`<div class="medal">${x}</div>`).join("") + `<div class="medal">⭐</div>`;
+    resultOverlay.classList.remove("hidden"); fireConfetti(88); playVictory(); updateHud(); draw(now());
+    sendToApp("GAME_FINISHED", {gameId:GAME_CONFIG.gameId, version:GAME_CONFIG.bridgeVersion, completed:complete, score:state.score, bestScore:best, deliveries:state.metrics.deliveries, maxCombo:state.maxCombo, metrics:state.metrics, duration:Math.round((Date.now()-state.startedAt-state.pausedMs)/1000), finishedAt:new Date().toISOString()});
+  }
+
+  function updateOrderUI(){
+    const o = order(); friendBadge.textContent=o.friendIcon; orderKicker.textContent=`Order ${state.orderIndex+1} / ${GAME_CONFIG.orders.length}`; orderTitle.textContent=`${o.friend} wants ${o.itemName}`; orderHint.textContent=o.hint;
+    dots.innerHTML=""; for(let i=0;i<o.need;i++){const d=document.createElement("div"); d.className="dot"; d.textContent=o.item; dots.appendChild(d);}
+    [...albumRow.children].forEach((el,i)=>{el.textContent=GAME_CONFIG.orders[i].sticker; el.classList.toggle("on", i < state.metrics.deliveries);});
+    orderCard.style.setProperty("--fill", `${(state.progress/o.need)*100}%`);
+  }
+  function fillDots(){
+    const o=order(); [...dots.children].forEach((el,i)=>{const on=i<state.progress; if(on && !el.classList.contains("on")){el.classList.add("on","just"); setTimeout(()=>el.classList.remove("just"),360);} else el.classList.toggle("on",on);});
+    orderCard.style.setProperty("--fill", `${(state.progress/o.need)*100}%`);
+  }
+  function updateHud(){
+    scoreText.textContent = state.score; goalText.textContent = `${Math.min(state.progress, order().need)}/${order().need}`; comboText.textContent = state.combo;
+    const magic = Math.max(0, Math.ceil((Math.max(state.magnetUntil,state.rushUntil)-now())/1000));
+    if(magic){ magicText.textContent = magic + "s"; } else { magicText.textContent = Math.round(state.joy) + "%"; }
+    if(joyFill) joyFill.style.width = `${Math.min(100, state.joy)}%`;
+    if(joyText) joyText.textContent = magic ? "Party" : `${Math.round(state.joy)}%`;
+    if(juiceMeter) juiceMeter.classList.toggle("party", magic>0);
+  }
+  function setSpeech(text){speech.textContent=text; speech.classList.remove("pop"); void speech.offsetWidth; speech.classList.add("pop");}
+  function showToast(text){toast.textContent=text; toast.classList.remove("show"); void toast.offsetWidth; toast.classList.add("show");}
+  function pulse(el){el.classList.remove("pulse"); void el.offsetWidth; el.classList.add("pulse");}
+
+  function updateCoach(t){
+    if(state.mode !== "collect" && state.mode !== "deliver"){coach.classList.remove("on");return;}
+    const idle = t - state.lastInput;
+    if(idle < GAME_CONFIG.tuning.idleGuideMs || state.pointer){coach.classList.remove("on");return;}
+    coach.classList.add("on");
+    if(state.mode === "deliver"){
+      coach.style.left = `${state.deliverZone.x - 18}px`; coach.style.top = `${state.deliverZone.y - 18}px`; coach.textContent="👆";
+    }else{
+      const target = state.items.filter(i=>i.type==="target").sort((a,b)=>b.y-a.y)[0] || {x:W*.55,y:H*.42};
+      coach.style.left = `${target.x}px`; coach.style.top = `${target.y}px`; coach.textContent="👆";
+    }
+  }
+
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    drawBgStars(t); drawCatchZone(t); drawGuide(t); if(state.mode === "deliver") drawDeliveryTrail(t); drawRibbons(t); drawItems(t); drawParticles(); drawRipples(); drawTexts();
+  }
+  function drawBgStars(t){
+    for(const s of state.bgStars){const a=s.a*(.55+.45*Math.sin(t/900*s.tw+s.x)); ctx.globalAlpha=a; ctx.fillStyle="#fff"; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();}
+    ctx.globalAlpha=1;
+  }
+  function drawCatchZone(t){
+    if(state.mode !== "collect") return;
+    const cp = catchPoint();
+    const near = state.items.filter(i=>i.type==="target" && !i.dead).map(i=>({i,d:Math.hypot(i.x-cp.x,i.y-cp.y)})).sort((a,b)=>a.d-b.d)[0];
+    if(!near || near.d > 190) return;
+    const a = clamp(1 - near.d/190, .08, .62);
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.strokeStyle = hexToRgba(order().color,.72);
+    ctx.lineWidth = 4;
+    ctx.setLineDash([10,12]); ctx.lineDashOffset = -t/70;
+    ctx.beginPath(); ctx.arc(cp.x, cp.y, 68 + Math.sin(t/160)*3, 0, Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
+    ctx.globalAlpha = a*.25; ctx.fillStyle = hexToRgba(order().color,.42); ctx.beginPath(); ctx.arc(cp.x, cp.y, 70, 0, Math.PI*2); ctx.fill();
+    ctx.restore(); ctx.globalAlpha=1;
+  }
+  function drawGuide(t){
+    if(state.mode !== "collect") return;
+    const idle = t - state.lastInput;
+    const activeHelp = !state.pointer && (idle > GAME_CONFIG.tuning.earlyGuideMs || t < state.softAssistUntil || state.failStreak > 0);
+    if(!activeHelp) return;
+    const target = state.items.filter(i=>i.type==="target").sort((a,b)=>a.y-b.y)[0];
+    if(!target) return;
+    const cp = catchPoint();
+    const dx = target.x - cp.x;
+    ctx.save();
+    // V6: no full-screen dashed path during catching. Only a soft lane hint after the child is idle.
+    ctx.globalAlpha = .28 + .08*Math.sin(t/300);
+    const grad=ctx.createRadialGradient(target.x,target.y,4,target.x,target.y,95);
+    grad.addColorStop(0,hexToRgba(order().color,.30)); grad.addColorStop(.55,hexToRgba(order().color,.10)); grad.addColorStop(1,"rgba(255,255,255,0)");
+    ctx.fillStyle=grad; ctx.beginPath(); ctx.ellipse(target.x,target.y,88,62,0,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha = .52;
+    ctx.fillStyle = hexToRgba(order().color,.68);
+    for(let i=0;i<3;i++){
+      const k=(i+1)/4; const x=cp.x + dx*k; const y=cp.y*(1-k)+target.y*k + Math.sin(t/260+i)*4;
+      ctx.beginPath(); ctx.arc(x,y,5-i*.7,0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha=.78; ctx.font="900 22px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText("👆", target.x, target.y-56);
+    ctx.restore(); ctx.globalAlpha=1;
+  }
+
+  function drawDeliveryTrail(t){
+    const p=catchPoint(),z=state.deliverZone;
+    ctx.save(); ctx.globalAlpha=.92; ctx.lineCap="round"; ctx.lineJoin="round";
+    const grad=ctx.createLinearGradient(p.x,p.y,z.x,z.y); grad.addColorStop(0,"rgba(255,143,196,.15)"); grad.addColorStop(.45,"rgba(255,233,130,.70)"); grad.addColorStop(1,"rgba(131,215,255,.18)");
+    ctx.strokeStyle=grad; ctx.lineWidth=18; ctx.setLineDash([18,14]); ctx.lineDashOffset = -t/55;
+    ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.quadraticCurveTo(W*.52,H*.42,z.x,z.y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle="rgba(255,255,255,.92)"; ctx.font="900 26px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    const prog = (.5+.5*Math.sin(t/380)); const x = p.x*(1-prog)+z.x*prog, y = p.y*(1-prog)+z.y*prog - 28*Math.sin(prog*Math.PI); ctx.fillText("➡️", x, y); ctx.restore();
+  }
+  function drawItems(t){
+    ctx.save(); ctx.textAlign="center"; ctx.textBaseline="middle";
+    for(const it of state.items){
+      ctx.globalAlpha=it.alpha;
+      const pulse = 1 + Math.sin(t/190 + it.wob)*.028 + it.attract*.16;
+      const size = (it.type==="target"?52:44)*it.scale*pulse;
+      if(it.type==="target"){
+        const glow = .18 + .10*Math.sin(t/220+it.wob) + it.attract*.14;
+        ctx.beginPath(); ctx.fillStyle=hexToRgba(it.color,glow); ctx.arc(it.x,it.y,it.r+18+it.attract*10,0,Math.PI*2); ctx.fill();
+        ctx.strokeStyle=hexToRgba(it.color,.32 + it.attract*.38); ctx.lineWidth=4+it.attract*3; ctx.beginPath(); ctx.arc(it.x,it.y,it.r+8+it.attract*10,0,Math.PI*2); ctx.stroke();
+        // tiny glints instead of noisy dashed circles
+        ctx.fillStyle="rgba(255,255,255,.86)";
+        for(let g=0;g<2;g++){const a=t/520+it.wob+g*Math.PI; ctx.beginPath(); ctx.arc(it.x+Math.cos(a)*(it.r+15),it.y+Math.sin(a)*(it.r+12),3.2,0,Math.PI*2); ctx.fill();}
+      } else if(it.type==="power"){
+        ctx.beginPath(); ctx.fillStyle="rgba(198,183,255,.25)"; ctx.arc(it.x,it.y,it.r+12,0,Math.PI*2); ctx.fill();
+      } else if(it.type==="cloud"){
+        ctx.beginPath(); ctx.fillStyle="rgba(255,255,255,.38)"; ctx.arc(it.x,it.y,it.r+6,0,Math.PI*2); ctx.fill();
+      }
+      ctx.shadowColor = it.type==="target" ? hexToRgba(it.color,.72) : "rgba(255,255,255,.9)"; ctx.shadowBlur = it.type==="target"?22:10;
+      ctx.font=`900 ${size}px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif`;
+      ctx.fillText(it.emoji, it.x, it.y); ctx.shadowBlur=0;
+    }
+    ctx.restore(); ctx.globalAlpha=1;
+  }
+
+  function drawParticles(){
+    ctx.save();
+    for(const p of state.particles){
+      ctx.globalAlpha=p.life; ctx.fillStyle=p.color;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*(.55+p.life*.55),0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore(); ctx.globalAlpha=1;
+  }
+  function drawRipples(){
+    ctx.save();
+    for(const r of state.ripples){
+      const k=1-r.life, rad=r.r + (r.max||70)*k;
+      ctx.globalAlpha=Math.max(0,r.life)*.72; ctx.strokeStyle=hexToRgba(r.color,.78); ctx.lineWidth=5*r.life;
+      ctx.beginPath(); ctx.arc(r.x,r.y,rad,0,Math.PI*2); ctx.stroke();
+      ctx.globalAlpha=Math.max(0,r.life)*.28; ctx.fillStyle=hexToRgba(r.color,.32); ctx.beginPath(); ctx.arc(r.x,r.y,rad*.55,0,Math.PI*2); ctx.fill();
+    }
+    ctx.restore(); ctx.globalAlpha=1;
+  }
+  function drawTexts(){
+    ctx.save(); ctx.textAlign="center"; ctx.textBaseline="middle";
+    for(const f of state.texts){
+      const k=1-f.life, scale=1+(1-f.life)*.18;
+      ctx.globalAlpha=f.life; ctx.save(); ctx.translate(f.x,f.y); ctx.scale(scale,scale);
+      ctx.font=`1000 ${f.size}px ui-rounded, system-ui, sans-serif`; ctx.lineWidth=6; ctx.strokeStyle="rgba(255,255,255,.92)"; ctx.strokeText(f.text,0,0); ctx.fillStyle=f.color; ctx.fillText(f.text,0,0); ctx.restore();
+    } ctx.restore(); ctx.globalAlpha=1;
+  }
+  function drawRibbons(t=now()){
+    ctx.save(); ctx.lineCap="round"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    for(const r of state.ribbons){
+      if(r.type === "catch"){
+        const k=1-r.life, cx=(r.x+r.tx)/2, cy=Math.min(r.y,r.ty)-32;
+        const x=(1-k)*(1-k)*r.x+2*(1-k)*k*cx+k*k*r.tx;
+        const y=(1-k)*(1-k)*r.y+2*(1-k)*k*cy+k*k*r.ty;
+        ctx.globalAlpha=Math.min(1,r.life*1.25);
+        const grad=ctx.createLinearGradient(r.x,r.y,r.tx,r.ty); grad.addColorStop(0,hexToRgba(r.color,.08)); grad.addColorStop(.5,hexToRgba(r.color,.58)); grad.addColorStop(1,"rgba(255,255,255,.18)");
+        ctx.strokeStyle=grad; ctx.lineWidth=8*r.life; ctx.beginPath(); ctx.moveTo(r.x,r.y); ctx.quadraticCurveTo(cx,cy,x,y); ctx.stroke();
+        ctx.shadowColor=hexToRgba(r.color,.82); ctx.shadowBlur=10; ctx.font=`900 ${Math.max(18,30*r.life*(r.scale||1))}px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji`; ctx.fillText(r.emoji,x,y); ctx.shadowBlur=0;
+      }else{
+        ctx.globalAlpha=r.life*.55; ctx.strokeStyle=hexToRgba(r.color,.62); ctx.lineWidth=6*r.life; ctx.beginPath(); ctx.moveTo(r.x,r.y); ctx.quadraticCurveTo((r.x+r.tx)/2,r.y-50,r.tx,r.ty); ctx.stroke(); ctx.font=`900 ${24*r.life}px Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji`; ctx.fillText(r.emoji, r.tx, r.ty);
+      }
+    } ctx.restore(); ctx.globalAlpha=1;
+  }
+
+  function updateParticles(dt){for(const p of state.particles){p.vy += 130*dt; p.x += p.vx*dt; p.y += p.vy*dt; p.life -= dt*p.decay;} state.particles = state.particles.filter(p=>p.life>0);}
+  function updateTexts(dt){for(const f of state.texts){f.y -= (f.speed||62)*dt; f.life -= dt*(f.decay||1.65);} state.texts = state.texts.filter(f=>f.life>0);}
+  function updateRibbons(dt){for(const r of state.ribbons){r.life -= dt*(r.type==="catch"?3.45:1.9);} state.ribbons = state.ribbons.filter(r=>r.life>0); for(const r of state.ripples){r.life -= dt*2.35;} state.ripples = state.ripples.filter(r=>r.life>0);}
+  function burst(x,y,color,count=14,power=1){for(let i=0;i<count;i++){const a=rnd(0,Math.PI*2), sp=rnd(80,230)*power; state.particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-rnd(45,115),r:rnd(3,8),life:1,decay:rnd(1.45,2.65),color:Math.random()<.34?"#fff":color});}}
+  function fountain(x,y,color,count=10,power=1){for(let i=0;i<count;i++){const a=rnd(-Math.PI*.86,-Math.PI*.14), sp=rnd(130,260)*power; state.particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,r:rnd(3,7),life:1,decay:rnd(1.7,2.9),color:Math.random()<.42?"#fff":color});}}
+  function floatText(text,x,y,color,size=24,speed=62){state.texts.push({text,x,y:y-14,life:1,size,color,speed,decay:1.55});}
+  function ribbon(x,y,tx,ty,emoji,color){state.ribbons.push({x,y,tx,ty,emoji,color,life:1});}
+  function juicyCatch(x,y,color,emoji,value=1,quality={key:"great",label:"Great!",big:false}){
+    const cp=catchPoint();
+    stage.classList.remove("hit"); void stage.offsetWidth; stage.classList.add("hit");
+    state.ribbons = state.ribbons.filter(r=>r.type!=="catch" || r.life < .72);
+    state.ribbons.push({x,y,tx:cp.x,ty:cp.y+4,emoji,color,life:1,type:"catch",scale:value>1?1.22:(quality.key==="perfect"?1.18:1)});
+    state.ripples.push({x:cp.x,y:cp.y+2,r:12,life:1,color,max:value>1?96:(quality.key==="perfect"?88:68)});
+    const strong = quality.key === "perfect" || value>1;
+    burst(cp.x,cp.y,color,strong?24:15,strong?1.18:.82); fountain(cp.x,cp.y-4,color,strong?16:9,strong?1.2:.88);
+    const label = value>1 ? "Double!" : (quality.label || (state.combo>=3 ? `Combo ${state.combo}` : "Great!"));
+    domRing(cp.x,cp.y+4,color); domPop(label,cp.x,cp.y-78,color,strong || quality.big); domStars(cp.x,cp.y,color,strong?10:5);
+    if(quality.key === "perfect") domPop("+Joy", cp.x+52, cp.y-44, "#ffe982", false);
+  }
+  function stagePos(x,y){const r=stage.getBoundingClientRect(); return {x:r.left+x,y:r.top+y};}
+  function domPop(text,x,y,color,big=false){const p=stagePos(x,y); const el=document.createElement("b"); el.className="dom-pop"+(big?" big":""); el.textContent=text; el.style.left=p.x+"px"; el.style.top=p.y+"px"; el.style.color=color; fx.appendChild(el); setTimeout(()=>el.remove(),680);}
+  function domRing(x,y,color){const p=stagePos(x,y); const el=document.createElement("i"); el.className="dom-ring"; el.style.left=p.x+"px"; el.style.top=p.y+"px"; el.style.setProperty("--c",color); fx.appendChild(el); setTimeout(()=>el.remove(),500);}
+  function domStars(x,y,color,count=6){const p=stagePos(x,y); for(let i=0;i<count;i++){const e=document.createElement("i"); e.className="dom-star"; e.textContent=Math.random()<.5?"✨":"⭐"; e.style.left=p.x+"px"; e.style.top=p.y+"px"; e.style.setProperty("--dx",rnd(-70,70)+"px"); e.style.setProperty("--dy",rnd(-86,-22)+"px"); e.style.color=color; fx.appendChild(e); setTimeout(()=>e.remove(),650);}}
+  function fireConfetti(n=60){const colors=["#ff8fc4","#ffad69","#ffe982","#72d99f","#83d7ff","#c8b7ff"]; for(let i=0;i<n;i++){const e=document.createElement("i"); e.className="confetti-piece"; e.style.left=rnd(0,100)+"vw"; e.style.background=pick(colors); e.style.setProperty("--dur", rnd(1.1,2.1)+"s"); e.style.animationDelay=rnd(0,.42)+"s"; e.style.transform=`rotate(${rnd(0,360)}deg)`; confetti.appendChild(e); setTimeout(()=>e.remove(),2400);}}
+
+  function stagePoint(ev){const r=stage.getBoundingClientRect(); const oy=basketOffset(); return {x:clamp(ev.clientX-r.left,62,W-62), y:clamp(ev.clientY-r.top-oy,H*.20,H-76)};}
+  function pointerStart(ev){if(!["collect","deliver"].includes(state.mode)) return; ev.preventDefault(); stage.setPointerCapture?.(ev.pointerId); state.pointer=true; state.lastInput=now(); const p=stagePoint(ev); state.player.tx=p.x; state.player.ty=p.y; state.player.vx*=.35; state.player.vy*=.35; unlockAudio();}
+  function pointerMove(ev){if(!state.pointer || !["collect","deliver"].includes(state.mode)) return; ev.preventDefault(); state.lastInput=now(); const p=stagePoint(ev); state.player.tx=p.x; state.player.ty=p.y;}
+  function pointerEnd(ev){state.pointer=false; state.lastInput=now(); try{stage.releasePointerCapture?.(ev.pointerId)}catch(e){}}
+  stage.addEventListener("pointerdown", pointerStart, {passive:false}); stage.addEventListener("pointermove", pointerMove, {passive:false}); stage.addEventListener("pointerup", pointerEnd); stage.addEventListener("pointercancel", pointerEnd);
+
+  function togglePause(){
+    if(!["collect","deliver"].includes(state.mode)) return;
+    state.paused = !state.paused; pauseBtn.textContent = state.paused ? "▶️" : "⏸";
+    if(state.paused){state.pauseStarted=Date.now(); setSpeech("Paused. Tap play when you're ready.");}
+    else{state.pausedMs += Date.now() - state.pauseStarted; state.lastInput=now(); setSpeech(state.mode==="deliver"?`Deliver to ${order().friend}!`:order().hint); last=now();}
+  }
+
+  function unlockAudio(){
+    if(!audioOn) return;
+    try{audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); if(audioCtx.state === "suspended") audioCtx.resume();}catch(e){}
+  }
+  function playTone(freq,dur=.08,type="sine",vol=.05,delay=0){
+    if(!audioOn) return; try{audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); const start=audioCtx.currentTime+delay; const osc=audioCtx.createOscillator(); const gain=audioCtx.createGain(); osc.type=type; osc.frequency.setValueAtTime(freq,start); gain.gain.setValueAtTime(.0001,start); gain.gain.exponentialRampToValueAtTime(vol,start+.012); gain.gain.exponentialRampToValueAtTime(.0001,start+dur); osc.connect(gain); gain.connect(audioCtx.destination); osc.start(start); osc.stop(start+dur+.03);}catch(e){}
+  }
+  function playCatch(combo,value=1,quality="great"){const perfect = quality === "perfect"; const base=560+Math.min(combo,8)*48+(value>1?90:0)+(perfect?70:0); playTone(base,.055,"triangle",perfect?.075:.062); playTone(base*1.26,.06,"triangle",.044,.034); if(combo>=3||value>1||perfect) playTone(base*1.72,.088,"triangle",.04,.078); if(perfect) playTone(base*2.05,.06,"triangle",.026,.14);}
+  function playPower(){playTone(520,.06,"triangle",.045); playTone(740,.07,"triangle",.045,.07); playTone(980,.09,"triangle",.04,.14);}
+  function playDelivery(){playTone(660,.08,"triangle",.055); playTone(880,.09,"triangle",.05,.09); playTone(1180,.12,"triangle",.045,.18);}
+  function playVictory(){[620,780,980,1240].forEach((f,i)=>playTone(f,.12,"triangle",.05,i*.11));}
+  function haptic(ms){try{if(navigator.vibrate) navigator.vibrate(ms);}catch(e){}}
+  function hexToRgba(hex,a){const h=hex.replace("#",""); const n=parseInt(h.length===3?h.split("").map(c=>c+c).join(""):h,16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;}
+  function orderPayload(){const o=order(); return {gameId:GAME_CONFIG.gameId, orderIndex:state.orderIndex, friend:o.friend, friendIcon:o.friendIcon, item:o.item, need:o.need};}
+
+  function sendToApp(type, payload={}){
+    const message = JSON.stringify({type,payload});
+    try{
+      if(window.ReactNativeWebView?.postMessage){window.ReactNativeWebView.postMessage(message); return;}
+      if(window.webkit?.messageHandlers?.appBridge){window.webkit.messageHandlers.appBridge.postMessage({type,payload}); return;}
+      if(window.AndroidBridge?.postMessage){window.AndroidBridge.postMessage(message); return;}
+      if(window.parent && window.parent !== window) window.parent.postMessage({type,payload},"*");
+    }catch(err){console.warn("Bridge message failed", err);}
+    console.log("[GameBridge]", type, payload);
+  }
+
+  soundBtn.addEventListener("click",()=>{audioOn=!audioOn; soundBtn.textContent=audioOn?"🔊":"🔈"; unlockAudio(); if(audioOn) playTone(660,.07,"triangle",.05);});
+  pauseBtn.addEventListener("click",togglePause); $("startBtn").addEventListener("click",startGame); $("restartBtn").addEventListener("click",startGame); $("finishBtn").addEventListener("click",()=>{sendToApp("CLOSE_GAME", {gameId:GAME_CONFIG.gameId, score:state.score}); resultOverlay.classList.add("hidden"); startOverlay.classList.remove("hidden"); reset();});
+  document.addEventListener("visibilitychange",()=>{if(document.hidden && ["collect","deliver"].includes(state.mode) && !state.paused) togglePause();});
+  window.addEventListener("resize",resize);
+  window.addEventListener("message",event=>{const data=typeof event.data==="string"?safeParse(event.data):event.data; if(!data?.type) return; if(data.type==="PAUSE_GAME" && !state.paused) togglePause(); if(data.type==="RESUME_GAME" && state.paused) togglePause(); if(data.type==="RESTART_GAME") startGame();});
+  function safeParse(s){try{return JSON.parse(s)}catch{return null}}
+
+  initAmbient(); resize(); reset(); sendToApp("GAME_READY", {gameId:GAME_CONFIG.gameId, version:GAME_CONFIG.bridgeVersion});
+</script>
+</body>
+</html>
