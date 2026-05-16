@@ -16,6 +16,7 @@ This demo is kept as a standalone HTML file so it can be opened directly, hosted
 - v8.3 improves mobile spacing, keeps guide hands off the target, shortens the HUD title, and tunes drag speed/drop speed for a smoother feel.
 - v8.4 tightens drag response, recalculates catch distance after attraction, adds drag basket glow, and shows a soft attraction trail when treats are being pulled in.
 - v8.5 compacts the mobile HUD, order card, score chips, and stage overlays so the playable area gets more first-screen space.
+- v8.6 expands the compact breakpoint for narrow Chrome/WebView previews, removes the duplicate in-stage Joy card on compact screens, and shortens order labels.
 
 ## App Integration
 
