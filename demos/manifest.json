@@ -1,0 +1,13 @@
+[
+  {
+    "id": "mimi-picnic-delivery-dash",
+    "title": "Mimi Bunny's Picnic Delivery Dash",
+    "version": "v8-playfeel-plus",
+    "type": "single-file-h5",
+    "path": "demos/mimi-picnic-delivery-dash/",
+    "entry": "demos/mimi-picnic-delivery-dash/index.html",
+    "originalFile": "mimi_picnic_delivery_dash_v8_playfeel_plus.html",
+    "description": "A playful catch-and-deliver picnic game built as a standalone HTML file.",
+    "tags": ["game", "h5", "webview", "single-file"]
+  }
+]
