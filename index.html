@@ -277,6 +277,63 @@
       filter: drop-shadow(0 16px 18px rgba(67, 56, 95, 0.2));
     }
 
+    .demo-visual.hopscotch {
+      background:
+        radial-gradient(circle at 22% 28%, rgba(255, 255, 255, 0.72) 0 8%, transparent 9%),
+        linear-gradient(160deg, #a8edff 0 28%, #fff0aa 28% 47%, #ffbfdc 47% 68%, #a7efc2 68%);
+    }
+
+    .hop-lane {
+      position: absolute;
+      bottom: -34px;
+      width: 42px;
+      height: 210px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.46);
+      border: 2px solid rgba(255, 255, 255, 0.62);
+      box-shadow: inset 0 0 0 7px rgba(255, 255, 255, 0.17);
+    }
+
+    .hop-lane.one {
+      left: 33%;
+      transform: rotate(7deg);
+    }
+
+    .hop-lane.two {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hop-lane.three {
+      right: 33%;
+      transform: rotate(-7deg);
+    }
+
+    .hop-runner {
+      position: absolute;
+      left: 50%;
+      bottom: 42px;
+      font-size: 76px;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 16px 18px rgba(67, 56, 95, 0.2));
+    }
+
+    .hop-charm {
+      position: absolute;
+      left: 30%;
+      top: 58px;
+      font-size: 48px;
+      filter: drop-shadow(0 9px 12px rgba(67, 56, 95, 0.16));
+    }
+
+    .hop-cloud {
+      position: absolute;
+      right: 24%;
+      top: 86px;
+      font-size: 46px;
+      filter: drop-shadow(0 9px 12px rgba(67, 56, 95, 0.14));
+    }
+
     .pill {
       position: absolute;
       top: 16px;
@@ -399,7 +456,7 @@
         </div>
         <div class="stats" aria-label="Repository stats">
           <div class="stat">
-            <strong>2</strong>
+            <strong>3</strong>
             <span>available demos</span>
           </div>
           <div class="stat">
@@ -417,7 +474,7 @@
             <p class="eyebrow">Demo gallery</p>
             <h2 id="demo-list-title">Available demos</h2>
           </div>
-          <span class="count">2 demos</span>
+          <span class="count">3 demos</span>
         </div>
 
         <div class="grid">
@@ -458,6 +515,31 @@
               <div class="actions">
                 <a class="button primary" href="./demos/mimi-bubble-pop-parade/">Open demo</a>
                 <a class="button secondary" href="./demos/mimi-bubble-pop-parade/index.html">HTML file</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="demo-card">
+            <a class="demo-visual hopscotch" href="./demos/mimi-rainbow-hopscotch/" aria-label="Open Mimi Rainbow Hopscotch">
+              <span class="pill">Single-file H5</span>
+              <span class="hop-lane one" aria-hidden="true"></span>
+              <span class="hop-lane two" aria-hidden="true"></span>
+              <span class="hop-lane three" aria-hidden="true"></span>
+              <span class="hop-charm" aria-hidden="true">⭐</span>
+              <span class="hop-cloud" aria-hidden="true">☁️</span>
+              <span class="hop-runner" aria-hidden="true">🐰</span>
+            </a>
+            <div class="demo-content">
+              <h3>Mimi Rainbow Hopscotch</h3>
+              <p>A mobile-first lane runner where Mimi hops between rainbow lanes, collects friend charms, dodges clouds, and hits boost trails.</p>
+              <div class="meta" aria-label="Demo tags">
+                <span>Game</span>
+                <span>WebView ready</span>
+                <span>Lane runner v1.0</span>
+              </div>
+              <div class="actions">
+                <a class="button primary" href="./demos/mimi-rainbow-hopscotch/">Open demo</a>
+                <a class="button secondary" href="./demos/mimi-rainbow-hopscotch/index.html">HTML file</a>
               </div>
             </div>
           </article>
