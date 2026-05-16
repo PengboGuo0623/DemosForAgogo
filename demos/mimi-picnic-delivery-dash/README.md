@@ -13,6 +13,7 @@ This demo is kept as a standalone HTML file so it can be opened directly, hosted
 - Full pause overlay with resume and start-over controls.
 - Gentler first-miss feedback and short soft-assist window.
 - Reduced-motion fallback for users who prefer less animation.
+- v8.3 improves mobile spacing, keeps guide hands off the target, shortens the HUD title, and tunes drag speed/drop speed for a smoother feel.
 
 ## App Integration
 
