@@ -19,6 +19,7 @@ This demo is kept as a standalone HTML file so it can be opened directly, hosted
 - v8.6 expands the compact breakpoint for narrow Chrome/WebView previews, removes the duplicate in-stage Joy card on compact screens, and shortens order labels.
 - v8.7 strengthens catch feedback with basket munch motion, snack score badges, larger ripples, stronger particles, and clearer combo/Joy callouts.
 - v8.8 smooths catch timing, slows the snack-to-basket arc, damps post-catch player velocity, and removes automatic drift when the basket becomes full.
+- v8.9 delays the final catch-to-delivery transition so the character stays visible through the third-round catch feedback.
 
 ## App Integration
 

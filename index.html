@@ -232,6 +232,51 @@
       border-bottom: 3px solid rgba(255, 250, 242, 0.24);
     }
 
+    .demo-visual.bubble-pop {
+      background:
+        radial-gradient(circle at 28% 38%, rgba(255, 255, 255, 0.86) 0 10%, transparent 11%),
+        radial-gradient(circle at 72% 26%, rgba(255, 255, 255, 0.7) 0 7%, transparent 8%),
+        linear-gradient(135deg, #9fe7ff 0 34%, #ffd1e4 34% 62%, #a9f2ca 62%);
+    }
+
+    .bubble-orb {
+      position: absolute;
+      right: 48px;
+      bottom: 42px;
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.92) 0 12%, transparent 13%),
+        radial-gradient(circle at 50% 55%, rgba(255, 250, 242, 0.84), rgba(131, 215, 255, 0.48));
+      border: 8px solid rgba(255, 255, 255, 0.7);
+      box-shadow:
+        -76px -28px 0 -36px rgba(255, 143, 196, 0.66),
+        -34px -78px 0 -44px rgba(255, 233, 130, 0.72),
+        30px -52px 0 -46px rgba(141, 240, 196, 0.7),
+        0 18px 34px rgba(84, 98, 132, 0.18);
+    }
+
+    .bubble-orb::after {
+      content: "♪";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #43385f;
+      font-size: 58px;
+      font-weight: 900;
+    }
+
+    .wand-preview {
+      position: absolute;
+      left: 38px;
+      bottom: 44px;
+      font-size: 76px;
+      transform: rotate(-18deg);
+      filter: drop-shadow(0 16px 18px rgba(67, 56, 95, 0.2));
+    }
+
     .pill {
       position: absolute;
       top: 16px;
@@ -354,8 +399,8 @@
         </div>
         <div class="stats" aria-label="Repository stats">
           <div class="stat">
-            <strong>1</strong>
-            <span>available demo</span>
+            <strong>2</strong>
+            <span>available demos</span>
           </div>
           <div class="stat">
             <strong>0</strong>
@@ -372,7 +417,7 @@
             <p class="eyebrow">Demo gallery</p>
             <h2 id="demo-list-title">Available demos</h2>
           </div>
-          <span class="count">1 demo</span>
+          <span class="count">2 demos</span>
         </div>
 
         <div class="grid">
@@ -387,11 +432,32 @@
               <div class="meta" aria-label="Demo tags">
                 <span>Game</span>
                 <span>WebView ready</span>
-                <span>Motion timing v8.8</span>
+                <span>Delivery fix v8.9</span>
               </div>
               <div class="actions">
                 <a class="button primary" href="./demos/mimi-picnic-delivery-dash/">Open demo</a>
                 <a class="button secondary" href="./demos/mimi-picnic-delivery-dash/index.html">HTML file</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="demo-card">
+            <a class="demo-visual bubble-pop" href="./demos/mimi-bubble-pop-parade/" aria-label="Open Mimi Bubble Pop Parade">
+              <span class="pill">Single-file H5</span>
+              <span class="wand-preview" aria-hidden="true">✨</span>
+              <span class="bubble-orb" aria-hidden="true"></span>
+            </a>
+            <div class="demo-content">
+              <h3>Mimi Bubble Pop Parade</h3>
+              <p>A mobile-first tap-and-pop rhythm game where Mimi pops matching bubbles to build a parade song for her friends.</p>
+              <div class="meta" aria-label="Demo tags">
+                <span>Game</span>
+                <span>WebView ready</span>
+                <span>Tap game v1.0</span>
+              </div>
+              <div class="actions">
+                <a class="button primary" href="./demos/mimi-bubble-pop-parade/">Open demo</a>
+                <a class="button secondary" href="./demos/mimi-bubble-pop-parade/index.html">HTML file</a>
               </div>
             </div>
           </article>

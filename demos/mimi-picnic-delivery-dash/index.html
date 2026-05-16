@@ -247,7 +247,7 @@
       if(state.timeLeft <= 0) return endGame(false);
     }
     updatePlayer(dt);
-    if(state.mode === "collect") updateSpawning(dt, t);
+    if(state.mode === "collect" && !state.transitioning) updateSpawning(dt, t);
     updateItems(dt, t);
     updateParticles(dt); updateTexts(dt); updateRibbons(dt); updateCoach(t); updateHud();
     if(state.mode === "deliver") checkDelivery(t);
@@ -424,8 +424,12 @@
       if(state.progress < order().need && (state.combo === 3 || state.perfectStreak === 2)) spawnSnackWave(quality.key === "perfect" ? "perfect" : "combo");
       if(state.progress < order().need && state.joy >= 100 && now() >= state.rushUntil) triggerRush(5600, false, true);
       sendToApp("ITEM_COLLECTED", {gameId:GAME_CONFIG.gameId, type:"target", item:it.emoji, quality:quality.key, orderIndex:state.orderIndex, progress:state.progress, combo:state.combo, joy:Math.round(state.joy), score:state.score});
-      if(state.progress >= order().need) enterDelivery();
-      else if(state.progress === 1) setSpeech("Great catch! Perfect catches fill Joy for Rainbow Party.");
+      if(state.progress >= order().need) {
+        state.transitioning = true;
+        state.player.vx = 0; state.player.vy = 0;
+        state.player.tx = state.player.x; state.player.ty = state.player.y;
+        schedule(()=>{ if(state.mode === "collect" && state.progress >= order().need) enterDelivery(); }, 460);
+      } else if(state.progress === 1) setSpeech("Great catch! Perfect catches fill Joy for Rainbow Party.");
     }else if(it.type === "bonus"){
       state.combo++; state.maxCombo = Math.max(state.maxCombo, state.combo); const bonusGain = 7 + Math.min(18,state.combo); state.score += bonusGain; state.joy = Math.min(100, state.joy + 8); state.metrics.bonus++;
       juicyCatch(x,y,"#ffe982",it.emoji,1,{key:"bonus",label:"Bonus!",joy:8,score:7,haptic:15,big:false},bonusGain); pulse(chips.score); pulse(chips.magic); playTone(720,.055,"triangle",.042);
@@ -460,7 +464,7 @@
   }
 
   function enterDelivery(){
-    if(state.mode !== "collect" || state.transitioning) return;
+    if(state.mode !== "collect") return;
     state.mode = "deliver"; state.transitioning = false; state.items.length = 0; state.combo = Math.max(state.combo, 1); state.rushUntil = 0; state.perfectStreak = 0; state.waveCooldownUntil = 0;
     friendZoneIcon.textContent = order().friendIcon; deliverLabel.textContent = `Deliver to ${order().friend}!`;
     friendZone.classList.add("on"); friendZone.classList.remove("ready"); void friendZone.offsetWidth; friendZone.classList.add("ready");
