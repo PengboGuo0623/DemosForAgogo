@@ -27,7 +27,8 @@ The demo can run as a plain static file and also emits lightweight bridge events
 
 ## Changelog
 
+- v1.2 reduces opening and mid-round item density, raises per-round charm goals, caps simultaneous items, and spaces close lane spawns for a less rushed run.
 - v1.1 improves lane-change feel, runner tilt, lane glow, boost trails, collision feedback, haptics, and layered sound cues.
 - v1.0 initial standalone lane-runner demo.
 
-Version: v1.1.
+Version: v1.2.
