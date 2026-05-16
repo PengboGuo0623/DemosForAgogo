@@ -23,11 +23,11 @@
   {
     "id": "mimi-rainbow-hopscotch",
     "title": "Mimi Rainbow Hopscotch",
-    "version": "v1.6-runner-framing",
+    "version": "v1.7-clean-top-hud",
     "type": "single-file-h5",
     "path": "demos/mimi-rainbow-hopscotch/",
     "entry": "demos/mimi-rainbow-hopscotch/index.html",
-    "description": "A standalone mobile-first H5 lane runner where Mimi hops through a chalk-court playground style with steadier hopscotch blocks, paper UI, safer HUD spacing, and improved bottom runner framing.",
+    "description": "A standalone mobile-first H5 lane runner where Mimi hops through a chalk-court playground style with steadier hopscotch blocks, paper UI, safer HUD spacing, improved bottom runner framing, and a cleaner top-right HUD.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "lane-runner"]
   }
 ]
