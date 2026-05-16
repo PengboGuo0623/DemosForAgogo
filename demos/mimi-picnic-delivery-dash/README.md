@@ -6,6 +6,14 @@ Original source file: `mimi_picnic_delivery_dash_v8_playfeel_plus.html`
 
 This demo is kept as a standalone HTML file so it can be opened directly, hosted as static content, or embedded in a WebView test flow.
 
+## H5 Polish Notes
+
+- Stage-level countdown pill with urgent-state animation.
+- Animated start-card preview of the catch-and-deliver loop.
+- Full pause overlay with resume and start-over controls.
+- Gentler first-miss feedback and short soft-assist window.
+- Reduced-motion fallback for users who prefer less animation.
+
 ## App Integration
 
 The game is designed as a short episode bonus interaction for a kids animation app. It has no external assets, network calls, ads, or third-party tracking.

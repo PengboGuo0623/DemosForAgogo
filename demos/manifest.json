@@ -2,12 +2,12 @@
   {
     "id": "mimi-picnic-delivery-dash",
     "title": "Mimi Bunny's Picnic Delivery Dash",
-    "version": "v8.1-app-ready",
+    "version": "v8.2-h5-polish",
     "type": "single-file-h5",
     "path": "demos/mimi-picnic-delivery-dash/",
     "entry": "demos/mimi-picnic-delivery-dash/index.html",
     "originalFile": "mimi_picnic_delivery_dash_v8_playfeel_plus.html",
-    "description": "A playful catch-and-deliver episode bonus game built as a standalone App-ready HTML file.",
-    "tags": ["game", "h5", "webview", "single-file", "app-bridge"]
+    "description": "A polished standalone H5 catch-and-deliver episode bonus game.",
+    "tags": ["game", "h5", "webview", "single-file", "app-bridge", "h5-polish"]
   }
 ]
