@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { ART_KEYS, COLORS } from "../data/gameConfig";
+import { ART_KEYS, COLORS, UI_FONT } from "../data/gameConfig";
 
 export class StoryBubble extends Phaser.GameObjects.Container {
   private readonly panel: Phaser.GameObjects.Graphics;
@@ -15,7 +15,7 @@ export class StoryBubble extends Phaser.GameObjects.Container {
     this.label = scene.add
       .text(0, -6, "", {
         color: "#203147",
-        fontFamily: "Arial Rounded MT Bold, Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "20px",
         fontStyle: "bold",
         align: "center",

@@ -1,5 +1,5 @@
-export const GAME_WIDTH = 390;
-export const GAME_HEIGHT = 844;
+export const GAME_WIDTH = 844;
+export const GAME_HEIGHT = 390;
 
 export const GAME_RULES = {
   questionsPerRound: 8,
@@ -25,6 +25,8 @@ export const COLORS = {
   shadow: 0x28455f,
 } as const;
 
+export const UI_FONT = "Nunito, Avenir Next Rounded, Arial Rounded MT Bold, Arial, sans-serif";
+
 export const ART_KEYS = {
   backgroundStage: "art-background-stage",
   backgroundBridgeStage: "art-background-bridge-stage",
@@ -37,9 +39,9 @@ export const ART_KEYS = {
 } as const;
 
 export const ART_PATHS = {
-  backgroundStage: "assets/art/backgrounds/rescue-stage.png",
-  backgroundBridgeStage: "assets/art/backgrounds/rescue-stage-bridge.png",
-  bridgeCompletionPatch: "assets/art/generated/bridge-completion-patch.png",
+  backgroundStage: "assets/art/backgrounds/rescue-stage-landscape.png",
+  backgroundBridgeStage: "assets/art/backgrounds/rescue-stage-landscape.png",
+  bridgeCompletionPatch: "assets/art/generated/bridge-completion-patch-landscape.png",
   starFriendBody: "assets/art/generated/star-friend.png",
   bridgePlankEmpty: "assets/art/generated/bridge-plank.png",
   bridgePlankFilled: "assets/art/generated/bridge-plank.png",

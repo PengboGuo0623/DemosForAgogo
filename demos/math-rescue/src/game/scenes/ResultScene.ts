@@ -1,6 +1,7 @@
 import Phaser from "phaser";
-import { ART_KEYS, COLORS, GAME_HEIGHT, GAME_WIDTH } from "../data/gameConfig";
+import { ART_KEYS, COLORS, GAME_HEIGHT, GAME_WIDTH, UI_FONT } from "../data/gameConfig";
 import { RewardSystem } from "../systems/RewardSystem";
+import { RescueBridge } from "../ui/RescueBridge";
 import { addStageBackdrop } from "../utils/art";
 import { centerX } from "../utils/layout";
 
@@ -23,16 +24,16 @@ export class ResultScene extends Phaser.Scene {
     this.createTitle();
     this.createSoftSummary(data);
     this.playStarRain();
-    new RewardSystem(this).playResultBurst(centerX, 360);
+    new RewardSystem(this).playResultBurst(centerX, 158);
     this.createRestartButton();
   }
 
   private createTitle(): void {
     const title = this.add
-      .text(centerX, 92, "Bridge complete!", {
+      .text(centerX, 40, "Bridge complete!", {
         color: "#203147",
-        fontFamily: "Arial Rounded MT Bold, Arial, sans-serif",
-        fontSize: "37px",
+        fontFamily: UI_FONT,
+        fontSize: "34px",
         fontStyle: "bold",
       })
       .setOrigin(0.5);
@@ -46,9 +47,9 @@ export class ResultScene extends Phaser.Scene {
     });
 
     this.add
-      .text(centerX, 138, "All the friends made it across", {
+      .text(centerX, 78, "All the friends made it across", {
         color: "#4b6378",
-        fontFamily: "Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "19px",
       })
       .setOrigin(0.5)
@@ -58,7 +59,7 @@ export class ResultScene extends Phaser.Scene {
   private createSoftSummary(data: ResultData): void {
     const totalQuestions = data.totalQuestions ?? 8;
     const correctAnswers = data.correctAnswers ?? totalQuestions;
-    const summary = this.add.container(centerX, 632);
+    const summary = this.add.container(170, 318);
     summary.setDepth(20);
     const panel = this.add.graphics();
     panel.fillStyle(COLORS.white, 0.8);
@@ -74,7 +75,7 @@ export class ResultScene extends Phaser.Scene {
     const rescueSteps = this.add
       .text(0, -4, `${correctAnswers}/${totalQuestions} rescue steps`, {
         color: "#203147",
-        fontFamily: "Arial Rounded MT Bold, Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "20px",
         fontStyle: "bold",
       })
@@ -83,7 +84,7 @@ export class ResultScene extends Phaser.Scene {
     const score = this.add
       .text(0, 24, `Score ${data.score ?? correctAnswers * 10}  Best ${data.bestCombo ?? correctAnswers}`, {
         color: "#4b6378",
-        fontFamily: "Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "16px",
       })
       .setOrigin(0.5);
@@ -106,46 +107,36 @@ export class ResultScene extends Phaser.Scene {
     const graphics = this.add.graphics();
     graphics.setDepth(-6);
     graphics.fillStyle(COLORS.white, 0.14);
-    graphics.fillEllipse(centerX, 340, 540, 400);
+    graphics.fillEllipse(centerX, 204, 760, 210);
     graphics.fillStyle(0x5fd5e8, 0.1);
-    graphics.fillRoundedRect(-8, 468, GAME_WIDTH + 16, 188, 74);
+    graphics.fillRoundedRect(122, 280, GAME_WIDTH - 244, 90, 44);
     graphics.fillStyle(COLORS.white, 0.16);
-    graphics.fillEllipse(126, 514, 258, 30);
-    graphics.fillEllipse(292, 582, 258, 26);
+    graphics.fillEllipse(226, 318, 258, 30);
+    graphics.fillEllipse(608, 318, 258, 26);
   }
 
   private drawCompletedBridge(): void {
-    const graphics = this.add.graphics();
-    graphics.fillStyle(COLORS.white, 0.26);
-    graphics.fillRoundedRect(74, 456, 242, 46, 22);
-    graphics.lineStyle(3, COLORS.white, 0.4);
-    graphics.lineBetween(90, 472, 300, 472);
-    graphics.lineBetween(96, 488, 294, 488);
-
-    graphics.fillStyle(COLORS.cream, 1);
-    graphics.lineStyle(3, COLORS.yellow, 0.86);
-    for (let index = 0; index < 8; index += 1) {
-      const x = centerX - 96 + index * 28;
-      this.add.image(x, 416, ART_KEYS.bridgePlankFilled).setDisplaySize(24, 88).setDepth(10);
-    }
+    const bridge = new RescueBridge(this, centerX, 196);
+    bridge.setDepth(10);
+    bridge.setProgress(8);
   }
 
   private createCrossingFriend(): void {
-    const friend = this.add.container(centerX - 132, 376);
+    const friend = this.add.container(130, 204);
     friend.setDepth(12);
-    const shadow = this.add.ellipse(0, 58, 76, 16, COLORS.shadow, 0.14);
-    const body = this.add.image(0, -4, ART_KEYS.starFriendBody).setDisplaySize(152, 144);
+    const shadow = this.add.ellipse(0, 42, 58, 13, COLORS.shadow, 0.14);
+    const body = this.add.image(0, -4, ART_KEYS.starFriendBody).setDisplaySize(112, 106);
     friend.add([shadow, body]);
 
     this.tweens.add({
       targets: friend,
-      x: centerX + 116,
+      x: GAME_WIDTH - 150,
       duration: 1160,
       ease: "Sine.easeInOut",
       onComplete: () => {
         this.tweens.add({
           targets: friend,
-          y: 338,
+          y: 164,
           scale: 1.16,
           angle: -10,
           duration: 210,
@@ -153,7 +144,7 @@ export class ResultScene extends Phaser.Scene {
           repeat: 1,
           ease: "Back.easeOut",
           onComplete: () => {
-            friend.y = 376;
+            friend.y = 204;
             friend.scale = 1;
             friend.angle = 0;
           },
@@ -163,14 +154,14 @@ export class ResultScene extends Phaser.Scene {
 
     this.tweens.add({
       targets: friend,
-      y: 350,
+      y: 176,
       duration: 220,
       yoyo: true,
       repeat: 5,
       ease: "Sine.easeOut",
     });
 
-    const bubble = this.add.container(centerX + 68, 300);
+    const bubble = this.add.container(GAME_WIDTH - 180, 118);
     bubble.setDepth(18);
     const panel = this.add.graphics();
     panel.fillStyle(COLORS.white, 0.9);
@@ -179,7 +170,7 @@ export class ResultScene extends Phaser.Scene {
     const label = this.add
       .text(0, -2, "Yay!", {
         color: "#203147",
-        fontFamily: "Arial Rounded MT Bold, Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "23px",
         fontStyle: "bold",
       })
@@ -201,7 +192,7 @@ export class ResultScene extends Phaser.Scene {
     for (let index = 0; index < 30; index += 1) {
       const star = this.add.star(
         Phaser.Math.Between(22, GAME_WIDTH - 22),
-        Phaser.Math.Between(-60, 190),
+        Phaser.Math.Between(-40, 120),
         5,
         4,
         12,
@@ -212,7 +203,7 @@ export class ResultScene extends Phaser.Scene {
       star.setScale(Phaser.Math.FloatBetween(0.4, 0.9));
       this.tweens.add({
         targets: star,
-        y: star.y + Phaser.Math.Between(320, 560),
+        y: star.y + Phaser.Math.Between(220, 360),
         x: star.x + Phaser.Math.Between(-26, 26),
         angle: Phaser.Math.Between(-180, 180),
         alpha: 0,
@@ -226,7 +217,7 @@ export class ResultScene extends Phaser.Scene {
   }
 
   private createRestartButton(): void {
-    const button = this.add.container(centerX, 744);
+    const button = this.add.container(GAME_WIDTH - 158, 318);
     button.setDepth(20);
     const bg = this.add.graphics();
     bg.fillStyle(COLORS.shadow, 0.1);
@@ -243,7 +234,7 @@ export class ResultScene extends Phaser.Scene {
     const label = this.add
       .text(0, 0, "Play again", {
         color: "#203147",
-        fontFamily: "Arial Rounded MT Bold, Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "27px",
         fontStyle: "bold",
       })
@@ -253,7 +244,7 @@ export class ResultScene extends Phaser.Scene {
     button.setSize(280, 110);
     this.tweens.add({
       targets: button,
-      y: 734,
+      y: 310,
       angle: -2,
       duration: 980,
       yoyo: true,
@@ -261,7 +252,7 @@ export class ResultScene extends Phaser.Scene {
       ease: "Sine.easeInOut",
     });
 
-    const hitZone = this.add.zone(centerX, 744, 296, 126);
+    const hitZone = this.add.zone(GAME_WIDTH - 158, 318, 296, 126);
     hitZone.setDepth(21);
     hitZone.setInteractive({ useHandCursor: true });
     hitZone.on("pointerdown", () => {

@@ -8,17 +8,19 @@ interface BridgeTarget {
 }
 
 const PATCH_SOURCE_RECT = {
-  x: 170,
-  y: 640,
-  width: 520,
-  height: 380,
+  x: 210,
+  y: 255,
+  width: 1450,
+  height: 345,
 } as const;
 
 export class RescueBridge extends Phaser.GameObjects.Container {
   private readonly completionPatch: Phaser.GameObjects.Image;
+  private readonly repairLights: Phaser.GameObjects.Container;
   private readonly patchSourceWidth: number;
   private readonly patchSourceHeight: number;
   private readonly backgroundScale: number;
+  private readonly backgroundLeft: number;
   private readonly backgroundTop: number;
   private readonly revealState = { value: 0 };
   private completedSteps = 0;
@@ -38,6 +40,7 @@ export class RescueBridge extends Phaser.GameObjects.Container {
     this.patchSourceWidth = patchSource.width;
     this.patchSourceHeight = patchSource.height;
     this.backgroundScale = Math.max(GAME_WIDTH / backgroundSource.width, GAME_HEIGHT / backgroundSource.height);
+    this.backgroundLeft = GAME_WIDTH / 2 - (backgroundSource.width * this.backgroundScale) / 2;
     this.backgroundTop = GAME_HEIGHT / 2 - (backgroundSource.height * this.backgroundScale) / 2;
 
     this.completionPatch = scene.add.image(
@@ -50,21 +53,32 @@ export class RescueBridge extends Phaser.GameObjects.Container {
     this.completionPatch.setCrop(0, 0, 1, this.patchSourceHeight);
     this.add(this.completionPatch);
 
+    this.repairLights = scene.add.container(0, 0);
+    this.add(this.repairLights);
+
     scene.add.existing(this);
   }
 
   setProgress(completedSteps: number): void {
     this.completedSteps = Phaser.Math.Clamp(completedSteps, 0, GAME_RULES.questionsPerRound);
     const nextReveal = this.getRevealRatio(this.completedSteps);
+    const previousReveal = this.revealState.value;
+    this.applyRepairLights();
 
     this.scene.tweens.killTweensOf(this.revealState);
     this.scene.tweens.add({
       targets: this.revealState,
       value: nextReveal,
-      duration: Math.abs(nextReveal - this.revealState.value) > 0.02 ? 720 : 80,
-      ease: "Sine.easeInOut",
+      duration: Math.abs(nextReveal - this.revealState.value) > 0.02 ? 1360 : 80,
+      ease: "Cubic.easeInOut",
       onUpdate: () => this.applyReveal(),
-      onComplete: () => this.applyReveal(),
+      onComplete: () => {
+        this.applyReveal();
+        this.applyRepairLights();
+        if (nextReveal > previousReveal + 0.02) {
+          this.playRevealSparkle(nextReveal);
+        }
+      },
     });
   }
 
@@ -81,16 +95,16 @@ export class RescueBridge extends Phaser.GameObjects.Container {
 
   celebrateStep(): void {
     const target = this.getNextPlankTarget();
-    this.playGlow(target.x, target.y, COLORS.yellow, 46, 34);
+    this.playGlow(target.x, target.y, COLORS.yellow, 58, 38);
   }
 
   celebrateCombo(): void {
-    this.playGlow(this.sourceToCanvasX(430), this.sourceToCanvasY(814), COLORS.green, 158, 54);
+    this.playGlow(this.sourceToCanvasX(920), this.sourceToCanvasY(492), COLORS.green, 240, 62);
 
-    for (let index = 0; index < 10; index += 1) {
+    for (let index = 0; index < 18; index += 1) {
       const sparkle = this.scene.add.star(
-        this.sourceToCanvasX(302 + index * 28),
-        this.sourceToCanvasY(765 + Phaser.Math.Between(-16, 24)),
+        this.sourceToCanvasX(360 + index * 66),
+        this.sourceToCanvasY(424 + Phaser.Math.Between(-18, 36)),
         5,
         3,
         9,
@@ -106,8 +120,8 @@ export class RescueBridge extends Phaser.GameObjects.Container {
         scale: 0.9,
         alpha: 0,
         angle: Phaser.Math.Between(-90, 90),
-        delay: index * 34,
-        duration: 620,
+        delay: index * 26,
+        duration: 860,
         ease: "Cubic.easeOut",
         onComplete: () => sparkle.destroy(),
       });
@@ -131,38 +145,31 @@ export class RescueBridge extends Phaser.GameObjects.Container {
   }
 
   private getRevealRatio(completedSteps: number): number {
-    if (completedSteps < 3) {
+    if (completedSteps <= 0) {
       return 0;
     }
 
-    if (completedSteps === 3) {
-      return 0.56;
-    }
-
-    if (completedSteps === 4) {
-      return 0.78;
-    }
-
-    return 1;
+    const repairBeats = [0, 0.12, 0.25, 0.38, 0.52, 0.66, 0.78, 0.9, 1];
+    return repairBeats[completedSteps] ?? 1;
   }
 
   private getStoryTarget(step: number): { sourceX: number; sourceY: number; angle: number } {
     const targets = [
-      { sourceX: 430, sourceY: 734, angle: -8 },
-      { sourceX: 430, sourceY: 782, angle: 6 },
-      { sourceX: 340, sourceY: 846, angle: -7 },
-      { sourceX: 430, sourceY: 846, angle: 0 },
-      { sourceX: 520, sourceY: 846, angle: 7 },
-      { sourceX: 430, sourceY: 780, angle: -3 },
-      { sourceX: 524, sourceY: 780, angle: 6 },
-      { sourceX: 610, sourceY: 838, angle: 10 },
+      { sourceX: 585, sourceY: 548, angle: -7 },
+      { sourceX: 720, sourceY: 552, angle: 5 },
+      { sourceX: 860, sourceY: 554, angle: -4 },
+      { sourceX: 995, sourceY: 556, angle: 2 },
+      { sourceX: 1130, sourceY: 554, angle: -2 },
+      { sourceX: 1268, sourceY: 548, angle: 4 },
+      { sourceX: 1405, sourceY: 532, angle: 8 },
+      { sourceX: 1536, sourceY: 516, angle: 10 },
     ];
 
     return targets[step] ?? targets[targets.length - 1];
   }
 
   private sourceToCanvasX(sourceX: number): number {
-    return sourceX * this.backgroundScale;
+    return this.backgroundLeft + sourceX * this.backgroundScale;
   }
 
   private sourceToCanvasY(sourceY: number): number {
@@ -178,9 +185,67 @@ export class RescueBridge extends Phaser.GameObjects.Container {
       scaleX: 1.5,
       scaleY: 1.36,
       alpha: 0,
-      duration: 620,
+      duration: 880,
       ease: "Cubic.easeOut",
       onComplete: () => glow.destroy(),
     });
+  }
+
+  private applyRepairLights(): void {
+    this.repairLights.removeAll(true);
+
+    for (let index = 0; index < this.completedSteps; index += 1) {
+      const target = this.getStoryTarget(index);
+      const light = this.scene.add.container(this.sourceToCanvasX(target.sourceX), this.sourceToCanvasY(target.sourceY));
+      const art = this.scene.add.graphics();
+      light.angle = target.angle;
+      light.setScale(index >= 6 ? 0.72 : 0.82);
+      art.fillStyle(COLORS.yellow, 0.22);
+      art.fillRoundedRect(-48, -13, 96, 26, 13);
+      art.fillStyle(COLORS.white, 0.2);
+      art.fillRoundedRect(-36, -7, 72, 8, 4);
+      art.lineStyle(3, COLORS.white, 0.48);
+      art.lineBetween(-32, -4, 32, -4);
+      art.lineStyle(2, COLORS.yellow, 0.58);
+      art.lineBetween(-28, 6, 28, 6);
+      light.add(art);
+      light.setAlpha(0.92);
+      this.repairLights.add(light);
+    }
+  }
+
+  private playRevealSparkle(reveal: number): void {
+    const sourceX = PATCH_SOURCE_RECT.x + PATCH_SOURCE_RECT.width * Phaser.Math.Clamp(reveal, 0.04, 1);
+    const x = this.sourceToCanvasX(sourceX);
+    const y = this.sourceToCanvasY(506);
+
+    this.playGlow(x, y, COLORS.white, 86, 42);
+
+    for (let index = 0; index < 8; index += 1) {
+      const sparkle = this.scene.add.star(
+        x + Phaser.Math.Between(-36, 36),
+        y + Phaser.Math.Between(-20, 18),
+        5,
+        2,
+        7,
+        index % 2 === 0 ? COLORS.yellow : COLORS.white,
+        0.76,
+      );
+      sparkle.setDepth(this.depth + 2);
+      sparkle.setScale(0.22);
+
+      this.scene.tweens.add({
+        targets: sparkle,
+        y: sparkle.y - Phaser.Math.Between(18, 42),
+        x: sparkle.x + Phaser.Math.Between(-16, 16),
+        scale: 0.82,
+        alpha: 0,
+        angle: Phaser.Math.Between(-110, 110),
+        delay: index * 48,
+        duration: 860,
+        ease: "Cubic.easeOut",
+        onComplete: () => sparkle.destroy(),
+      });
+    }
   }
 }

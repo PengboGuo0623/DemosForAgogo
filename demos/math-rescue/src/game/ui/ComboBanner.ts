@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { COLORS } from "../data/gameConfig";
+import { COLORS, UI_FONT } from "../data/gameConfig";
 
 export class ComboBanner extends Phaser.GameObjects.Container {
   private readonly panel: Phaser.GameObjects.Graphics;
@@ -13,8 +13,8 @@ export class ComboBanner extends Phaser.GameObjects.Container {
     this.label = scene.add
       .text(0, 0, "", {
         color: "#203147",
-        fontFamily: "Arial Rounded MT Bold, Arial, sans-serif",
-        fontSize: "30px",
+        fontFamily: UI_FONT,
+        fontSize: "28px",
         fontStyle: "bold",
       })
       .setOrigin(0.5);
@@ -31,12 +31,14 @@ export class ComboBanner extends Phaser.GameObjects.Container {
 
   show(message: string, tint: number = COLORS.yellow, isCombo = false): void {
     this.panel.clear();
-    this.panel.fillStyle(tint, 1);
-    this.panel.lineStyle(4, COLORS.white, 1);
-    this.panel.fillRoundedRect(-140, -38, 280, 76, 32);
-    this.panel.strokeRoundedRect(-140, -38, 280, 76, 32);
+    this.panel.fillStyle(COLORS.shadow, 0.14);
+    this.panel.fillRoundedRect(-150, -34, 300, 72, 34);
+    this.panel.fillStyle(tint, 0.94);
+    this.panel.lineStyle(4, COLORS.white, 0.86);
+    this.panel.fillRoundedRect(-142, -42, 284, 74, 34);
+    this.panel.strokeRoundedRect(-142, -42, 284, 74, 34);
     this.panel.fillStyle(COLORS.white, 0.22);
-    this.panel.fillRoundedRect(-118, -26, 236, 20, 14);
+    this.panel.fillRoundedRect(-116, -30, 232, 18, 12);
     this.label.setText(message);
     this.label.setFontSize(isCombo ? 31 : 28);
     this.sparkles.forEach((sparkle) => sparkle.setVisible(isCombo));
@@ -48,7 +50,7 @@ export class ComboBanner extends Phaser.GameObjects.Container {
       targets: this,
       alpha: 1,
       scale: 1,
-      duration: isCombo ? 250 : 180,
+      duration: isCombo ? 340 : 220,
       ease: "Back.easeOut",
     });
 
@@ -57,14 +59,14 @@ export class ComboBanner extends Phaser.GameObjects.Container {
         targets: this.sparkles,
         angle: 180,
         scale: 1.35,
-        duration: 420,
+        duration: 620,
         yoyo: true,
         ease: "Sine.easeInOut",
       });
     }
   }
 
-  hideSoon(delay = 760): void {
+  hideSoon(delay = 1080): void {
     this.scene.time.delayedCall(delay, () => {
       this.scene.tweens.add({
         targets: this,

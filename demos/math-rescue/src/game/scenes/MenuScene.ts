@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { ART_KEYS, COLORS, GAME_HEIGHT, GAME_WIDTH } from "../data/gameConfig";
+import { ART_KEYS, COLORS, GAME_HEIGHT, GAME_WIDTH, UI_FONT } from "../data/gameConfig";
 import { addStageBackdrop } from "../utils/art";
 import { centerX } from "../utils/layout";
 
@@ -22,9 +22,9 @@ export class MenuScene extends Phaser.Scene {
     this.drawBackground();
     const rescueParts = this.drawRescueFriend();
     const title = this.add
-      .text(centerX, 102, "Math Rescue", {
+      .text(centerX, 48, "Math Rescue", {
         color: "#203147",
-        fontFamily: "Arial Rounded MT Bold, Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "40px",
         fontStyle: "bold",
         align: "center",
@@ -32,9 +32,9 @@ export class MenuScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     const subtitle = this.add
-      .text(centerX, 146, "Help the star friends!", {
+      .text(centerX, 86, "Help the star friends!", {
         color: "#37516b",
-        fontFamily: "Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "19px",
         align: "center",
       })
@@ -50,24 +50,24 @@ export class MenuScene extends Phaser.Scene {
   }
 
   private drawBackground(): void {
-    addStageBackdrop(this, { y: 330, coverPadding: 300, overlayAlpha: 0.1 });
+    addStageBackdrop(this, { y: GAME_HEIGHT / 2, coverPadding: 0, overlayAlpha: 0.08 });
     const graphics = this.add.graphics();
     graphics.setDepth(-6);
     graphics.fillStyle(COLORS.white, 0.14);
-    graphics.fillEllipse(centerX, 326, 520, 360);
+    graphics.fillEllipse(centerX, 208, 760, 210);
     graphics.fillStyle(0x5fd5e8, 0.12);
-    graphics.fillRoundedRect(-10, 430, GAME_WIDTH + 20, 316, 72);
+    graphics.fillRoundedRect(118, 278, GAME_WIDTH - 236, 88, 44);
     graphics.fillStyle(COLORS.white, 0.18);
-    graphics.fillRoundedRect(78, 378, 236, 42, 20);
+    graphics.fillRoundedRect(centerX - 138, 254, 276, 36, 18);
     graphics.lineStyle(3, COLORS.white, 0.42);
-    graphics.lineBetween(92, 390, 298, 390);
-    graphics.lineBetween(92, 406, 298, 406);
+    graphics.lineBetween(centerX - 116, 266, centerX + 116, 266);
+    graphics.lineBetween(centerX - 116, 280, centerX + 116, 280);
   }
 
   private drawRescueFriend(): Pick<MenuIntroParts, "friend" | "bridge" | "thought"> {
-    const friend = this.add.container(-82, 342);
+    const friend = this.add.container(-82, 198);
     const shadow = this.add.ellipse(0, 58, 70, 16, COLORS.shadow, 0.16);
-    const body = this.add.image(0, -4, ART_KEYS.starFriendBody).setDisplaySize(152, 144);
+    const body = this.add.image(0, -4, ART_KEYS.starFriendBody).setDisplaySize(122, 116);
     friend.add([shadow, body]);
     friend.setAlpha(0);
     friend.setScale(0.84);
@@ -75,17 +75,10 @@ export class MenuScene extends Phaser.Scene {
     friend.setDepth(12);
 
     const bridge = this.add.graphics();
-    bridge.fillStyle(COLORS.cream, 1);
-    bridge.lineStyle(3, COLORS.yellow, 0.9);
-    for (let index = 0; index < 4; index += 1) {
-      const x = centerX - 12 + index * 34;
-      bridge.fillRoundedRect(x - 14, 346, 28, 54, 10);
-      bridge.strokeRoundedRect(x - 14, 346, 28, 54, 10);
-    }
     bridge.setAlpha(0);
     bridge.setDepth(8);
 
-    const thought = this.add.container(centerX + 82, 294);
+    const thought = this.add.container(centerX + 168, 134);
     const thoughtArt = this.add.graphics();
     thoughtArt.fillStyle(COLORS.white, 0.76);
     thoughtArt.fillCircle(-44, -14, 32);
@@ -108,7 +101,7 @@ export class MenuScene extends Phaser.Scene {
   }
 
   private createStartButton(): Pick<MenuIntroParts, "startButton" | "startHitZone"> {
-    const button = this.add.container(centerX, 778);
+    const button = this.add.container(GAME_WIDTH - 154, GAME_HEIGHT + 80);
     const bg = this.add.graphics();
     bg.fillStyle(COLORS.shadow, 0.1);
     bg.fillEllipse(8, 12, 238, 82);
@@ -124,7 +117,7 @@ export class MenuScene extends Phaser.Scene {
     const label = this.add
       .text(0, 0, "Start", {
         color: "#203147",
-        fontFamily: "Arial Rounded MT Bold, Arial, sans-serif",
+        fontFamily: UI_FONT,
         fontSize: "30px",
         fontStyle: "bold",
       })
@@ -135,7 +128,7 @@ export class MenuScene extends Phaser.Scene {
     button.setAlpha(0);
     button.setScale(0.82);
     button.setDepth(16);
-    const hitZone = this.add.zone(centerX, 684, 286, 126);
+    const hitZone = this.add.zone(GAME_WIDTH - 154, 318, 286, 126);
     hitZone.disableInteractive();
     hitZone.setDepth(17);
     hitZone.on("pointerdown", () => {
@@ -166,7 +159,7 @@ export class MenuScene extends Phaser.Scene {
       targets: title,
       alpha: 1,
       scale: 1,
-      y: 106,
+      y: 52,
       duration: 420,
       delay: 120,
       ease: "Back.easeOut",
@@ -174,7 +167,7 @@ export class MenuScene extends Phaser.Scene {
     this.tweens.add({
       targets: subtitle,
       alpha: 1,
-      y: 154,
+      y: 92,
       duration: 320,
       delay: 320,
       ease: "Sine.easeOut",
@@ -190,7 +183,7 @@ export class MenuScene extends Phaser.Scene {
 
     this.tweens.add({
       targets: friend,
-      x: centerX - 84,
+      x: 168,
       alpha: 1,
       scale: 1,
       angle: 0,
@@ -200,7 +193,7 @@ export class MenuScene extends Phaser.Scene {
       onComplete: () => {
         this.tweens.add({
           targets: friend,
-          y: 334,
+          y: 190,
           angle: -3,
           duration: 980,
           yoyo: true,
@@ -221,7 +214,7 @@ export class MenuScene extends Phaser.Scene {
 
     this.tweens.add({
       targets: startButton,
-      y: 684,
+      y: 318,
       alpha: 1,
       scale: 1,
       delay: 1260,
@@ -231,7 +224,7 @@ export class MenuScene extends Phaser.Scene {
         startHitZone.setInteractive({ useHandCursor: true });
         this.tweens.add({
           targets: startButton,
-          y: 674,
+          y: 310,
           angle: -2,
           duration: 980,
           yoyo: true,

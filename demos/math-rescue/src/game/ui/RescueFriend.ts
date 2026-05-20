@@ -6,17 +6,17 @@ export class RescueFriend extends Phaser.GameObjects.Container {
   private readonly starImage: Phaser.GameObjects.Image;
   private readonly friendOriginX: number;
   private readonly friendOriginY: number;
-  private readonly startX = -132;
-  private readonly endX = 132;
-  private readonly baseY = 18;
+  private readonly startX = -312;
+  private readonly endX = 312;
+  private readonly baseY = 8;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y);
 
     this.friendOriginX = x;
     this.friendOriginY = y;
-    const shadow = scene.add.ellipse(0, 44, 58, 13, COLORS.shadow, 0.18);
-    this.starImage = scene.add.image(0, -2, ART_KEYS.starFriendBody).setDisplaySize(112, 106);
+    const shadow = scene.add.ellipse(0, 38, 50, 11, COLORS.shadow, 0.18);
+    this.starImage = scene.add.image(0, -2, ART_KEYS.starFriendBody).setDisplaySize(92, 87);
 
     this.add([shadow, this.starImage]);
     scene.add.existing(this);
@@ -45,7 +45,7 @@ export class RescueFriend extends Phaser.GameObjects.Container {
       y: this.friendOriginY + this.baseY - 30,
       scale: 1.12,
       angle: completedSteps % 2 === 0 ? -8 : 8,
-      duration: 430,
+      duration: 560,
       yoyo: true,
       ease: "Sine.easeOut",
       onComplete: () => {
@@ -86,7 +86,7 @@ export class RescueFriend extends Phaser.GameObjects.Container {
       y: this.friendOriginY + this.baseY - 38,
       scale: 1.24,
       angle: -12,
-      duration: 280,
+      duration: 340,
       yoyo: true,
       repeat: 2,
       ease: "Back.easeOut",
