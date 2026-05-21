@@ -32,7 +32,7 @@ export class MenuScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     const subtitle = this.add
-      .text(centerX, 86, "Help the star friends!", {
+      .text(centerX, 86, "Help the squirrel!", {
         color: "#37516b",
         fontFamily: UI_FONT,
         fontSize: "19px",
@@ -67,7 +67,7 @@ export class MenuScene extends Phaser.Scene {
   private drawRescueFriend(): Pick<MenuIntroParts, "friend" | "bridge" | "thought"> {
     const friend = this.add.container(-82, 198);
     const shadow = this.add.ellipse(0, 58, 70, 16, COLORS.shadow, 0.16);
-    const body = this.add.image(0, -4, ART_KEYS.starFriendBody).setDisplaySize(122, 116);
+    const body = this.add.image(0, -4, ART_KEYS.rescueBuddy).setDisplaySize(112, 112);
     friend.add([shadow, body]);
     friend.setAlpha(0);
     friend.setScale(0.84);
@@ -89,9 +89,10 @@ export class MenuScene extends Phaser.Scene {
     thoughtArt.fillCircle(-86, 34, 4);
     thought.add(thoughtArt);
     for (let index = 0; index < 5; index += 1) {
-      thought.add(
-        this.add.star(-32 + index * 18, (index % 2) * 12, 5, 4, 9, index < 2 ? COLORS.yellow : COLORS.green),
-      );
+      const plank = this.add.rectangle(-34 + index * 18, (index % 2) * 12, 14, 8, index < 2 ? COLORS.yellow : COLORS.green);
+      plank.setStrokeStyle(1.5, COLORS.ink, 0.28);
+      plank.setAngle(index % 2 === 0 ? -7 : 7);
+      thought.add(plank);
     }
     thought.setAlpha(0);
     thought.setScale(0.62);

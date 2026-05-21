@@ -6,11 +6,11 @@ export class NumberPlank extends Phaser.GameObjects.Container {
   private readonly plankTexture: Phaser.GameObjects.Image;
   private readonly label: Phaser.GameObjects.Text;
   private readonly hitZone: Phaser.GameObjects.Zone;
-  private readonly plankWidth = 96;
-  private readonly plankHeight = 42;
-  private readonly hitZoneWidth = 144;
-  private readonly hitZoneHeight = 98;
-  private readonly restScale = 0.92;
+  private readonly plankWidth = 112;
+  private readonly plankHeight = 48;
+  private readonly hitZoneWidth = 156;
+  private readonly hitZoneHeight = 104;
+  private readonly restScale = 0.98;
   private readonly homeX: number;
   private readonly homeY: number;
   private readonly homeAngle: number;
@@ -32,13 +32,17 @@ export class NumberPlank extends Phaser.GameObjects.Container {
     this.plank = scene.add.graphics();
     this.plankTexture = scene.add.image(0, 0, ART_KEYS.numberPlank).setDisplaySize(this.plankWidth, this.plankHeight);
     this.label = scene.add
-      .text(0, -1, String(value), {
-        color: "#203147",
+      .text(0, -2, String(value), {
+        color: "#4b2b18",
         fontFamily: UI_FONT,
-        fontSize: "22px",
-        fontStyle: "bold",
+        fontSize: "28px",
+        fontStyle: "900",
+        stroke: "#ffe8ad",
+        strokeThickness: 2,
       })
       .setOrigin(0.5);
+    this.label.setResolution(2);
+    this.label.setShadow(0, 1, "#ffffff", 1, false, true);
 
     this.add([this.plank, this.plankTexture, this.label]);
     this.draw(COLORS.cream, COLORS.yellow);
@@ -95,32 +99,26 @@ export class NumberPlank extends Phaser.GameObjects.Container {
       targets: this.label,
       alpha: 0,
       y: -12,
-      duration: 260,
-      ease: "Sine.easeOut",
-    });
-    this.scene.tweens.add({
-      targets: this.plankTexture,
-      alpha: 0.2,
-      duration: 760,
+      duration: 180,
       ease: "Sine.easeOut",
     });
     this.scene.tweens.add({
       targets: flight,
       t: 1,
-      duration: 1280,
-      ease: "Cubic.easeInOut",
+      duration: 720,
+      ease: "Sine.easeInOut",
       onUpdate: () => {
         const t = flight.t;
         const inv = 1 - t;
         this.x = inv * inv * startX + 2 * inv * t * controlX + t * t * targetX;
         this.y = inv * inv * startY + 2 * inv * t * controlY + t * t * targetY;
-        this.scale = Phaser.Math.Linear(startScale, 0.14, t);
+        this.scale = Phaser.Math.Linear(startScale, 0.18, t);
         this.angle = Phaser.Math.Linear(startAngle, targetAngle, t);
-        this.alpha = Phaser.Math.Linear(1, 0.48, t);
+        this.alpha = Phaser.Math.Linear(1, 0.88, t);
       },
       onComplete: () => {
         this.setPosition(targetX, targetY);
-        this.setScale(0.14);
+        this.setScale(0.18);
         this.angle = targetAngle;
         onComplete();
       },
@@ -132,8 +130,8 @@ export class NumberPlank extends Phaser.GameObjects.Container {
     this.scene.tweens.killTweensOf(this);
     this.setPosition(startX, startY);
     this.setAlpha(0);
-    this.setScale(0.58);
-    this.angle = this.homeAngle + Phaser.Math.Between(-10, 10);
+    this.setScale(0.8);
+    this.angle = this.homeAngle + Phaser.Math.Between(-4, 4);
     const drift = { t: 0 };
     const startAngle = this.angle;
     const waveDirection = this.homeX < startX ? -1 : 1;
@@ -142,14 +140,14 @@ export class NumberPlank extends Phaser.GameObjects.Container {
       targets: drift,
       t: 1,
       delay,
-      duration: 1160,
-      ease: "Cubic.easeOut",
+      duration: 680,
+      ease: "Sine.easeOut",
       onUpdate: () => {
         const t = drift.t;
-        this.x = Phaser.Math.Linear(startX, this.homeX, t) + Math.sin(t * Math.PI) * 18 * waveDirection;
-        this.y = Phaser.Math.Linear(startY, this.homeY, t) - Math.sin(t * Math.PI) * 18;
-        this.alpha = Phaser.Math.Clamp(t * 1.4, 0, 0.96);
-        this.scale = Phaser.Math.Linear(0.58, this.restScale, t);
+        this.x = Phaser.Math.Linear(startX, this.homeX, t) + Math.sin(t * Math.PI) * 5 * waveDirection;
+        this.y = Phaser.Math.Linear(startY, this.homeY, t) - Math.sin(t * Math.PI) * 6;
+        this.alpha = Phaser.Math.Clamp(t * 1.7, 0, 0.96);
+        this.scale = Phaser.Math.Linear(0.8, this.restScale, t);
         this.angle = Phaser.Math.Linear(startAngle, this.homeAngle, t);
       },
       onComplete: () => {
@@ -157,7 +155,6 @@ export class NumberPlank extends Phaser.GameObjects.Container {
         this.setScale(this.restScale);
         this.angle = this.homeAngle;
         this.enableChoice();
-        this.startFloat();
         onComplete?.();
       },
     });
@@ -167,6 +164,22 @@ export class NumberPlank extends Phaser.GameObjects.Container {
     this.hitZone.disableInteractive();
     this.scene.tweens.killTweensOf(this);
     this.draw(COLORS.cream, COLORS.coral);
+    this.plankTexture.setTint(0xffc3b6);
+    this.label.setColor("#7a3026");
+    this.label.setStroke("#fff1df", 3);
+
+    const flash = this.scene.add.ellipse(this.homeX, this.homeY + 4, this.plankWidth + 42, this.plankHeight + 22, COLORS.coral, 0.22);
+    flash.setDepth(this.depth + 1);
+    this.scene.tweens.add({
+      targets: flash,
+      scaleX: 1.18,
+      scaleY: 1.26,
+      alpha: 0,
+      duration: 420,
+      ease: "Cubic.easeOut",
+      onComplete: () => flash.destroy(),
+    });
+
     this.scene.tweens.add({
       targets: this,
       x: {
@@ -174,12 +187,13 @@ export class NumberPlank extends Phaser.GameObjects.Container {
         to: this.homeX + 7,
       },
       angle: {
-        from: -2,
-        to: 2,
+        from: this.homeAngle - 6,
+        to: this.homeAngle + 6,
       },
+      scale: this.restScale * 1.04,
       duration: 90,
       yoyo: true,
-      repeat: 4,
+      repeat: 3,
       ease: "Sine.easeInOut",
       onComplete: () => {
         this.x = this.homeX;
@@ -187,9 +201,10 @@ export class NumberPlank extends Phaser.GameObjects.Container {
         this.angle = this.homeAngle;
         this.scale = this.restScale;
         this.draw(COLORS.cream, COLORS.yellow);
+        this.label.setColor("#4b2b18");
+        this.label.setStroke("#ffe8ad", 2);
         this.hitZone.setPosition(this.homeX, this.homeY);
         this.hitZone.setInteractive({ useHandCursor: true });
-        this.startFloat();
       },
     });
   }
@@ -201,15 +216,9 @@ export class NumberPlank extends Phaser.GameObjects.Container {
 
   private startFloat(): void {
     this.scene.tweens.killTweensOf(this);
-    this.scene.tweens.add({
-      targets: this,
-      y: this.homeY - 4,
-      angle: this.homeAngle + 1.6,
-      duration: 1120 + Phaser.Math.Between(0, 260),
-      yoyo: true,
-      repeat: -1,
-      ease: "Sine.easeInOut",
-    });
+    this.setPosition(this.homeX, this.homeY);
+    this.setScale(this.restScale);
+    this.angle = this.homeAngle;
   }
 
   private draw(fillColor: number, strokeColor: number): void {

@@ -25,36 +25,37 @@ export class RewardSystem {
 
     for (let index = 0; index < count; index += 1) {
       const angle = (Math.PI * 2 * index) / count;
-      const star = this.scene.add.star(
+      const chip = this.scene.add.rectangle(
         x,
         y,
-        5,
-        7,
-        16,
+        index % 3 === 0 ? 18 : 12,
+        index % 3 === 0 ? 8 : 7,
         index % 2 === 0 ? primaryColor : COLORS.white,
+        0.86,
       );
 
-      star.setDepth(28);
-      star.setScale(0.72);
-      particles.push(star);
+      chip.setDepth(28);
+      chip.setScale(0.62);
+      chip.setAngle(((angle * 180) / Math.PI) * 0.4);
+      particles.push(chip);
 
       this.scene.tweens.add({
-        targets: star,
+        targets: chip,
         x: x + Math.cos(angle) * radius,
         y: y + Math.sin(angle) * (radius * 0.78),
         alpha: 0,
-        scale: 0.2,
-        duration: 780,
-        ease: "Cubic.easeOut",
-        onComplete: () => star.destroy(),
+        scale: 0.3,
+        duration: 620,
+        ease: "Sine.easeOut",
+        onComplete: () => chip.destroy(),
       });
     }
 
     this.scene.tweens.add({
       targets: particles,
-      angle: 180,
-      duration: 780,
-      ease: "Cubic.easeOut",
+      angle: 72,
+      duration: 620,
+      ease: "Sine.easeOut",
     });
   }
 

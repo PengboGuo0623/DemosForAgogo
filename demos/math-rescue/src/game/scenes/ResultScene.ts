@@ -23,7 +23,7 @@ export class ResultScene extends Phaser.Scene {
     this.createCrossingFriend();
     this.createTitle();
     this.createSoftSummary(data);
-    this.playStarRain();
+    this.playConfettiRain();
     new RewardSystem(this).playResultBurst(centerX, 158);
     this.createRestartButton();
   }
@@ -47,7 +47,7 @@ export class ResultScene extends Phaser.Scene {
     });
 
     this.add
-      .text(centerX, 78, "All the friends made it across", {
+      .text(centerX, 78, "The squirrel made it across", {
         color: "#4b6378",
         fontFamily: UI_FONT,
         fontSize: "19px",
@@ -122,10 +122,10 @@ export class ResultScene extends Phaser.Scene {
   }
 
   private createCrossingFriend(): void {
-    const friend = this.add.container(130, 204);
+    const friend = this.add.container(130, 214);
     friend.setDepth(12);
     const shadow = this.add.ellipse(0, 42, 58, 13, COLORS.shadow, 0.14);
-    const body = this.add.image(0, -4, ART_KEYS.starFriendBody).setDisplaySize(112, 106);
+    const body = this.add.image(0, -4, ART_KEYS.rescueBuddy).setDisplaySize(104, 104);
     friend.add([shadow, body]);
 
     this.tweens.add({
@@ -136,15 +136,15 @@ export class ResultScene extends Phaser.Scene {
       onComplete: () => {
         this.tweens.add({
           targets: friend,
-          y: 164,
-          scale: 1.16,
+          y: 188,
+          scale: 1.12,
           angle: -10,
           duration: 210,
           yoyo: true,
           repeat: 1,
           ease: "Back.easeOut",
           onComplete: () => {
-            friend.y = 204;
+            friend.y = 214;
             friend.scale = 1;
             friend.angle = 0;
           },
@@ -154,7 +154,7 @@ export class ResultScene extends Phaser.Scene {
 
     this.tweens.add({
       targets: friend,
-      y: 176,
+      y: 192,
       duration: 220,
       yoyo: true,
       repeat: 5,
@@ -188,30 +188,29 @@ export class ResultScene extends Phaser.Scene {
     });
   }
 
-  private playStarRain(): void {
-    for (let index = 0; index < 30; index += 1) {
-      const star = this.add.star(
+  private playConfettiRain(): void {
+    for (let index = 0; index < 24; index += 1) {
+      const plank = this.add.rectangle(
         Phaser.Math.Between(22, GAME_WIDTH - 22),
         Phaser.Math.Between(-40, 120),
-        5,
-        4,
-        12,
+        Phaser.Math.Between(12, 22),
+        Phaser.Math.Between(6, 10),
         index % 3 === 0 ? COLORS.yellow : index % 3 === 1 ? COLORS.green : COLORS.white,
         0.9,
       );
-      star.setDepth(6);
-      star.setScale(Phaser.Math.FloatBetween(0.4, 0.9));
+      plank.setDepth(6);
+      plank.setAngle(Phaser.Math.Between(-16, 16));
       this.tweens.add({
-        targets: star,
-        y: star.y + Phaser.Math.Between(220, 360),
-        x: star.x + Phaser.Math.Between(-26, 26),
-        angle: Phaser.Math.Between(-180, 180),
+        targets: plank,
+        y: plank.y + Phaser.Math.Between(180, 300),
+        x: plank.x + Phaser.Math.Between(-18, 18),
+        angle: plank.angle + Phaser.Math.Between(-38, 38),
         alpha: 0,
         delay: index * 46,
-        duration: 1200 + index * 14,
+        duration: 1050 + index * 12,
         repeat: -1,
         repeatDelay: 2600,
-        ease: "Cubic.easeOut",
+        ease: "Sine.easeOut",
       });
     }
   }

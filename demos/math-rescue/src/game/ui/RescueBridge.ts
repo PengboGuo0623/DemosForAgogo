@@ -69,7 +69,7 @@ export class RescueBridge extends Phaser.GameObjects.Container {
     this.scene.tweens.add({
       targets: this.revealState,
       value: nextReveal,
-      duration: Math.abs(nextReveal - this.revealState.value) > 0.02 ? 1360 : 80,
+      duration: Math.abs(nextReveal - this.revealState.value) > 0.02 ? 620 : 80,
       ease: "Cubic.easeInOut",
       onUpdate: () => this.applyReveal(),
       onComplete: () => {
@@ -101,28 +101,28 @@ export class RescueBridge extends Phaser.GameObjects.Container {
   celebrateCombo(): void {
     this.playGlow(this.sourceToCanvasX(920), this.sourceToCanvasY(492), COLORS.green, 240, 62);
 
-    for (let index = 0; index < 18; index += 1) {
-      const sparkle = this.scene.add.star(
+    for (let index = 0; index < 10; index += 1) {
+      const sparkle = this.scene.add.rectangle(
         this.sourceToCanvasX(360 + index * 66),
         this.sourceToCanvasY(424 + Phaser.Math.Between(-18, 36)),
-        5,
-        3,
-        9,
+        13,
+        7,
         index % 2 === 0 ? COLORS.yellow : COLORS.white,
-        0.8,
+        0.58,
       );
       sparkle.setDepth(this.depth + 1);
-      sparkle.setScale(0.24);
+      sparkle.setScale(0.48);
+      sparkle.setAngle(Phaser.Math.Between(-12, 12));
 
       this.scene.tweens.add({
         targets: sparkle,
         y: sparkle.y - Phaser.Math.Between(10, 32),
-        scale: 0.9,
+        scale: 0.76,
         alpha: 0,
-        angle: Phaser.Math.Between(-90, 90),
+        angle: sparkle.angle + Phaser.Math.Between(-28, 28),
         delay: index * 26,
-        duration: 860,
-        ease: "Cubic.easeOut",
+        duration: 620,
+        ease: "Sine.easeOut",
         onComplete: () => sparkle.destroy(),
       });
     }
@@ -200,16 +200,16 @@ export class RescueBridge extends Phaser.GameObjects.Container {
       const art = this.scene.add.graphics();
       light.angle = target.angle;
       light.setScale(index >= 6 ? 0.72 : 0.82);
-      art.fillStyle(COLORS.yellow, 0.22);
+      art.fillStyle(COLORS.yellow, 0.12);
       art.fillRoundedRect(-48, -13, 96, 26, 13);
-      art.fillStyle(COLORS.white, 0.2);
+      art.fillStyle(COLORS.white, 0.12);
       art.fillRoundedRect(-36, -7, 72, 8, 4);
-      art.lineStyle(3, COLORS.white, 0.48);
+      art.lineStyle(3, COLORS.white, 0.28);
       art.lineBetween(-32, -4, 32, -4);
-      art.lineStyle(2, COLORS.yellow, 0.58);
+      art.lineStyle(2, COLORS.yellow, 0.36);
       art.lineBetween(-28, 6, 28, 6);
       light.add(art);
-      light.setAlpha(0.92);
+      light.setAlpha(0.62);
       this.repairLights.add(light);
     }
   }
@@ -221,29 +221,29 @@ export class RescueBridge extends Phaser.GameObjects.Container {
 
     this.playGlow(x, y, COLORS.white, 86, 42);
 
-    for (let index = 0; index < 8; index += 1) {
-      const sparkle = this.scene.add.star(
+    for (let index = 0; index < 4; index += 1) {
+      const sparkle = this.scene.add.rectangle(
         x + Phaser.Math.Between(-36, 36),
         y + Phaser.Math.Between(-20, 18),
-        5,
-        2,
-        7,
+        12,
+        6,
         index % 2 === 0 ? COLORS.yellow : COLORS.white,
-        0.76,
+        0.58,
       );
       sparkle.setDepth(this.depth + 2);
-      sparkle.setScale(0.22);
+      sparkle.setScale(0.42);
+      sparkle.setAngle(Phaser.Math.Between(-12, 12));
 
       this.scene.tweens.add({
         targets: sparkle,
         y: sparkle.y - Phaser.Math.Between(18, 42),
         x: sparkle.x + Phaser.Math.Between(-16, 16),
-        scale: 0.82,
+        scale: 0.72,
         alpha: 0,
-        angle: Phaser.Math.Between(-110, 110),
+        angle: sparkle.angle + Phaser.Math.Between(-28, 28),
         delay: index * 48,
-        duration: 860,
-        ease: "Cubic.easeOut",
+        duration: 620,
+        ease: "Sine.easeOut",
         onComplete: () => sparkle.destroy(),
       });
     }

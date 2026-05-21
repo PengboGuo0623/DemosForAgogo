@@ -11,6 +11,10 @@ import { StoryBubble } from "../ui/StoryBubble";
 import { addStageBackdrop } from "../utils/art";
 import { centerX } from "../utils/layout";
 
+const QUESTION_BOARD_Y = 108;
+const QUESTION_TEXT_Y = 101;
+const QUESTION_TEXT_INTRO_Y = 111;
+
 export class PlayScene extends Phaser.Scene {
   private readonly questionGenerator = new QuestionGenerator();
   private planks: NumberPlank[] = [];
@@ -20,7 +24,7 @@ export class PlayScene extends Phaser.Scene {
   private progressBar?: ProgressBar;
   private rewardSystem?: RewardSystem;
   private storyContainer?: Phaser.GameObjects.Container;
-  private equationPlate?: Phaser.GameObjects.Graphics;
+  private equationPlate?: Phaser.GameObjects.Image;
   private equationText?: Phaser.GameObjects.Text;
   private helperText?: Phaser.GameObjects.Text;
   private storyBubble?: StoryBubble;
@@ -79,13 +83,13 @@ export class PlayScene extends Phaser.Scene {
     for (let index = 0; index < 18; index += 1) {
       const x = Phaser.Math.Between(36, GAME_WIDTH - 36);
       const y = Phaser.Math.Between(42, GAME_HEIGHT - 62);
-      const sparkle = this.add.star(x, y, 5, 2, 5, COLORS.white, 0.44);
+      const sparkle = this.add.circle(x, y, Phaser.Math.FloatBetween(1.2, 2.2), COLORS.white, 0.34);
       sparkle.setDepth(-4);
       this.tweens.add({
         targets: sparkle,
-        alpha: 0.12,
-        scale: 1.5,
-        duration: 920 + index * 54,
+        alpha: 0.1,
+        scale: 1.28,
+        duration: 1320 + index * 54,
         yoyo: true,
         repeat: -1,
         ease: "Sine.easeInOut",
@@ -138,20 +142,25 @@ export class PlayScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setAlpha(0);
 
-    this.storyContainer = this.add.container(centerX, 108);
+    this.storyContainer = this.add.container(centerX, QUESTION_BOARD_Y);
     this.storyContainer.setDepth(14);
-    this.equationPlate = this.add.graphics();
-    this.equationPlate.setDepth(15);
-    this.drawEquationPlate();
+    this.equationPlate = this.add
+      .image(0, 0, ART_KEYS.questionNumberBoard)
+      .setDisplaySize(336, 89)
+      .setAlpha(0.98);
+    this.storyContainer.add(this.equationPlate);
     this.equationText = this.add
-      .text(centerX, 164, "", {
-        color: "#4b6378",
+      .text(centerX, QUESTION_TEXT_Y, "", {
+        color: "#4b2b18",
         fontFamily: UI_FONT,
-        fontSize: "17px",
-        fontStyle: "bold",
+        fontSize: "34px",
+        fontStyle: "900",
+        stroke: "#fff6dc",
+        strokeThickness: 3,
       })
       .setOrigin(0.5)
       .setDepth(16);
+    this.equationText.setResolution(2);
 
     this.helperPlate = this.add.graphics();
     this.helperPlate.setDepth(29);
@@ -169,23 +178,6 @@ export class PlayScene extends Phaser.Scene {
       .setAlpha(0)
       .setDepth(30);
     this.helperPlate.setAlpha(0);
-  }
-
-  private drawEquationPlate(): void {
-    if (!this.equationPlate) {
-      return;
-    }
-
-    const x = centerX;
-    const y = 164;
-    this.equationPlate.clear();
-    this.equationPlate.fillStyle(COLORS.shadow, 0.06);
-    this.equationPlate.fillRoundedRect(x - 50, y - 15, 100, 32, 16);
-    this.equationPlate.fillStyle(COLORS.white, 0.62);
-    this.equationPlate.fillRoundedRect(x - 48, y - 18, 96, 32, 16);
-    this.equationPlate.lineStyle(2, COLORS.white, 0.46);
-    this.equationPlate.strokeRoundedRect(x - 42, y - 13, 84, 22, 11);
-    this.equationPlate.setAlpha(0);
   }
 
   private drawHelperPlate(): void {
@@ -237,8 +229,7 @@ export class PlayScene extends Phaser.Scene {
     this.clearPlanks();
     this.clearChoiceCue();
     this.storyBubble?.hideNow();
-    this.renderMathStory(question);
-    this.equationText.setText(`${question.left} ${question.operator} ${question.right}`);
+    this.setEquationPrompt(question);
     this.helperText.setText(this.getHelperPrompt());
     this.helperText.setAlpha(0);
     this.helperPlate?.setAlpha(0);
@@ -273,30 +264,42 @@ export class PlayScene extends Phaser.Scene {
   }
 
   private animateQuestionBeat(): void {
-    if (!this.storyContainer || !this.equationText || !this.equationPlate) {
+    if (!this.storyContainer || !this.equationText) {
       return;
     }
 
     this.storyContainer.setAlpha(0);
     this.storyContainer.setScale(0.88);
-    this.storyContainer.y = 118;
+    this.storyContainer.y = 116;
+    this.equationPlate?.setAlpha(0.98);
     this.equationText.setAlpha(0);
-    this.equationPlate.setAlpha(0);
+    this.equationText.y = QUESTION_TEXT_INTRO_Y;
     this.tweens.add({
       targets: this.storyContainer,
       alpha: 1,
       scale: 1,
-      y: 108,
+      y: QUESTION_BOARD_Y,
       duration: 780,
       ease: "Cubic.easeOut",
     });
     this.tweens.add({
-      targets: [this.equationText, this.equationPlate],
-      alpha: 0.92,
-      delay: 540,
-      duration: 420,
+      targets: this.equationText,
+      alpha: 0.96,
+      y: QUESTION_TEXT_Y,
+      delay: 160,
+      duration: 360,
       ease: "Sine.easeOut",
     });
+  }
+
+  private setEquationPrompt(question: MathQuestion): void {
+    if (!this.equationText) {
+      return;
+    }
+
+    const prompt = `${question.left} ${question.operator} ${question.right} = ?`;
+    this.equationText.setFontSize(prompt.length >= 10 ? 30 : 34);
+    this.equationText.setText(prompt);
   }
 
   private playQuestionIntro(question: MathQuestion): void {
@@ -310,27 +313,8 @@ export class PlayScene extends Phaser.Scene {
 
     this.time.delayedCall(2460, () => {
       this.isResolvingAnswer = false;
-      this.helperText?.setText(this.getHelperPrompt());
-      this.tweens.add({
-        targets: [this.helperText, this.helperPlate],
-        alpha: 0.72,
-        duration: 260,
-        ease: "Sine.easeOut",
-        onComplete: () => {
-          this.helperText?.setAlpha(0.72);
-          this.helperPlate?.setAlpha(0.72);
-          this.time.delayedCall(680, () => {
-            if (!this.isResolvingAnswer) {
-              this.tweens.add({
-                targets: [this.helperText, this.helperPlate],
-                alpha: 0.1,
-                duration: 420,
-                ease: "Sine.easeInOut",
-              });
-            }
-          });
-        },
-      });
+      this.helperText?.setAlpha(0);
+      this.helperPlate?.setAlpha(0);
       this.playChoiceCue();
     });
   }
@@ -359,7 +343,7 @@ export class PlayScene extends Phaser.Scene {
     }
 
     if (this.currentQuestionIndex < 7) {
-      return "Guide the star";
+      return "Guide buddy";
     }
 
     return "Last plank";
@@ -381,17 +365,16 @@ export class PlayScene extends Phaser.Scene {
     const friendX = this.rescueFriend?.x ?? centerX - 138;
     const friendY = this.rescueFriend?.y ?? 190;
     const bridgeTarget = this.bridge?.getNextPlankTarget() ?? { x: centerX, y: 248 };
-    const spark = this.add.star(friendX + 24, friendY - 12, 5, 5, 12, COLORS.yellow, 0.95);
+    const spark = this.add.circle(friendX + 24, friendY - 12, 7, COLORS.yellow, 0.92);
     spark.setDepth(22);
-    spark.setScale(0.45);
+    spark.setScale(0.7);
 
     this.tweens.add({
       targets: spark,
       x: bridgeTarget.x,
       y: bridgeTarget.y - 12,
-      scale: 1.08,
-      angle: 180,
-      duration: 1180,
+      scale: 1,
+      duration: 720,
       ease: "Sine.easeInOut",
       onComplete: () => {
         this.playBridgeTargetGlow(bridgeTarget.x, bridgeTarget.y);
@@ -399,20 +382,20 @@ export class PlayScene extends Phaser.Scene {
       },
     });
 
-    for (let index = 0; index < 5; index += 1) {
-      const twinkle = this.add.star(friendX + 22, friendY - 12, 5, 2, 6, COLORS.white, 0.72);
+    for (let index = 0; index < 3; index += 1) {
+      const twinkle = this.add.circle(friendX + 22, friendY - 12, 2.6, COLORS.white, 0.58);
       twinkle.setDepth(22);
-      twinkle.setScale(0.2);
+      twinkle.setScale(0.6);
 
       this.tweens.add({
         targets: twinkle,
-        x: Phaser.Math.Linear(friendX + 24, bridgeTarget.x, index / 4),
-        y: Phaser.Math.Linear(friendY - 12, bridgeTarget.y - 12, index / 4) + Phaser.Math.Between(-12, 12),
+        x: Phaser.Math.Linear(friendX + 24, bridgeTarget.x, index / 2),
+        y: Phaser.Math.Linear(friendY - 12, bridgeTarget.y - 12, index / 2) + Phaser.Math.Between(-6, 6),
         alpha: 0,
-        scale: 0.82,
+        scale: 0.9,
         delay: 220 + index * 110,
-        duration: 560,
-        ease: "Cubic.easeOut",
+        duration: 420,
+        ease: "Sine.easeOut",
         onComplete: () => twinkle.destroy(),
       });
     }
@@ -431,89 +414,6 @@ export class PlayScene extends Phaser.Scene {
       ease: "Cubic.easeOut",
       onComplete: () => glow.destroy(),
     });
-  }
-
-  private renderMathStory(question: MathQuestion): void {
-    this.storyContainer?.removeAll(true);
-    this.drawStoryPanel();
-
-    if (question.operator === "+") {
-      this.drawTokenGroup(-54, -12, question.left, COLORS.yellow);
-      this.addStorySymbol(2, -12, "+");
-      this.drawTokenGroup(62, -12, question.right, COLORS.green);
-      this.drawCountBadge(-54, 42, question.left, COLORS.yellow);
-      this.drawCountBadge(62, 42, question.right, COLORS.green);
-      return;
-    }
-
-    this.drawTokenGroup(-54, -12, question.left, COLORS.yellow);
-    this.addStorySymbol(2, -12, "-");
-    this.drawTokenGroup(62, -12, question.right, COLORS.coral, 0.56);
-    this.drawCountBadge(-54, 42, question.left, COLORS.yellow);
-    this.drawCountBadge(62, 42, question.right, COLORS.coral);
-  }
-
-  private drawStoryPanel(): void {
-    const panel = this.add.graphics();
-    panel.fillStyle(COLORS.white, 0.18);
-    panel.fillEllipse(-54, -8, 118, 78);
-    panel.fillEllipse(62, -8, 118, 78);
-    panel.fillStyle(0xfff3bf, 0.14);
-    panel.fillEllipse(-54, -8, 88, 58);
-    panel.fillStyle(0xd7ffe2, 0.13);
-    panel.fillEllipse(62, -8, 88, 58);
-    panel.lineStyle(2, COLORS.white, 0.28);
-    panel.strokeEllipse(-54, -8, 108, 68);
-    panel.strokeEllipse(62, -8, 108, 68);
-    panel.fillStyle(COLORS.white, 0.16);
-    panel.fillCircle(0, -10, 28);
-    this.storyContainer?.add(panel);
-  }
-
-  private drawTokenGroup(x: number, y: number, count: number, color: number, alpha = 1): void {
-    const visualCount = Math.min(count, 10);
-    const columns = visualCount > 6 ? 5 : Math.min(5, Math.max(1, visualCount));
-    const spacing = visualCount > 6 ? 13 : 15;
-    const startX = x - ((columns - 1) * spacing) / 2;
-
-    for (let index = 0; index < visualCount; index += 1) {
-      const row = Math.floor(index / columns);
-      const column = index % columns;
-      const token = this.add.star(startX + column * spacing, y - 10 + row * 16, 5, 3, 8, color, alpha);
-      token.setStrokeStyle(1.6, COLORS.ink, 0.42 * alpha);
-      this.storyContainer?.add(token);
-    }
-  }
-
-  private drawCountBadge(x: number, y: number, count: number, color: number): void {
-    const badge = this.add.graphics();
-    badge.fillStyle(COLORS.white, 0.68);
-    badge.fillRoundedRect(x - 21, y - 11, 42, 22, 11);
-    badge.lineStyle(2, color, 0.58);
-    badge.strokeRoundedRect(x - 18, y - 8, 36, 16, 8);
-
-    const label = this.add
-      .text(x, y - 1, String(count), {
-        color: "#203147",
-        fontFamily: UI_FONT,
-        fontSize: "15px",
-        fontStyle: "bold",
-      })
-      .setOrigin(0.5);
-
-    this.storyContainer?.add([badge, label]);
-  }
-
-  private addStorySymbol(x: number, y: number, symbol: string): void {
-    const text = this.add
-      .text(x, y, symbol, {
-        color: "#4b6378",
-        fontFamily: UI_FONT,
-        fontSize: "26px",
-        fontStyle: "bold",
-      })
-      .setOrigin(0.5);
-    this.storyContainer?.add(text);
   }
 
   private drawNumberPlanks(question: MathQuestion): void {
@@ -552,17 +452,17 @@ export class PlayScene extends Phaser.Scene {
       onComplete: () => wake.destroy(),
     });
 
-    for (let index = 0; index < 3; index += 1) {
-      const glint = this.add.star(x + Phaser.Math.Between(-36, 36), y + Phaser.Math.Between(-8, 18), 5, 2, 5, COLORS.white, 0.52);
+    for (let index = 0; index < 2; index += 1) {
+      const glint = this.add.circle(x + Phaser.Math.Between(-28, 28), y + Phaser.Math.Between(-6, 12), 2.2, COLORS.white, 0.38);
       glint.setDepth(8);
-      glint.setScale(0.18);
+      glint.setScale(0.7);
       this.tweens.add({
         targets: glint,
-        y: glint.y - Phaser.Math.Between(8, 18),
-        scale: 0.48,
+        y: glint.y - Phaser.Math.Between(6, 12),
+        scale: 0.92,
         alpha: 0,
         delay: index * 90,
-        duration: 620,
+        duration: 420,
         ease: "Sine.easeOut",
         onComplete: () => glint.destroy(),
       });
@@ -575,7 +475,7 @@ export class PlayScene extends Phaser.Scene {
     this.choiceCue.setDepth(10);
 
     this.planks.forEach((plank, index) => {
-      const sparkle = this.add.star(plank.x + 24, plank.y - 24, 5, 2, 6, COLORS.white, 0.5);
+      const sparkle = this.add.circle(plank.x + 24, plank.y - 24, 2.4, COLORS.white, 0.32);
       const ripple = this.add.ellipse(plank.x, plank.y + 10, 104, 24);
       ripple.setStrokeStyle(2, COLORS.white, 0.13);
       ripple.setFillStyle(COLORS.white, 0);
@@ -583,11 +483,10 @@ export class PlayScene extends Phaser.Scene {
 
       this.tweens.add({
         targets: sparkle,
-        y: sparkle.y - 8,
-        angle: 16,
-        alpha: 0.12,
+        y: sparkle.y - 5,
+        alpha: 0.1,
         delay: index * 120,
-        duration: 980,
+        duration: 1220,
         yoyo: true,
         repeat: -1,
         ease: "Sine.easeInOut",
@@ -645,7 +544,7 @@ export class PlayScene extends Phaser.Scene {
     this.progressBar.setProgress(this.questionsAnswered / GAME_RULES.questionsPerRound);
     this.updateStoryDots();
     this.tweens.add({
-      targets: [this.storyContainer, this.equationText, this.equationPlate],
+      targets: [this.storyContainer, this.equationText],
       alpha: 0.14,
       duration: 260,
       ease: "Sine.easeOut",
@@ -653,7 +552,7 @@ export class PlayScene extends Phaser.Scene {
     this.helperText?.setAlpha(0);
     this.helperPlate?.setAlpha(0);
     this.showFriendBubble(this.getCorrectBubble(), COLORS.yellow, 1320);
-    this.cameras.main.shake(80, 0.0015);
+    this.cameras.main.shake(40, 0.0008);
     this.bridge.celebrateStep();
 
     if (this.combo >= 3) {
@@ -710,21 +609,15 @@ export class PlayScene extends Phaser.Scene {
     this.updateScoreHud();
     this.clearChoiceCue();
     plank.nudgeBack();
-    this.helperText.setText(Phaser.Math.RND.pick(["Almost there", "Try one more", "So close"]));
-    this.helperText.setAlpha(0.95);
-    this.helperPlate?.setAlpha(0.92);
-    this.showFriendBubble("Almost!", COLORS.white, 980);
+    this.helperText.setAlpha(0);
+    this.helperPlate?.setAlpha(0);
+    this.showFriendBubble(Phaser.Math.RND.pick(["Almost!", "Try again!", "So close!"]), COLORS.white, 980);
     this.rescueFriend?.encourage();
 
     this.time.delayedCall(1500, () => {
       this.isResolvingAnswer = false;
-      this.helperText?.setText(this.getHelperPrompt());
-      this.tweens.add({
-        targets: [this.helperText, this.helperPlate],
-        alpha: 0.1,
-        duration: 300,
-        ease: "Sine.easeInOut",
-      });
+      this.helperText?.setAlpha(0);
+      this.helperPlate?.setAlpha(0);
       this.playChoiceCue();
     });
   }
@@ -756,28 +649,28 @@ export class PlayScene extends Phaser.Scene {
   }
 
   private playPlankTrail(startX: number, startY: number, targetX: number, targetY: number): void {
-    for (let index = 0; index < 10; index += 1) {
-      const t = index / 9;
-      const sparkle = this.add.star(
+    for (let index = 0; index < 5; index += 1) {
+      const t = index / 4;
+      const sparkle = this.add.rectangle(
         Phaser.Math.Linear(startX, targetX, t),
         Phaser.Math.Linear(startY, targetY, t) - Math.sin(t * Math.PI) * 72,
-        5,
-        3,
-        8,
+        12,
+        6,
         index % 2 === 0 ? COLORS.yellow : COLORS.white,
-        0.92,
+        0.68,
       );
       sparkle.setDepth(23);
-      sparkle.setScale(0.2);
+      sparkle.setScale(0.42);
+      sparkle.setAngle(Phaser.Math.Between(-12, 12));
 
       this.tweens.add({
         targets: sparkle,
-        scale: 1,
+        scale: 0.86,
         alpha: 0,
-        angle: 140,
+        angle: sparkle.angle + 28,
         delay: index * 42,
-        duration: 680,
-        ease: "Cubic.easeOut",
+        duration: 520,
+        ease: "Sine.easeOut",
         onComplete: () => sparkle.destroy(),
       });
     }
@@ -812,7 +705,7 @@ export class PlayScene extends Phaser.Scene {
 
     const glow = this.add.ellipse(x, y + 4, 72, 42, COLORS.yellow, 0.34);
     const ring = this.add.ellipse(x, y + 4, 60, 34);
-    const pop = this.add.star(x, y - 22, 5, 4, 10, COLORS.white, 0.92);
+    const pop = this.add.circle(x, y - 22, 8, COLORS.white, 0.78);
     glow.setDepth(18);
     ring.setDepth(19);
     pop.setDepth(20);
@@ -841,36 +734,35 @@ export class PlayScene extends Phaser.Scene {
     this.tweens.add({
       targets: pop,
       y: y - 42,
-      scale: 1.1,
+      scale: 0.82,
       alpha: 0,
-      angle: 80,
-      duration: 720,
-      ease: "Back.easeOut",
+      duration: 520,
+      ease: "Sine.easeOut",
       onComplete: () => pop.destroy(),
     });
 
-    for (let index = 0; index < 7; index += 1) {
-      const shine = this.add.star(
+    for (let index = 0; index < 4; index += 1) {
+      const shine = this.add.rectangle(
         x + Phaser.Math.Between(-52, 52),
         y + Phaser.Math.Between(-18, 18),
-        5,
-        2,
-        7,
+        12,
+        6,
         index % 2 === 0 ? COLORS.yellow : COLORS.white,
-        0.78,
+        0.6,
       );
       shine.setDepth(21);
-      shine.setScale(0.24);
+      shine.setScale(0.45);
+      shine.setAngle(Phaser.Math.Between(-12, 12));
 
       this.tweens.add({
         targets: shine,
         y: shine.y - Phaser.Math.Between(14, 36),
-        scale: 0.86,
+        scale: 0.74,
         alpha: 0,
-        angle: Phaser.Math.Between(-120, 120),
+        angle: shine.angle + Phaser.Math.Between(-28, 28),
         delay: index * 52,
-        duration: 840,
-        ease: "Cubic.easeOut",
+        duration: 620,
+        ease: "Sine.easeOut",
         onComplete: () => shine.destroy(),
       });
     }
@@ -906,51 +798,42 @@ export class PlayScene extends Phaser.Scene {
   }
 
   private playComboSceneBeat(): void {
-    const rainbow = this.add.graphics();
-    rainbow.setDepth(21);
-    const colors = [COLORS.coral, COLORS.yellow, COLORS.green, COLORS.blue, COLORS.purple];
-    colors.forEach((color, index) => {
-      rainbow.lineStyle(7, color, 0.66);
-      rainbow.beginPath();
-      rainbow.arc(centerX, 196, 184 + index * 12, Math.PI + 0.18, Math.PI * 2 - 0.18);
-      rainbow.strokePath();
-    });
-    rainbow.setAlpha(0);
-
+    const glow = this.add.ellipse(centerX, 211, 420, 58, COLORS.green, 0.18);
+    glow.setDepth(21);
     this.tweens.add({
-      targets: rainbow,
-      alpha: 1,
-      duration: 220,
-      yoyo: true,
-      hold: 460,
-      ease: "Sine.easeOut",
-      onComplete: () => rainbow.destroy(),
+      targets: glow,
+      scaleX: 1.14,
+      scaleY: 1.28,
+      alpha: 0,
+      duration: 720,
+      ease: "Cubic.easeOut",
+      onComplete: () => glow.destroy(),
     });
 
-    for (let index = 0; index < 18; index += 1) {
-      const star = this.add.star(
-        Phaser.Math.Between(28, GAME_WIDTH - 28),
-        Phaser.Math.Between(42, 166),
-        5,
-        4,
-        11,
-        index % 3 === 0 ? COLORS.yellow : COLORS.white,
-        0.9,
+    for (let index = 0; index < 10; index += 1) {
+      const confetti = this.add.rectangle(
+        centerX - 184 + index * 42,
+        Phaser.Math.Between(184, 226),
+        Phaser.Math.Between(10, 16),
+        Phaser.Math.Between(5, 8),
+        index % 3 === 0 ? COLORS.green : index % 3 === 1 ? COLORS.yellow : COLORS.white,
+        0.68,
       );
-      star.setDepth(22);
-      star.setScale(0.3);
+      confetti.setDepth(22);
+      confetti.setScale(0.7);
+      confetti.setAngle(Phaser.Math.Between(-18, 18));
 
       this.tweens.add({
-        targets: star,
-        y: star.y + Phaser.Math.Between(76, 172),
-        x: star.x + Phaser.Math.Between(-20, 20),
-        scale: 1,
-        angle: Phaser.Math.Between(-120, 120),
+        targets: confetti,
+        y: confetti.y - Phaser.Math.Between(16, 44),
+        x: confetti.x + Phaser.Math.Between(-10, 10),
+        scale: 0.92,
+        angle: confetti.angle + Phaser.Math.Between(-42, 42),
         alpha: 0,
-        delay: index * 34,
-        duration: 1120,
-        ease: "Cubic.easeOut",
-        onComplete: () => star.destroy(),
+        delay: index * 32,
+        duration: 640,
+        ease: "Sine.easeOut",
+        onComplete: () => confetti.destroy(),
       });
     }
   }
