@@ -29,26 +29,22 @@ export const UI_FONT = "Nunito, Avenir Next Rounded, Arial Rounded MT Bold, Aria
 
 export const ART_KEYS = {
   backgroundStage: "art-background-stage",
-  backgroundBridgeStage: "art-background-bridge-stage",
+  backgroundBridgeStage: "art-background-stage",
   bridgeCompletionPatch: "art-bridge-completion-patch",
   rescueBuddy: "art-rescue-buddy",
   questionNumberBoard: "art-question-number-board",
-  bridgePlankEmpty: "art-bridge-plank-empty",
-  bridgePlankFilled: "art-bridge-plank-filled",
   numberPlank: "art-number-plank",
   speechCloud: "art-speech-cloud",
 } as const;
 
 export const ART_PATHS = {
-  backgroundStage: "assets/art/backgrounds/rescue-stage-landscape.png",
-  backgroundBridgeStage: "assets/art/backgrounds/rescue-stage-landscape.png",
-  bridgeCompletionPatch: "assets/art/generated/bridge-completion-overlay-landscape.png",
-  rescueBuddy: "assets/art/generated/squirrel-buddy.png",
-  questionNumberBoard: "assets/art/generated/question-number-board.png",
-  bridgePlankEmpty: "assets/art/generated/bridge-plank.png",
-  bridgePlankFilled: "assets/art/generated/bridge-plank.png",
-  numberPlank: "assets/art/generated/answer-plank.png",
-  speechCloud: "assets/art/generated/speech-cloud.png",
+  backgroundStage: "assets/art/runtime/rescue-stage-landscape.jpg",
+  backgroundBridgeStage: "assets/art/runtime/rescue-stage-landscape.jpg",
+  bridgeCompletionPatch: "assets/art/runtime/bridge-completion-overlay-landscape.png",
+  rescueBuddy: "assets/art/runtime/squirrel-buddy.png",
+  questionNumberBoard: "assets/art/runtime/question-number-board.png",
+  numberPlank: "assets/art/runtime/answer-plank.png",
+  speechCloud: "assets/art/runtime/speech-cloud.png",
 } as const;
 
 export type MathOperator = "+" | "-";

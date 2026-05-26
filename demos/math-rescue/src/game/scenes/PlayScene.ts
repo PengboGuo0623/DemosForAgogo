@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { ART_KEYS, COLORS, GAME_HEIGHT, GAME_WIDTH, GAME_RULES, UI_FONT, type MathQuestion } from "../data/gameConfig";
+import { ART_KEYS, ART_PATHS, COLORS, GAME_HEIGHT, GAME_WIDTH, GAME_RULES, UI_FONT, type MathQuestion } from "../data/gameConfig";
 import { QuestionGenerator } from "../systems/QuestionGenerator";
 import { RewardSystem } from "../systems/RewardSystem";
 import { ComboBanner } from "../ui/ComboBanner";
@@ -48,6 +48,14 @@ export class PlayScene extends Phaser.Scene {
     super("PlayScene");
   }
 
+  preload(): void {
+    this.loadImage(ART_KEYS.backgroundBridgeStage, ART_PATHS.backgroundBridgeStage);
+    this.loadImage(ART_KEYS.bridgeCompletionPatch, ART_PATHS.bridgeCompletionPatch);
+    this.loadImage(ART_KEYS.questionNumberBoard, ART_PATHS.questionNumberBoard);
+    this.loadImage(ART_KEYS.numberPlank, ART_PATHS.numberPlank);
+    this.loadImage(ART_KEYS.speechCloud, ART_PATHS.speechCloud);
+  }
+
   create(): void {
     this.rewardSystem = new RewardSystem(this);
     this.questions = this.questionGenerator.createRound();
@@ -69,6 +77,12 @@ export class PlayScene extends Phaser.Scene {
     this.storyBubble.setDepth(32);
     this.cameras.main.fadeIn(260, 255, 255, 255);
     this.showCurrentQuestion();
+  }
+
+  private loadImage(key: string, path: string): void {
+    if (!this.textures.exists(key)) {
+      this.load.image(key, path);
+    }
   }
 
   private drawBackground(): void {

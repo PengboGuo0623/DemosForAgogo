@@ -7,19 +7,19 @@ export class BootScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.load.image(ART_KEYS.backgroundStage, ART_PATHS.backgroundStage);
-    this.load.image(ART_KEYS.backgroundBridgeStage, ART_PATHS.backgroundBridgeStage);
-    this.load.image(ART_KEYS.bridgeCompletionPatch, ART_PATHS.bridgeCompletionPatch);
-    this.load.image(ART_KEYS.rescueBuddy, ART_PATHS.rescueBuddy);
-    this.load.image(ART_KEYS.questionNumberBoard, ART_PATHS.questionNumberBoard);
-    this.load.image(ART_KEYS.bridgePlankEmpty, ART_PATHS.bridgePlankEmpty);
-    this.load.image(ART_KEYS.bridgePlankFilled, ART_PATHS.bridgePlankFilled);
-    this.load.image(ART_KEYS.numberPlank, ART_PATHS.numberPlank);
-    this.load.image(ART_KEYS.speechCloud, ART_PATHS.speechCloud);
+    this.loadImage(ART_KEYS.backgroundStage, ART_PATHS.backgroundStage);
+    this.loadImage(ART_KEYS.rescueBuddy, ART_PATHS.rescueBuddy);
   }
 
   create(): void {
     this.cameras.main.setBackgroundColor(COLORS.sky);
+    document.getElementById("loading-shell")?.remove();
     this.scene.start("MenuScene");
+  }
+
+  private loadImage(key: string, path: string): void {
+    if (!this.textures.exists(key)) {
+      this.load.image(key, path);
+    }
   }
 }
