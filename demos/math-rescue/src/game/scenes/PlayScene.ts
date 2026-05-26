@@ -12,8 +12,8 @@ import { addStageBackdrop } from "../utils/art";
 import { centerX } from "../utils/layout";
 
 const QUESTION_BOARD_Y = 108;
-const QUESTION_TEXT_Y = 101;
-const QUESTION_TEXT_INTRO_Y = 111;
+const QUESTION_TEXT_LOCAL_Y = -11;
+const QUESTION_TEXT_INTRO_LOCAL_Y = -2;
 
 export class PlayScene extends Phaser.Scene {
   private readonly questionGenerator = new QuestionGenerator();
@@ -150,17 +150,18 @@ export class PlayScene extends Phaser.Scene {
       .setAlpha(0.98);
     this.storyContainer.add(this.equationPlate);
     this.equationText = this.add
-      .text(centerX, QUESTION_TEXT_Y, "", {
-        color: "#4b2b18",
+      .text(0, QUESTION_TEXT_LOCAL_Y, "", {
+        color: "#5a351f",
         fontFamily: UI_FONT,
-        fontSize: "34px",
-        fontStyle: "900",
-        stroke: "#fff6dc",
-        strokeThickness: 3,
+        fontSize: "25px",
+        fontStyle: "bold",
+        stroke: "#fff1cc",
+        strokeThickness: 2,
       })
-      .setOrigin(0.5)
-      .setDepth(16);
+      .setOrigin(0.5);
     this.equationText.setResolution(2);
+    this.equationText.setShadow(0, 1, "#8a5a2b", 1, false, true);
+    this.storyContainer.add(this.equationText);
 
     this.helperPlate = this.add.graphics();
     this.helperPlate.setDepth(29);
@@ -273,7 +274,7 @@ export class PlayScene extends Phaser.Scene {
     this.storyContainer.y = 116;
     this.equationPlate?.setAlpha(0.98);
     this.equationText.setAlpha(0);
-    this.equationText.y = QUESTION_TEXT_INTRO_Y;
+    this.equationText.y = QUESTION_TEXT_INTRO_LOCAL_Y;
     this.tweens.add({
       targets: this.storyContainer,
       alpha: 1,
@@ -285,7 +286,7 @@ export class PlayScene extends Phaser.Scene {
     this.tweens.add({
       targets: this.equationText,
       alpha: 0.96,
-      y: QUESTION_TEXT_Y,
+      y: QUESTION_TEXT_LOCAL_Y,
       delay: 160,
       duration: 360,
       ease: "Sine.easeOut",
@@ -298,8 +299,11 @@ export class PlayScene extends Phaser.Scene {
     }
 
     const prompt = `${question.left} ${question.operator} ${question.right} = ?`;
-    this.equationText.setFontSize(prompt.length >= 10 ? 30 : 34);
+    this.equationText.setFontSize(prompt.length >= 10 ? 21 : 25);
+    this.equationText.setScale(1);
     this.equationText.setText(prompt);
+    this.equationText.y = QUESTION_TEXT_LOCAL_Y;
+    this.equationText.setScale(Math.min(1, 236 / Math.max(1, this.equationText.width)));
   }
 
   private playQuestionIntro(question: MathQuestion): void {
@@ -418,9 +422,9 @@ export class PlayScene extends Phaser.Scene {
 
   private drawNumberPlanks(question: MathQuestion): void {
     const spots = [
-      { x: 224, y: 328, angle: -9, startX: -92, startY: 358 },
-      { x: 422, y: 352, angle: 1, startX: 422, startY: 444 },
-      { x: 634, y: 326, angle: 8, startX: GAME_WIDTH + 96, startY: 356 },
+      { x: 232, y: 304, angle: -9, startX: -92, startY: 338 },
+      { x: 422, y: 320, angle: 1, startX: 422, startY: 414 },
+      { x: 612, y: 304, angle: 8, startX: GAME_WIDTH + 96, startY: 338 },
     ];
 
     this.planks = question.choices.map((choice, index) => {
@@ -568,10 +572,10 @@ export class PlayScene extends Phaser.Scene {
     plank.flyToBridge(target.x, target.y, target.angle, () => {
       this.bridge?.setProgress(completedAfterAnswer);
       this.playBridgeLanding(target.x, target.y, target.angle);
-      this.rescueFriend?.hopTo(completedAfterAnswer);
+      const shouldDanceAfterLanding = this.combo >= 3;
+      this.rescueFriend?.hopTo(completedAfterAnswer, shouldDanceAfterLanding ? () => this.rescueFriend?.comboDance() : undefined);
       if (this.combo >= 3) {
         this.rewardSystem?.playCombo(centerX, 132);
-        this.rescueFriend?.comboDance();
       } else {
         this.rewardSystem?.playCorrect(target.x, target.y);
       }

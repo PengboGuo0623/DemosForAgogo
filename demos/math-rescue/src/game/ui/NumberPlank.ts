@@ -6,11 +6,11 @@ export class NumberPlank extends Phaser.GameObjects.Container {
   private readonly plankTexture: Phaser.GameObjects.Image;
   private readonly label: Phaser.GameObjects.Text;
   private readonly hitZone: Phaser.GameObjects.Zone;
-  private readonly plankWidth = 112;
-  private readonly plankHeight = 48;
+  private readonly plankWidth = 106;
+  private readonly plankHeight = 46;
   private readonly hitZoneWidth = 156;
   private readonly hitZoneHeight = 104;
-  private readonly restScale = 0.98;
+  private readonly restScale = 0.96;
   private readonly homeX: number;
   private readonly homeY: number;
   private readonly homeAngle: number;
@@ -32,17 +32,17 @@ export class NumberPlank extends Phaser.GameObjects.Container {
     this.plank = scene.add.graphics();
     this.plankTexture = scene.add.image(0, 0, ART_KEYS.numberPlank).setDisplaySize(this.plankWidth, this.plankHeight);
     this.label = scene.add
-      .text(0, -2, String(value), {
-        color: "#4b2b18",
+      .text(0, -12, String(value), {
+        color: "#5a351f",
         fontFamily: UI_FONT,
-        fontSize: "28px",
-        fontStyle: "900",
-        stroke: "#ffe8ad",
-        strokeThickness: 2,
+        fontSize: value >= 10 ? "20px" : "22px",
+        fontStyle: "bold",
+        stroke: "#ffe6b2",
+        strokeThickness: 1,
       })
       .setOrigin(0.5);
     this.label.setResolution(2);
-    this.label.setShadow(0, 1, "#ffffff", 1, false, true);
+    this.label.setShadow(0, 1, "#8a5a2b", 1, false, true);
 
     this.add([this.plank, this.plankTexture, this.label]);
     this.draw(COLORS.cream, COLORS.yellow);
@@ -201,8 +201,8 @@ export class NumberPlank extends Phaser.GameObjects.Container {
         this.angle = this.homeAngle;
         this.scale = this.restScale;
         this.draw(COLORS.cream, COLORS.yellow);
-        this.label.setColor("#4b2b18");
-        this.label.setStroke("#ffe8ad", 2);
+        this.label.setColor("#5a351f");
+        this.label.setStroke("#ffe6b2", 1);
         this.hitZone.setPosition(this.homeX, this.homeY);
         this.hitZone.setInteractive({ useHandCursor: true });
       },

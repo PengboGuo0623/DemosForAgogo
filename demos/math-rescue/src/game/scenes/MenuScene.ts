@@ -66,9 +66,19 @@ export class MenuScene extends Phaser.Scene {
 
   private drawRescueFriend(): Pick<MenuIntroParts, "friend" | "bridge" | "thought"> {
     const friend = this.add.container(-82, 198);
-    const shadow = this.add.ellipse(0, 58, 70, 16, COLORS.shadow, 0.16);
-    const body = this.add.image(0, -4, ART_KEYS.rescueBuddy).setDisplaySize(112, 112);
-    friend.add([shadow, body]);
+    const shadow = this.add.ellipse(0, 50, 58, 13, COLORS.shadow, 0.15);
+    const rim = this.add.image(-2, -6, ART_KEYS.rescueBuddy).setDisplaySize(98, 98);
+    rim.setTint(0xfff1bd);
+    rim.setAlpha(0.12);
+    rim.setBlendMode(Phaser.BlendModes.ADD);
+    const body = this.add.image(0, -4, ART_KEYS.rescueBuddy).setDisplaySize(98, 98);
+    body.setTint(0xfff3dc, 0xfff6e6, 0xd8edf0, 0xd0e9e7);
+    body.setAlpha(0.97);
+    const wash = this.add.image(0, -2, ART_KEYS.rescueBuddy).setDisplaySize(98, 98);
+    wash.setTint(0x8bd8ee);
+    wash.setAlpha(0.08);
+    wash.setBlendMode(Phaser.BlendModes.SCREEN);
+    friend.add([shadow, rim, body, wash]);
     friend.setAlpha(0);
     friend.setScale(0.84);
     friend.setAngle(-12);
@@ -184,7 +194,7 @@ export class MenuScene extends Phaser.Scene {
 
     this.tweens.add({
       targets: friend,
-      x: 168,
+      x: 148,
       alpha: 1,
       scale: 1,
       angle: 0,
@@ -194,7 +204,7 @@ export class MenuScene extends Phaser.Scene {
       onComplete: () => {
         this.tweens.add({
           targets: friend,
-          y: 190,
+          y: 196,
           angle: -3,
           duration: 980,
           yoyo: true,

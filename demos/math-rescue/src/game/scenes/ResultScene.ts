@@ -125,8 +125,18 @@ export class ResultScene extends Phaser.Scene {
     const friend = this.add.container(130, 214);
     friend.setDepth(12);
     const shadow = this.add.ellipse(0, 42, 58, 13, COLORS.shadow, 0.14);
+    const rim = this.add.image(-2, -7, ART_KEYS.rescueBuddy).setDisplaySize(104, 104);
+    rim.setTint(0xfff1bd);
+    rim.setAlpha(0.12);
+    rim.setBlendMode(Phaser.BlendModes.ADD);
     const body = this.add.image(0, -4, ART_KEYS.rescueBuddy).setDisplaySize(104, 104);
-    friend.add([shadow, body]);
+    body.setTint(0xfff3dc, 0xfff6e6, 0xd8edf0, 0xd0e9e7);
+    body.setAlpha(0.97);
+    const wash = this.add.image(0, -2, ART_KEYS.rescueBuddy).setDisplaySize(104, 104);
+    wash.setTint(0x8bd8ee);
+    wash.setAlpha(0.08);
+    wash.setBlendMode(Phaser.BlendModes.SCREEN);
+    friend.add([shadow, rim, body, wash]);
 
     this.tweens.add({
       targets: friend,

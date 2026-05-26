@@ -1,18 +1,18 @@
 import Phaser from "phaser";
-import { ART_KEYS, COLORS, GAME_HEIGHT, GAME_RULES, GAME_WIDTH } from "../data/gameConfig";
+import { ART_KEYS, COLORS, GAME_RULES } from "../data/gameConfig";
+import {
+  PATCH_SOURCE_RECT,
+  getBridgeRepairTarget,
+  getBridgeStageTransform,
+  getRevealRatioForSteps,
+  type BridgeRepairTarget,
+} from "../utils/bridgePath";
 
 interface BridgeTarget {
   x: number;
   y: number;
   angle: number;
 }
-
-const PATCH_SOURCE_RECT = {
-  x: 210,
-  y: 255,
-  width: 1450,
-  height: 345,
-} as const;
 
 export class RescueBridge extends Phaser.GameObjects.Container {
   private readonly completionPatch: Phaser.GameObjects.Image;
@@ -28,20 +28,17 @@ export class RescueBridge extends Phaser.GameObjects.Container {
   constructor(scene: Phaser.Scene, _x: number, _y: number) {
     super(scene, 0, 0);
 
-    const backgroundSource = scene.textures.get(ART_KEYS.backgroundBridgeStage).getSourceImage() as {
-      width: number;
-      height: number;
-    };
     const patchSource = scene.textures.get(ART_KEYS.bridgeCompletionPatch).getSourceImage() as {
       width: number;
       height: number;
     };
+    const stageTransform = getBridgeStageTransform(scene);
 
     this.patchSourceWidth = patchSource.width;
     this.patchSourceHeight = patchSource.height;
-    this.backgroundScale = Math.max(GAME_WIDTH / backgroundSource.width, GAME_HEIGHT / backgroundSource.height);
-    this.backgroundLeft = GAME_WIDTH / 2 - (backgroundSource.width * this.backgroundScale) / 2;
-    this.backgroundTop = GAME_HEIGHT / 2 - (backgroundSource.height * this.backgroundScale) / 2;
+    this.backgroundScale = stageTransform.scale;
+    this.backgroundLeft = stageTransform.left;
+    this.backgroundTop = stageTransform.top;
 
     this.completionPatch = scene.add.image(
       this.sourceToCanvasX(PATCH_SOURCE_RECT.x + PATCH_SOURCE_RECT.width / 2),
@@ -76,7 +73,7 @@ export class RescueBridge extends Phaser.GameObjects.Container {
         this.applyReveal();
         this.applyRepairLights();
         if (nextReveal > previousReveal + 0.02) {
-          this.playRevealSparkle(nextReveal);
+          this.playRevealSparkle(this.getStoryTarget(this.completedSteps - 1));
         }
       },
     });
@@ -145,27 +142,11 @@ export class RescueBridge extends Phaser.GameObjects.Container {
   }
 
   private getRevealRatio(completedSteps: number): number {
-    if (completedSteps <= 0) {
-      return 0;
-    }
-
-    const repairBeats = [0, 0.12, 0.25, 0.38, 0.52, 0.66, 0.78, 0.9, 1];
-    return repairBeats[completedSteps] ?? 1;
+    return getRevealRatioForSteps(completedSteps);
   }
 
-  private getStoryTarget(step: number): { sourceX: number; sourceY: number; angle: number } {
-    const targets = [
-      { sourceX: 585, sourceY: 548, angle: -7 },
-      { sourceX: 720, sourceY: 552, angle: 5 },
-      { sourceX: 860, sourceY: 554, angle: -4 },
-      { sourceX: 995, sourceY: 556, angle: 2 },
-      { sourceX: 1130, sourceY: 554, angle: -2 },
-      { sourceX: 1268, sourceY: 548, angle: 4 },
-      { sourceX: 1405, sourceY: 532, angle: 8 },
-      { sourceX: 1536, sourceY: 516, angle: 10 },
-    ];
-
-    return targets[step] ?? targets[targets.length - 1];
+  private getStoryTarget(step: number): BridgeRepairTarget {
+    return getBridgeRepairTarget(step);
   }
 
   private sourceToCanvasX(sourceX: number): number {
@@ -214,10 +195,9 @@ export class RescueBridge extends Phaser.GameObjects.Container {
     }
   }
 
-  private playRevealSparkle(reveal: number): void {
-    const sourceX = PATCH_SOURCE_RECT.x + PATCH_SOURCE_RECT.width * Phaser.Math.Clamp(reveal, 0.04, 1);
-    const x = this.sourceToCanvasX(sourceX);
-    const y = this.sourceToCanvasY(506);
+  private playRevealSparkle(target: BridgeRepairTarget): void {
+    const x = this.sourceToCanvasX(target.sourceX);
+    const y = this.sourceToCanvasY(target.sourceY - 42);
 
     this.playGlow(x, y, COLORS.white, 86, 42);
 
