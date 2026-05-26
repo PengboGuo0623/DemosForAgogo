@@ -34,13 +34,10 @@ export const PATCH_SOURCE_RECT = {
 
 export const BRIDGE_REPAIR_TARGETS: BridgeRepairTarget[] = [
   { sourceX: 585, sourceY: 548, angle: -7, revealPadding: 94 },
-  { sourceX: 720, sourceY: 552, angle: 5, revealPadding: 96 },
-  { sourceX: 860, sourceY: 554, angle: -4, revealPadding: 96 },
-  { sourceX: 995, sourceY: 556, angle: 2, revealPadding: 98 },
-  { sourceX: 1130, sourceY: 554, angle: -2, revealPadding: 100 },
-  { sourceX: 1268, sourceY: 548, angle: 4, revealPadding: 104 },
-  { sourceX: 1405, sourceY: 532, angle: 8, revealPadding: 108 },
-  { sourceX: 1536, sourceY: 516, angle: 10, revealPadding: 116 },
+  { sourceX: 860, sourceY: 554, angle: -4, revealPadding: 112 },
+  { sourceX: 1130, sourceY: 554, angle: -2, revealPadding: 116 },
+  { sourceX: 1405, sourceY: 532, angle: 8, revealPadding: 120 },
+  { sourceX: 1536, sourceY: 516, angle: 10, revealPadding: 124 },
 ];
 
 const BUDDY_START_SOURCE = {
@@ -49,7 +46,7 @@ const BUDDY_START_SOURCE = {
 } as const;
 
 const BUDDY_CENTER_ABOVE_DECK = 68;
-const BUDDY_PATH_SCALES = [0.9, 0.88, 0.88, 0.87, 0.87, 0.88, 0.89, 0.91, 0.95] as const;
+const BUDDY_PATH_SCALES = [0.9, 0.88, 0.87, 0.88, 0.91, 0.95] as const;
 
 export function getBridgeStageTransform(scene: Phaser.Scene): BridgeStageTransform {
   const backgroundSource = scene.textures.get(ART_KEYS.backgroundBridgeStage).getSourceImage() as {

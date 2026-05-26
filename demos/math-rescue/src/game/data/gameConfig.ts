@@ -2,11 +2,11 @@ export const GAME_WIDTH = 844;
 export const GAME_HEIGHT = 390;
 
 export const GAME_RULES = {
-  questionsPerRound: 8,
+  questionsPerRound: 5,
   answerChoices: 3,
   pointsPerCorrectAnswer: 10,
-  targetSecondsMin: 60,
-  targetSecondsMax: 90,
+  targetSecondsMin: 40,
+  targetSecondsMax: 60,
 } as const;
 
 export const COLORS = {

@@ -6,8 +6,8 @@ export class NumberPlank extends Phaser.GameObjects.Container {
   private readonly plankTexture: Phaser.GameObjects.Image;
   private readonly label: Phaser.GameObjects.Text;
   private readonly hitZone: Phaser.GameObjects.Zone;
-  private readonly plankWidth = 106;
-  private readonly plankHeight = 46;
+  private readonly plankWidth = 118;
+  private readonly plankHeight = 50;
   private readonly hitZoneWidth = 156;
   private readonly hitZoneHeight = 104;
   private readonly restScale = 0.96;
@@ -32,13 +32,13 @@ export class NumberPlank extends Phaser.GameObjects.Container {
     this.plank = scene.add.graphics();
     this.plankTexture = scene.add.image(0, 0, ART_KEYS.numberPlank).setDisplaySize(this.plankWidth, this.plankHeight);
     this.label = scene.add
-      .text(0, -12, String(value), {
+      .text(0, -6, String(value), {
         color: "#5a351f",
         fontFamily: UI_FONT,
-        fontSize: value >= 10 ? "20px" : "22px",
+        fontSize: value >= 10 ? "21px" : "24px",
         fontStyle: "bold",
         stroke: "#ffe6b2",
-        strokeThickness: 1,
+        strokeThickness: 2,
       })
       .setOrigin(0.5);
     this.label.setResolution(2);
@@ -98,7 +98,7 @@ export class NumberPlank extends Phaser.GameObjects.Container {
     this.scene.tweens.add({
       targets: this.label,
       alpha: 0,
-      y: -12,
+      y: -8,
       duration: 180,
       ease: "Sine.easeOut",
     });
@@ -223,10 +223,38 @@ export class NumberPlank extends Phaser.GameObjects.Container {
 
   private draw(fillColor: number, strokeColor: number): void {
     this.plank.clear();
-    const glowColor = strokeColor === COLORS.coral ? COLORS.coral : strokeColor === COLORS.greenDark ? COLORS.green : COLORS.white;
-    const glowAlpha = strokeColor === COLORS.coral ? 0.18 : strokeColor === COLORS.greenDark ? 0.16 : 0.045;
+
+    const isWrong = strokeColor === COLORS.coral;
+    const isCorrect = strokeColor === COLORS.greenDark;
+    const glowColor = isWrong ? COLORS.coral : isCorrect ? COLORS.green : fillColor;
+    const glowAlpha = isWrong ? 0.2 : isCorrect ? 0.16 : 0.08;
+    const waterTint = isWrong ? COLORS.coral : isCorrect ? COLORS.green : COLORS.skyDeep;
+
+    this.plank.fillStyle(COLORS.shadow, isWrong ? 0.21 : 0.26);
+    this.plank.fillEllipse(0, 19, this.plankWidth + 10, 22);
+
+    this.plank.fillStyle(waterTint, isWrong ? 0.12 : 0.16);
+    this.plank.fillEllipse(0, 24, this.plankWidth + 34, 15);
+
+    this.plank.lineStyle(2, COLORS.white, isWrong ? 0.08 : 0.18);
+    this.plank.strokeEllipse(-20, 25, this.plankWidth * 0.52, 11);
+    this.plank.strokeEllipse(24, 25, this.plankWidth * 0.46, 10);
+
+    this.plank.fillStyle(0x8c542b, 0.86);
+    this.plank.fillRoundedRect(-66, 1, 18, 13, 6);
+    this.plank.fillRoundedRect(48, 1, 18, 13, 6);
+
+    this.plank.fillStyle(0x4d2d18, 0.2);
+    this.plank.fillRoundedRect(-65, 9, 17, 6, 3);
+    this.plank.fillRoundedRect(48, 9, 17, 6, 3);
+
+    this.plank.lineStyle(3, 0x6f4424, 0.48);
+    this.plank.lineBetween(-61, 7, -46, 9);
+    this.plank.lineBetween(46, 9, 61, 7);
+
     this.plank.fillStyle(glowColor, glowAlpha);
-    this.plank.fillEllipse(0, 3, this.plankWidth + 30, this.plankHeight + 16);
+    this.plank.fillEllipse(0, 8, this.plankWidth + 26, this.plankHeight + 12);
+
     this.plankTexture.clearTint();
   }
 }

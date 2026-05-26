@@ -27,7 +27,7 @@ The current phase provides the core playable loop:
 
 - Boot scene
 - Menu scene with a Start button
-- Bridge Builder play scene with 8 generated math rescue steps
+- Bridge Builder play scene with 5 generated math rescue steps
 - 3 number planks per step
 - visual plank-count prompts with a small equation hint
 - gentle wrong-answer feedback without score penalties

@@ -133,7 +133,7 @@ export class PlayScene extends Phaser.Scene {
 
   private createMathStoryArea(): void {
     this.questionCounterText = this.add
-      .text(centerX, 24, "Scene 1/8", {
+      .text(centerX, 24, `Scene 1/${GAME_RULES.questionsPerRound}`, {
         color: "#4b6378",
         fontFamily: UI_FONT,
         fontSize: "18px",
@@ -244,11 +244,12 @@ export class PlayScene extends Phaser.Scene {
   }
 
   private createStoryDots(): void {
-    const startX = centerX - 94;
+    const dotGap = 27;
+    const startX = centerX - ((GAME_RULES.questionsPerRound - 1) * dotGap) / 2;
     this.progressDots = [];
 
     for (let index = 0; index < GAME_RULES.questionsPerRound; index += 1) {
-      const dot = this.add.circle(startX + index * 27, 25, 4.8, COLORS.white, 0.66);
+      const dot = this.add.circle(startX + index * dotGap, 25, 4.8, COLORS.white, 0.66);
       dot.setStrokeStyle(2, COLORS.white, 0.38);
       this.progressDots.push(dot);
     }
@@ -311,11 +312,11 @@ export class PlayScene extends Phaser.Scene {
     this.showFriendBubble(this.getIntroBubble(), COLORS.white, 1180);
     this.playGuideSpark();
 
-    this.time.delayedCall(1080, () => {
+    this.time.delayedCall(760, () => {
       this.drawNumberPlanks(question);
     });
 
-    this.time.delayedCall(2460, () => {
+    this.time.delayedCall(1940, () => {
       this.isResolvingAnswer = false;
       this.helperText?.setAlpha(0);
       this.helperPlate?.setAlpha(0);
@@ -568,12 +569,37 @@ export class PlayScene extends Phaser.Scene {
     }
 
     const target = this.bridge.getNextPlankTarget();
+    let hasQueuedNextBeat = false;
+    const queueNextBeat = (delay: number): void => {
+      if (hasQueuedNextBeat) {
+        return;
+      }
+
+      hasQueuedNextBeat = true;
+      this.time.delayedCall(delay, () => this.advanceAfterCorrectAnswer());
+    };
+
     this.playPlankTrail(plank.x, plank.y, target.x, target.y);
     plank.flyToBridge(target.x, target.y, target.angle, () => {
       this.bridge?.setProgress(completedAfterAnswer);
       this.playBridgeLanding(target.x, target.y, target.angle);
       const shouldDanceAfterLanding = this.combo >= 3;
-      this.rescueFriend?.hopTo(completedAfterAnswer, shouldDanceAfterLanding ? () => this.rescueFriend?.comboDance() : undefined);
+      const onFriendLanded = (): void => {
+        if (shouldDanceAfterLanding) {
+          this.rescueFriend?.comboDance();
+          queueNextBeat(620);
+          return;
+        }
+
+        queueNextBeat(260);
+      };
+
+      if (this.rescueFriend) {
+        this.rescueFriend.hopTo(completedAfterAnswer, onFriendLanded);
+      } else {
+        queueNextBeat(820);
+      }
+
       if (this.combo >= 3) {
         this.rewardSystem?.playCombo(centerX, 132);
       } else {
@@ -582,24 +608,24 @@ export class PlayScene extends Phaser.Scene {
       plank.destroy();
       this.planks = [];
     });
+  }
 
-    this.time.delayedCall(3180, () => {
-      if (this.questionsAnswered >= GAME_RULES.questionsPerRound) {
-        this.playCloudWipe(() => {
-          this.scene.start("ResultScene", {
-            correctAnswers: this.correctAnswers,
-            totalQuestions: GAME_RULES.questionsPerRound,
-            score: this.score,
-            bestCombo: this.bestCombo,
-          });
-        });
-        return;
-      }
-
+  private advanceAfterCorrectAnswer(): void {
+    if (this.questionsAnswered >= GAME_RULES.questionsPerRound) {
       this.playCloudWipe(() => {
-        this.currentQuestionIndex += 1;
-        this.showCurrentQuestion();
+        this.scene.start("ResultScene", {
+          correctAnswers: this.correctAnswers,
+          totalQuestions: GAME_RULES.questionsPerRound,
+          score: this.score,
+          bestCombo: this.bestCombo,
+        });
       });
+      return;
+    }
+
+    this.playCloudWipe(() => {
+      this.currentQuestionIndex += 1;
+      this.showCurrentQuestion();
     });
   }
 
@@ -681,39 +707,39 @@ export class PlayScene extends Phaser.Scene {
   }
 
   private playBridgeLanding(x: number, y: number, angle = 0): void {
-    const bridgeFlash = this.add.container(x, y);
-    const flashArt = this.add.graphics();
-    bridgeFlash.setDepth(22);
-    bridgeFlash.setAngle(angle);
-    flashArt.fillStyle(COLORS.white, 0.34);
-    flashArt.fillRoundedRect(-72, -14, 144, 28, 14);
-    flashArt.fillStyle(COLORS.yellow, 0.46);
-    flashArt.fillRoundedRect(-58, -8, 116, 16, 8);
-    flashArt.lineStyle(4, COLORS.white, 0.62);
-    flashArt.lineBetween(-48, -2, 48, -2);
-    bridgeFlash.add(flashArt);
-    bridgeFlash.setScale(0.62);
-    bridgeFlash.setAlpha(0);
+    const landingBloom = this.add.container(x, y);
+    const bloomArt = this.add.graphics();
+    landingBloom.setDepth(22);
+    landingBloom.setAngle(angle);
+    bloomArt.fillStyle(COLORS.yellow, 0.18);
+    bloomArt.fillEllipse(0, 4, 112, 36);
+    bloomArt.fillStyle(COLORS.white, 0.1);
+    bloomArt.fillEllipse(-8, -2, 72, 20);
+    bloomArt.fillStyle(COLORS.shadow, 0.14);
+    bloomArt.fillRoundedRect(-44, 8, 88, 13, 7);
+    landingBloom.add(bloomArt);
+    landingBloom.setScale(0.64);
+    landingBloom.setAlpha(0);
 
     this.tweens.add({
-      targets: bridgeFlash,
-      alpha: 1,
-      scaleX: 1,
-      scaleY: 0.9,
-      duration: 260,
+      targets: landingBloom,
+      alpha: 0.74,
+      scaleX: 1.06,
+      scaleY: 0.92,
+      duration: 180,
       ease: "Sine.easeOut",
       yoyo: true,
-      hold: 520,
-      onComplete: () => bridgeFlash.destroy(true),
+      hold: 280,
+      onComplete: () => landingBloom.destroy(true),
     });
 
-    const glow = this.add.ellipse(x, y + 4, 72, 42, COLORS.yellow, 0.34);
+    const glow = this.add.ellipse(x, y + 4, 68, 36, COLORS.yellow, 0.24);
     const ring = this.add.ellipse(x, y + 4, 60, 34);
-    const pop = this.add.circle(x, y - 22, 8, COLORS.white, 0.78);
+    const pop = this.add.circle(x, y - 22, 7, COLORS.white, 0.56);
     glow.setDepth(18);
     ring.setDepth(19);
     pop.setDepth(20);
-    ring.setStrokeStyle(4, COLORS.white, 0.72);
+    ring.setStrokeStyle(3, COLORS.white, 0.42);
     ring.setFillStyle(COLORS.white, 0);
     pop.setScale(0.34);
 
@@ -745,31 +771,74 @@ export class PlayScene extends Phaser.Scene {
       onComplete: () => pop.destroy(),
     });
 
-    for (let index = 0; index < 4; index += 1) {
-      const shine = this.add.rectangle(
-        x + Phaser.Math.Between(-52, 52),
-        y + Phaser.Math.Between(-18, 18),
-        12,
-        6,
-        index % 2 === 0 ? COLORS.yellow : COLORS.white,
-        0.6,
+    const angleRad = Phaser.Math.DegToRad(angle);
+    const tangentX = Math.cos(angleRad);
+    const tangentY = Math.sin(angleRad);
+    const normalX = Math.cos(angleRad - Math.PI / 2);
+    const normalY = Math.sin(angleRad - Math.PI / 2);
+
+    for (let index = 0; index < 6; index += 1) {
+      const localT = Phaser.Math.Between(-54, 54);
+      const localN = Phaser.Math.Between(-10, 12);
+      const shine = this.add.circle(
+        x + tangentX * localT + normalX * localN,
+        y + tangentY * localT + normalY * localN,
+        Phaser.Math.FloatBetween(2.2, 3.8),
+        index % 4 === 0 ? COLORS.white : COLORS.yellow,
+        index % 4 === 0 ? 0.42 : 0.32,
       );
       shine.setDepth(21);
-      shine.setScale(0.45);
-      shine.setAngle(Phaser.Math.Between(-12, 12));
+      shine.setScale(0.48);
 
       this.tweens.add({
         targets: shine,
-        y: shine.y - Phaser.Math.Between(14, 36),
-        scale: 0.74,
+        y: shine.y + normalY * Phaser.Math.Between(12, 24) + Phaser.Math.Between(-3, 3),
+        x: shine.x + normalX * Phaser.Math.Between(12, 24) + tangentX * Phaser.Math.Between(-6, 8),
+        scale: Phaser.Math.FloatBetween(0.78, 1.02),
         alpha: 0,
-        angle: shine.angle + Phaser.Math.Between(-28, 28),
-        delay: index * 52,
-        duration: 620,
+        delay: index * 54,
+        duration: Phaser.Math.Between(480, 640),
         ease: "Sine.easeOut",
         onComplete: () => shine.destroy(),
       });
     }
+
+    for (let index = 0; index < 2; index += 1) {
+      this.playLandingTwinkle(
+        x + tangentX * Phaser.Math.Between(-30, 30) + normalX * Phaser.Math.Between(-6, 8),
+        y + tangentY * Phaser.Math.Between(-30, 30) + normalY * Phaser.Math.Between(-6, 8),
+        Phaser.Math.Between(6, 8),
+        80 + index * 120,
+      );
+    }
+  }
+
+  private playLandingTwinkle(x: number, y: number, size: number, delay: number): void {
+    const star = this.add.graphics();
+    star.setPosition(x, y);
+    star.setDepth(23);
+    star.lineStyle(1.7, COLORS.white, 0.64);
+    star.lineBetween(-size, 0, size, 0);
+    star.lineBetween(0, -size, 0, size);
+    star.lineStyle(1.2, COLORS.yellow, 0.38);
+    star.lineBetween(-size * 0.45, -size * 0.45, size * 0.45, size * 0.45);
+    star.lineBetween(-size * 0.45, size * 0.45, size * 0.45, -size * 0.45);
+    star.setAlpha(0);
+    star.setScale(0.32);
+    star.setAngle(Phaser.Math.Between(-30, 30));
+
+    this.tweens.add({
+      targets: star,
+      alpha: 0.72,
+      scale: 0.9,
+      angle: star.angle + Phaser.Math.Between(24, 42),
+      delay,
+      duration: 220,
+      ease: "Sine.easeOut",
+      yoyo: true,
+      hold: 70,
+      onComplete: () => star.destroy(),
+    });
   }
 
   private playCloudWipe(onCovered?: () => void): void {

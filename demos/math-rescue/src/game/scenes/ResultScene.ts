@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { ART_KEYS, COLORS, GAME_HEIGHT, GAME_WIDTH, UI_FONT } from "../data/gameConfig";
+import { ART_KEYS, COLORS, GAME_HEIGHT, GAME_RULES, GAME_WIDTH, UI_FONT } from "../data/gameConfig";
 import { RewardSystem } from "../systems/RewardSystem";
 import { RescueBridge } from "../ui/RescueBridge";
 import { addStageBackdrop } from "../utils/art";
@@ -57,7 +57,7 @@ export class ResultScene extends Phaser.Scene {
   }
 
   private createSoftSummary(data: ResultData): void {
-    const totalQuestions = data.totalQuestions ?? 8;
+    const totalQuestions = data.totalQuestions ?? GAME_RULES.questionsPerRound;
     const correctAnswers = data.correctAnswers ?? totalQuestions;
     const summary = this.add.container(170, 318);
     summary.setDepth(20);
@@ -118,7 +118,7 @@ export class ResultScene extends Phaser.Scene {
   private drawCompletedBridge(): void {
     const bridge = new RescueBridge(this, centerX, 196);
     bridge.setDepth(10);
-    bridge.setProgress(8);
+    bridge.setProgress(GAME_RULES.questionsPerRound);
   }
 
   private createCrossingFriend(): void {
