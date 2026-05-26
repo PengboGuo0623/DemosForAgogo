@@ -39,10 +39,10 @@ body {
   touch-action: none;
 }
 
-#loading-shell {
+.loading-shell {
   position: fixed;
   inset: 0;
-  z-index: 5;
+  z-index: 30;
   display: grid;
   place-items: center;
   background:
@@ -80,21 +80,11 @@ body {
 .loading-badge span::after {
   position: absolute;
   inset: 2px;
-  width: 48px;
+  width: var(--load-progress, 18%);
   border-radius: inherit;
   background: linear-gradient(90deg, #ffd46f, #62d88a);
   content: "";
-  animation: loading-sweep 1s ease-in-out infinite alternate;
-}
-
-@keyframes loading-sweep {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(78px);
-  }
+  transition: width 180ms ease-out;
 }
 
 .orientation-overlay {
