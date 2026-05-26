@@ -114,29 +114,9 @@ body {
 .orientation-card {
   display: grid;
   width: min(290px, 82vw);
-  gap: 16px;
+  gap: 18px;
   justify-items: center;
   text-align: center;
-}
-
-.orientation-logo {
-  display: grid;
-  width: 86px;
-  height: 86px;
-  place-items: center;
-  border: 5px solid rgba(255, 255, 255, 0.72);
-  border-radius: 50%;
-  background:
-    linear-gradient(145deg, rgba(255, 242, 207, 0.96), rgba(255, 212, 111, 0.96)),
-    #fff2cf;
-  box-shadow:
-    0 16px 28px rgba(40, 69, 95, 0.16),
-    inset 0 0 0 3px rgba(255, 255, 255, 0.44);
-  color: #6f4728;
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: 0;
-  animation: logo-turn 1.8s ease-in-out infinite;
 }
 
 .phone-rotate {
@@ -205,18 +185,6 @@ body {
   color: #37516b;
   font-size: 17px;
   font-weight: 800;
-}
-
-@keyframes logo-turn {
-  0%,
-  20% {
-    transform: rotate(0deg) scale(1);
-  }
-
-  62%,
-  100% {
-    transform: rotate(90deg) scale(1.04);
-  }
 }
 
 @keyframes phone-turn {
