@@ -63,6 +63,7 @@ if (!gameRoot || !loadingScreen || !loadingFill) {
 const gameRootEl = gameRoot;
 const loadingScreenEl = loadingScreen;
 const loadingFillEl = loadingFill;
+const documentRoot = document.documentElement;
 
 const textStyle = new TextStyle({
   fill: "#17443f",
@@ -1794,7 +1795,8 @@ class JulioGardenGame {
   }
 
   private ensureAnimationRunning() {
-    if (window.innerWidth >= window.innerHeight) {
+    const { width, height } = getViewportSize();
+    if (width >= height) {
       this.app.ticker.start();
       gsap.globalTimeline.resume();
       gsap.ticker.wake();
@@ -1822,8 +1824,28 @@ async function preloadAssets() {
   }
 }
 
+function getViewportSize() {
+  const viewport = window.visualViewport;
+  return {
+    width: viewport?.width ?? window.innerWidth,
+    height: viewport?.height ?? window.innerHeight
+  };
+}
+
+function syncViewportLayout() {
+  const { width, height } = getViewportSize();
+  const safeWidth = Math.max(1, width);
+  const safeHeight = Math.max(1, height);
+  const scale = Math.min(safeWidth / DESIGN_WIDTH, safeHeight / DESIGN_HEIGHT);
+  documentRoot.style.setProperty("--viewport-width", `${safeWidth}px`);
+  documentRoot.style.setProperty("--viewport-height", `${safeHeight}px`);
+  documentRoot.style.setProperty("--game-scale", `${Math.max(0.1, scale)}`);
+}
+
 function syncOrientation(app: Application<HTMLCanvasElement>) {
-  const portrait = window.innerHeight > window.innerWidth;
+  syncViewportLayout();
+  const { width, height } = getViewportSize();
+  const portrait = height > width;
   if (portrait) {
     app.ticker.stop();
     gsap.globalTimeline.pause();
@@ -1835,6 +1857,7 @@ function syncOrientation(app: Application<HTMLCanvasElement>) {
 }
 
 async function bootstrap() {
+  syncViewportLayout();
   const app = new Application<HTMLCanvasElement>({
     width: DESIGN_WIDTH,
     height: DESIGN_HEIGHT,
@@ -1859,6 +1882,8 @@ async function bootstrap() {
   window.setTimeout(() => syncOrientation(app), 320);
   window.setTimeout(() => syncOrientation(app), 1000);
   window.addEventListener("resize", () => syncOrientation(app), { passive: true });
+  window.visualViewport?.addEventListener("resize", () => syncOrientation(app), { passive: true });
+  window.visualViewport?.addEventListener("scroll", () => syncOrientation(app), { passive: true });
   window.addEventListener("orientationchange", () => setTimeout(() => syncOrientation(app), 160), {
     passive: true
   });

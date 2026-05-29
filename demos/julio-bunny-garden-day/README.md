@@ -11,6 +11,7 @@ Julio's Garden Day is a landscape-only H5 light interactive demo for the Julio B
 ## Current Scope
 
 - iPhone 14 Pro Max landscape target: `932 x 430` CSS px.
+- Short-height landscape viewport adaptation for in-app browsers such as WeChat.
 - Portrait rotation prompt.
 - Play, tap-sun, plant flowers, water flowers, collect carrots, finale, and replay.
 - Programmatic animation feedback for Julio, water, flowers, carrots, clouds, and celebration.

@@ -24,14 +24,17 @@ body {
 
 body {
   user-select: none;
+  background:
+    linear-gradient(180deg, #9eddf0 0 72%, #42b95a 72% 100%);
 }
 
 #game-shell {
-  width: 100vw;
-  height: 100dvh;
+  width: var(--viewport-width, 100vw);
+  height: var(--viewport-height, 100dvh);
   overflow: hidden;
   position: relative;
-  background: #9eddf0;
+  background:
+    linear-gradient(180deg, #9eddf0 0 72%, #42b95a 72% 100%);
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
     env(safe-area-inset-left);
 }
@@ -42,7 +45,9 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(var(--game-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
 }
 
 canvas {
