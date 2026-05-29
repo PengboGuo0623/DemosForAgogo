@@ -335,6 +335,101 @@
       filter: drop-shadow(0 9px 12px rgba(67, 56, 95, 0.14));
     }
 
+    .demo-visual.garden-day {
+      background:
+        linear-gradient(180deg, #9ee5ec 0 62%, #6fc64f 62% 100%);
+    }
+
+    .garden-cloud {
+      position: absolute;
+      top: 34px;
+      left: 34px;
+      width: 120px;
+      height: 48px;
+      border: 4px solid rgba(24, 28, 30, 0.62);
+      border-radius: 50px;
+      background: #fff6d8;
+      box-shadow:
+        42px -12px 0 -8px #fff6d8,
+        86px 4px 0 -14px #fff6d8,
+        40px -12px 0 -4px rgba(24, 28, 30, 0.22),
+        86px 4px 0 -10px rgba(24, 28, 30, 0.20);
+      opacity: 0.82;
+    }
+
+    .garden-sun {
+      position: absolute;
+      right: 42px;
+      top: 30px;
+      width: 82px;
+      height: 82px;
+      border: 5px solid #1b1d1f;
+      border-radius: 50%;
+      background: #ffd44a;
+      box-shadow: 0 0 0 14px rgba(255, 212, 74, 0.34);
+    }
+
+    .garden-bunny {
+      position: absolute;
+      left: 60px;
+      bottom: 22px;
+      width: 102px;
+      height: 118px;
+      border: 5px solid #1b1d1f;
+      border-radius: 48% 48% 42% 42%;
+      background: #b8c0c4;
+    }
+
+    .garden-bunny::before,
+    .garden-bunny::after {
+      content: "";
+      position: absolute;
+      top: -72px;
+      width: 28px;
+      height: 84px;
+      border: 5px solid #1b1d1f;
+      border-radius: 999px;
+      background: #b8c0c4;
+    }
+
+    .garden-bunny::before {
+      left: 20px;
+      transform: rotate(-12deg);
+    }
+
+    .garden-bunny::after {
+      right: 18px;
+      transform: rotate(10deg);
+    }
+
+    .garden-flowerbed {
+      position: absolute;
+      left: 205px;
+      right: 26px;
+      bottom: 22px;
+      height: 86px;
+      border: 5px solid #1b1d1f;
+      border-radius: 42px 42px 28px 28px;
+      background:
+        radial-gradient(circle at 18% 24%, #ff7d91 0 10px, transparent 11px),
+        radial-gradient(circle at 38% 30%, #ffda72 0 11px, transparent 12px),
+        radial-gradient(circle at 60% 25%, #36b84f 0 12px, transparent 13px),
+        radial-gradient(circle at 80% 32%, #f58a32 0 13px, transparent 14px),
+        #1ea987;
+    }
+
+    .garden-carrot {
+      position: absolute;
+      right: 64px;
+      bottom: 90px;
+      width: 66px;
+      height: 28px;
+      border: 4px solid #1b1d1f;
+      border-radius: 80% 18% 18% 80%;
+      background: #f58a32;
+      transform: rotate(-18deg);
+    }
+
     .pill {
       position: absolute;
       top: 16px;
@@ -457,7 +552,7 @@
         </div>
         <div class="stats" aria-label="Repository stats">
           <div class="stat">
-            <strong>3</strong>
+            <strong>4</strong>
             <span>available demos</span>
           </div>
           <div class="stat">
@@ -475,7 +570,7 @@
             <p class="eyebrow">Demo gallery</p>
             <h2 id="demo-list-title">Available demos</h2>
           </div>
-          <span class="count">3 demos</span>
+          <span class="count">4 demos</span>
         </div>
 
         <div class="grid">
@@ -516,6 +611,30 @@
               <div class="actions">
                 <a class="button primary" href="./demos/mimi-bubble-pop-parade/">Open demo</a>
                 <a class="button secondary" href="./demos/mimi-bubble-pop-parade/index.html">HTML file</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="demo-card">
+            <a class="demo-visual garden-day" href="./demos/julio-bunny-garden-day/" aria-label="Open Julio's Garden Day">
+              <span class="pill">Landscape H5</span>
+              <span class="garden-cloud" aria-hidden="true"></span>
+              <span class="garden-sun" aria-hidden="true"></span>
+              <span class="garden-bunny" aria-hidden="true"></span>
+              <span class="garden-flowerbed" aria-hidden="true"></span>
+              <span class="garden-carrot" aria-hidden="true"></span>
+            </a>
+            <div class="demo-content">
+              <h3>Julio's Garden Day</h3>
+              <p>A landscape preschool H5 light interactive game where Julio wakes the garden, plants flowers, waters them, finds carrots, and celebrates.</p>
+              <div class="meta" aria-label="Demo tags">
+                <span>Game</span>
+                <span>Landscape</span>
+                <span>Julio Bunny v0.1</span>
+              </div>
+              <div class="actions">
+                <a class="button primary" href="./demos/julio-bunny-garden-day/">Open demo</a>
+                <a class="button secondary" href="./demos/julio-bunny-garden-day/index.html">HTML file</a>
               </div>
             </div>
           </article>

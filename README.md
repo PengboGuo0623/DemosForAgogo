@@ -14,6 +14,7 @@ A small static gallery for standalone HTML demos.
 - `mimi-picnic-delivery-dash`: Mimi Bunny's Picnic Delivery Dash, a single-file App-ready H5 catch-and-deliver game.
 - `mimi-bubble-pop-parade`: Mimi Bubble Pop Parade, a single-file App-ready H5 tap-and-pop rhythm game.
 - `mimi-rainbow-hopscotch`: Mimi Rainbow Hopscotch, a single-file App-ready H5 lane runner game.
+- `julio-bunny-garden-day`: Julio's Garden Day, a landscape H5 light interactive preschool garden game.
 
 ## Adding Another HTML Demo
 

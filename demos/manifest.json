@@ -29,5 +29,15 @@
     "entry": "demos/mimi-rainbow-hopscotch/index.html",
     "description": "A standalone mobile-first H5 lane runner where Mimi hops through a chalk-court playground style with steadier hopscotch blocks, paper UI, safer HUD spacing, improved bottom runner framing, and a cleaner top-right HUD.",
     "tags": ["game", "h5", "webview", "single-file", "app-bridge", "lane-runner"]
+  },
+  {
+    "id": "julio-bunny-garden-day",
+    "title": "Julio's Garden Day",
+    "version": "v0.1-landscape-demo",
+    "type": "vite-h5-static",
+    "path": "demos/julio-bunny-garden-day/",
+    "entry": "demos/julio-bunny-garden-day/index.html",
+    "description": "A landscape preschool H5 light interactive game where Julio wakes the garden, plants flowers, waters them, finds carrots, and celebrates with friends using existing Julio Bunny art slices and soft animation feedback.",
+    "tags": ["game", "h5", "webview", "vite", "landscape", "preschool"]
   }
 ]

@@ -1,0 +1,85 @@
+[
+  {
+    "id": "julio_wave",
+    "source": "4b10717bd358c6665adfc84f9add7408.PNG",
+    "crop": [0, 38, 225, 390],
+    "anchor": [0.5, 1],
+    "scale": 0.54,
+    "hitArea": [0, -96, 116]
+  },
+  {
+    "id": "julio_celebrate",
+    "source": "a19282bfbb49444002b8fdecb43e6547.PNG",
+    "crop": [8, 28, 184, 288],
+    "anchor": [0.5, 1],
+    "scale": 0.52,
+    "hitArea": [0, -98, 112]
+  },
+  {
+    "id": "friends_group",
+    "source": "a19282bfbb49444002b8fdecb43e6547.PNG",
+    "crop": [765, 506, 300, 210],
+    "anchor": [0.5, 1],
+    "scale": 0.45,
+    "hitArea": [0, -76, 130],
+    "clearRects": [[0, 0, 36, 22], [262, 0, 38, 24]]
+  },
+  {
+    "id": "tree_house",
+    "source": "abcdbdaa44507359f69e48fda1642e4a.PNG",
+    "crop": [48, 112, 646, 592],
+    "anchor": [0.5, 1],
+    "scale": 0.42,
+    "hitArea": [0, -116, 150]
+  },
+  {
+    "id": "sun",
+    "source": "28a929d08758c6c22bf4dc5cb761debb.PNG",
+    "crop": [18, 16, 242, 210],
+    "anchor": [0.5, 0.5],
+    "scale": 0.38,
+    "hitArea": [0, 0, 74]
+  },
+  {
+    "id": "tree_cluster",
+    "source": "674f35969da248cc254b7642c2be3a53.PNG",
+    "crop": [744, 532, 300, 204],
+    "anchor": [0.5, 1],
+    "scale": 0.48,
+    "hitArea": [0, -66, 130]
+  },
+  {
+    "id": "flower_pink_bush",
+    "source": "a557d6dbb921b58497152e70fdbb9b79.PNG",
+    "crop": [948, 212, 95, 98],
+    "anchor": [0.5, 1],
+    "scale": 0.58,
+    "hitArea": [0, -44, 70],
+    "keepLargest": true
+  },
+  {
+    "id": "carrot_single",
+    "source": "31f1421187bca1d4fecdafc9e3aad523.PNG",
+    "crop": [940, 450, 95, 45],
+    "anchor": [0.5, 0.5],
+    "scale": 0.58,
+    "hitArea": [0, 0, 44]
+  },
+  {
+    "id": "carrot_basket",
+    "source": "31f1421187bca1d4fecdafc9e3aad523.PNG",
+    "crop": [506, 450, 194, 118],
+    "anchor": [0.5, 1],
+    "scale": 0.46,
+    "hitArea": [0, -36, 72]
+  },
+  {
+    "id": "flower_pot",
+    "source": "31f1421187bca1d4fecdafc9e3aad523.PNG",
+    "crop": [700, 200, 160, 180],
+    "anchor": [0.5, 1],
+    "scale": 0.38,
+    "hitArea": [0, -56, 74],
+    "keepLargest": true
+  }
+]

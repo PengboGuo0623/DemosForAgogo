@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="icon" href="data:," />
+    <title>Julio's Garden Day</title>
+  </head>
+  <body>
+    <main id="game-shell" aria-label="Julio's Garden Day game">
+      <div id="game-root"></div>
+      <div id="loading-screen" aria-live="polite">
+        <div class="loading-card">
+          <div class="loading-sun">
+            <span></span>
+          </div>
+          <p>Growing Julio's garden...</p>
+          <div class="loading-track">
+            <div id="loading-fill"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="rotate-overlay" role="status" aria-live="polite">
+      <div class="rotate-art">
+        <div class="phone-icon">
+          <span></span>
+        </div>
+        <svg class="rotate-arrow" viewBox="0 0 150 150" aria-hidden="true">
+          <path class="rotate-arrow-line" d="M 49 34 A 58 58 0 1 1 30 88" />
+          <path class="rotate-arrow-head" d="M 30 88 L 15 84 L 23 103 Z" />
+        </svg>
+      </div>
+      <p>Turn to play</p>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
