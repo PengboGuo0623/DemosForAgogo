@@ -19,12 +19,24 @@
     "frameCount": 63,
     "julioAtlasPages": 8,
     "fishAtlasPages": 2,
-    "estimatedDecodedTextureMiB": 95.4,
+    "estimatedDecodedTextureMiB": 96.3,
     "bubbleSource": {
       "sourceX": 359,
       "sourceY": 281,
       "sourceW": 128,
       "sourceH": 127
+    },
+    "guideHand": {
+      "file": "ui/drag-hand.png",
+      "width": 453,
+      "height": 512,
+      "colorType": 6,
+      "sha256": "84cf66056b893f62dc34e75525b383ae53f245fb8a31ee9a702cbfde98c04533",
+      "tipOrigin": {
+        "x": 0.0605079492496711,
+        "y": 0.05353535353535353
+      },
+      "selectedSourceSha256": "ad13735b994662724cae013f837a5e509acc5077d149cf134c9ceed471b64b27"
     }
   },
   "fidelity": {
