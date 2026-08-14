@@ -15,6 +15,7 @@ A small static gallery for standalone HTML demos.
 - `mimi-bubble-pop-parade`: Mimi Bubble Pop Parade, a single-file App-ready H5 tap-and-pop rhythm game.
 - `mimi-rainbow-hopscotch`: Mimi Rainbow Hopscotch, a single-file App-ready H5 lane runner game.
 - `julio-bunny-garden-day`: Julio's Garden Day, a landscape H5 light interactive preschool garden game.
+- `julio-bunny-bubble-party`: Julio Bunny: Bubble Splash Adventure, a landscape Phaser H5 vertical slice built from original FLA scene assets.
 
 ## Adding Another HTML Demo
 

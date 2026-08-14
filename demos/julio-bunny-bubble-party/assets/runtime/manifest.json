@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "fla": "JBP_101_003_002_tk4_demo_working.fla",
+    "sha256": "48e9d0083f4f302d8b9ed0cf09b9dc633311131b2dfbe3648a9196f7b7081b64",
+    "stage": {
+      "width": 1920,
+      "height": 1080
+    },
+    "frameRate": 24,
+    "frameCount": 63
+  },
+  "runtime": {
+    "design": {
+      "width": 1280,
+      "height": 720
+    },
+    "frameRate": 24,
+    "frameCount": 63,
+    "julioAtlasPages": 8,
+    "fishAtlasPages": 2,
+    "estimatedDecodedTextureMiB": 95.4,
+    "bubbleSource": {
+      "sourceX": 359,
+      "sourceY": 281,
+      "sourceW": 128,
+      "sourceH": 127
+    }
+  },
+  "fidelity": {
+    "frame": 31,
+    "sourceFrameFileIndex": 32,
+    "composition": "bg + fish + bubbles-back + julio + bubbles-front + ol",
+    "rmse": 0.098401,
+    "maxChannelDiff": 29,
+    "psnrDb": 68.271
+  }
+}
