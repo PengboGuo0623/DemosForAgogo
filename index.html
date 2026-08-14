@@ -430,6 +430,26 @@
       transform: rotate(-18deg);
     }
 
+    .demo-visual.bubble-splash {
+      background:
+        #174f91
+        url("./demos/julio-bunny-bubble-party/preview.jpg")
+        center / cover no-repeat;
+    }
+
+    .demo-visual.bubble-splash::before {
+      inset: 0;
+      width: auto;
+      height: auto;
+      border-radius: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(3, 24, 72, 0.02),
+        rgba(3, 24, 72, 0.2)
+      );
+      box-shadow: none;
+    }
+
     .pill {
       position: absolute;
       top: 16px;
@@ -552,7 +572,7 @@
         </div>
         <div class="stats" aria-label="Repository stats">
           <div class="stat">
-            <strong>4</strong>
+            <strong>5</strong>
             <span>available demos</span>
           </div>
           <div class="stat">
@@ -570,7 +590,7 @@
             <p class="eyebrow">Demo gallery</p>
             <h2 id="demo-list-title">Available demos</h2>
           </div>
-          <span class="count">4 demos</span>
+          <span class="count">5 demos</span>
         </div>
 
         <div class="grid">
@@ -635,6 +655,25 @@
               <div class="actions">
                 <a class="button primary" href="./demos/julio-bunny-garden-day/">Open demo</a>
                 <a class="button secondary" href="./demos/julio-bunny-garden-day/index.html">HTML file</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="demo-card">
+            <a class="demo-visual bubble-splash" href="./demos/julio-bunny-bubble-party/" aria-label="Open Julio Bunny: Bubble Splash Adventure">
+              <span class="pill">FLA-powered H5</span>
+            </a>
+            <div class="demo-content">
+              <h3>Julio Bunny: Bubble Splash Adventure</h3>
+              <p>A polished preschool interaction where children guide original FLA bubbles to a friendly fish through a gentle 1-2-3 progression.</p>
+              <div class="meta" aria-label="Demo tags">
+                <span>Game</span>
+                <span>Landscape</span>
+                <span>Phaser 4.2</span>
+              </div>
+              <div class="actions">
+                <a class="button primary" href="./demos/julio-bunny-bubble-party/">Open demo</a>
+                <a class="button secondary" href="./demos/julio-bunny-bubble-party/index.html">HTML entry</a>
               </div>
             </div>
           </article>

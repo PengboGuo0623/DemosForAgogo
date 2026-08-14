@@ -39,5 +39,15 @@
     "entry": "demos/julio-bunny-garden-day/index.html",
     "description": "A landscape preschool H5 light interactive game where Julio wakes the garden, plants flowers, waters them, finds carrots, and celebrates with friends using existing Julio Bunny art slices and soft animation feedback.",
     "tags": ["game", "h5", "webview", "vite", "landscape", "preschool"]
+  },
+  {
+    "id": "julio-bunny-bubble-party",
+    "title": "Julio Bunny: Bubble Splash Adventure",
+    "version": "v0.1-fla-vertical-slice",
+    "type": "vite-h5-static",
+    "path": "demos/julio-bunny-bubble-party/",
+    "entry": "demos/julio-bunny-bubble-party/index.html",
+    "description": "A polished landscape preschool H5 interaction demo where children drag original FLA bubble artwork to a friendly fish through a gentle 1-2-3 progression, with animated guidance, soft correction, celebration, and replay.",
+    "tags": ["game", "h5", "webview", "vite", "phaser", "landscape", "preschool", "fla-assets"]
   }
 ]
